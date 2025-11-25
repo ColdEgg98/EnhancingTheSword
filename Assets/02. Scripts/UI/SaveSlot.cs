@@ -1,0 +1,82 @@
+using System;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+public class SaveSlot : MonoBehaviour
+{
+    [Header("Text")]
+    [SerializeField] private TextMeshProUGUI[] previewText;
+    [SerializeField] private TextMeshProUGUI[] timeText;
+
+    [Header("Buttons")]
+    [SerializeField] private Button[] slotButtons;
+
+    private WrapperPreviewData wrapper;
+    private string dataFormat;
+
+    private void Awake()
+    {
+        dataFormat = "보유 금액\n{0}\n업적 클리어\n{1}개";
+    }
+
+    void Start()
+    {
+        wrapper = GameManager.Instance.saveDataManager.wrapperPreviewData;
+        SetSlotButtons();
+        SetPreviewText();
+    }
+
+    /// <summary>슬롯버튼에 SelectSaveSlot를 연결합니다.</summary>
+    private void SetSlotButtons()
+    {
+        slotButtons = GetComponentsInChildren<Button>();
+        for (int i = 0; i < slotButtons.Length; i++)
+        {
+            int index = i;
+            slotButtons[index].onClick.AddListener(() => SelectSaveSlot(index));
+        }
+        Debug.Log("SetSlotButtons is Run");
+    }
+
+    /// <summary>슬롯이 클릭됐을 떄 GameManager와 데이터를 주고받습니다.</summary>
+    private void SelectSaveSlot(int num)
+    {
+        // User DataN 파일에서 데이터 로드해서 currentData에 넣어줘야함
+        // 로드하는 코드를 SaveDataManager에 작성하고 호출
+        GameManager.Instance.saveDataManager.StartLoad(num);
+
+        // isUsed가 false면 true로 바꾸고 첫 처리
+        // class 기본값 때문에 빈 세이브면 isUsed가 false임
+        if (!GameManager.Instance.currentData.previewData.isUsed)
+        {
+            GameManager.Instance.currentData.previewData.isUsed = true;
+            GameManager.Instance.currentData.previewData.gold = 5000000;
+            // 무기 소유 데이터가 추가되면 초기화해주는 코드 작성해야함
+
+        }
+        SceneManager.LoadScene(1);
+        GameManager.Instance.saveDataManager.StartSave(num);
+    }
+
+    /// <summary>UI에 표시되는 데이터를 변경합니다</summary>
+    private void SetPreviewText()
+    {
+        int index = 0;
+        foreach (PreviewData data in wrapper.slots)
+        {
+            if (!data.isUsed)
+            {
+                previewText[index].text = "눌러서\n게임 시작";
+                timeText[index].text = "-";
+            }
+            else
+            {
+                previewText[index].text = string.Format(dataFormat, data.gold, data.achivementCount);
+                timeText[index].text = data.time;
+            }
+            index++;
+        }
+    }
+}

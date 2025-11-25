@@ -1,0 +1,25 @@
+{
+    "slots": [
+        {
+            "isUsed": false,
+            "slotNumber": 0,
+            "achivementCount": 0,
+            "time": "",
+            "gold": 0.0
+        },
+        {
+            "isUsed": true,
+            "slotNumber": 0,
+            "achivementCount": 0,
+            "time": "2025.10.19\n오후 12시 05분",
+            "gold": 5000000.0
+        },
+        {
+            "isUsed": false,
+            "slotNumber": 0,
+            "achivementCount": 0,
+            "time": "",
+            "gold": 0.0
+        }
+    ]
+}

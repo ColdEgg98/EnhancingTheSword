@@ -1,0 +1,64 @@
+using Unity.VisualScripting;
+using UnityEngine;
+
+/// <summary>
+/// 골드, 아이템, 무기 등 획득시 호출되어 재화 수급 및 업적 감지 기능을 관리합니다.
+/// </summary>
+public class UserDataManager
+{
+    public int triggerValue;
+
+    public void GetGold(int value)
+    {
+        GameManager.Instance.currentData.previewData.gold += value;
+    }
+
+    public void GetWeapon(Weapon newWeapon)
+    {
+        GameManager.Instance.currentData.myWeapons.Add(newWeapon);
+    }
+
+    public void GetWeapon(string ID)
+    {
+        if (!GameManager.Instance.allOfWeapons.ContainsKey(ID))
+            return;
+
+        Weapon newWeapon = GameManager.Instance.allOfWeapons[ID];
+        GameManager.Instance.currentData.myWeapons.Add(newWeapon);
+    }
+}
+
+public class AchivementData
+{
+    public string iD;
+    public string Title;
+    public string contnet;
+    public Reward reward;
+    public RewardType triggerType;
+}
+
+public class Reward
+{
+    public void ProcessReward(RewardType type, string value)
+    {
+        switch (type)
+        {
+            case RewardType.Gold:
+                GameManager.Instance.userDataManager.GetGold(int.Parse(value));
+                break;
+            case RewardType.Weapon:
+                GameManager.Instance.userDataManager.GetWeapon(value);
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+public enum RewardType
+{
+    Gold,
+    Weapon,
+    Item,
+    End
+}
