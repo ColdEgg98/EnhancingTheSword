@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using ClosedXML.Excel;
 
-public static class XlsxDataMapper<T> where T : new()
+public static class XlsxDataReader<T> where T : new()
 {
     public static List<T> MapFromExcel(string filePath, int sheetIndex = 1)
     {
@@ -18,10 +18,8 @@ public static class XlsxDataMapper<T> where T : new()
         foreach (var row in worksheet.RowsUsed().Skip(1)) // 헤더 제외
         {
             var obj = new T();
-            // Reflection : 대상 클래스의 멤버 변수 배열을 저장 (public, Instance가능한 변수)
             var props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
-            // 변수와 헤더 매핑 + 대입
             for (int i = 0; i < headers.Count; i++)
             {
                 string header = headers[i];
