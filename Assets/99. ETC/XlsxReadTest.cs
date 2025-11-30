@@ -11,8 +11,10 @@ public class XlsxReadTest : MonoBehaviour
     void ReadTest()
     {
         dataPath = System.IO.Path.Combine(Application.streamingAssetsPath, "Test.xlsx");
+
         if (dataPath == null)
             return;
+            
         var test = XlsxDataReader<MyClass>.MapFromExcel(dataPath);
         Debug.Log($"읽은 정보의 갯수 : {test.Count}");
 

@@ -22,7 +22,7 @@ public static class XlsxDataReader<T> where T : new()
 
         foreach (var row in worksheet.RowsUsed().Skip(1)) // 헤더 제외
         {
-            var obj = new T();
+            T obj = new();
             // Reflection 활용. 들어온 클래스의 퍼블릭 인스턴스 변수를 PropertyInfo[] 구조로 그룹화
             PropertyInfo[] props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
