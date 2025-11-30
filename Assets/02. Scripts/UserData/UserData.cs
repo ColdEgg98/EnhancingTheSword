@@ -42,4 +42,5 @@ public class Weapon
     public string name;
     public int gold;
     public string id;
+    public float probability;
 }

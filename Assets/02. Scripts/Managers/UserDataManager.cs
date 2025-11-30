@@ -20,10 +20,10 @@ public class UserDataManager
 
     public void GetWeapon(string ID)
     {
-        if (!GameManager.Instance.allOfWeapons.ContainsKey(ID))
+        if (!GameManager.Instance.allOfWeaponDictionary.ContainsKey(ID))
             return;
 
-        Weapon newWeapon = GameManager.Instance.allOfWeapons[ID];
+        Weapon newWeapon = GameManager.Instance.allOfWeaponDictionary[ID];
         GameManager.Instance.currentData.myWeapons.Add(newWeapon);
     }
 }
