@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +15,7 @@ public class EnhanceSword : MonoBehaviour
         button = GetComponentInChildren<Button>();
         button.onClick.AddListener(RunEnhancing);
         myWeapons = GameManager.Instance.currentData.myWeapons;
+        selectIndex = GameManager.Instance.selectWeaponIndex;
     }
 
     void RunEnhancing()

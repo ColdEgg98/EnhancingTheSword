@@ -18,6 +18,7 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
 
         saveDataManager = GetComponent<SaveDataManager>();
+        selectWeaponIndex = 1;
     }
 
     void Start()

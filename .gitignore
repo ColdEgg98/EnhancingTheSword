@@ -81,3 +81,4 @@ crashlytics-build.properties
 .vscode/settings 2.json
 User Data1.json
 MetaData.json
+.DS_Store
