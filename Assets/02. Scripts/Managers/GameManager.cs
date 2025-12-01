@@ -19,7 +19,8 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
 
         saveDataManager = GetComponent<SaveDataManager>();
-        selectWeaponIndex = 1;
+        userDataManager = new UserDataManager();
+        selectWeaponIndex = 0;
         allOfWeaponDictionary = new Dictionary<string, Weapon>();
     }
 
@@ -40,7 +41,7 @@ public class GameManager : Singleton<GameManager>
         foreach(Weapon w in weaponList)
         {
             allOfWeaponDictionary.Add(w.addressID, w);
-            Debug.Log($"{w.addressID}");
         }
+        Debug.Log($"적재된 무기 목록 갯수 : {weaponList.Count}");
     }
 }

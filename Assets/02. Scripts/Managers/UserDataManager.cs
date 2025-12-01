@@ -25,6 +25,7 @@ public class UserDataManager
 
         Weapon newWeapon = GameManager.Instance.allOfWeaponDictionary[ID];
         GameManager.Instance.currentData.myWeapons.Add(newWeapon);
+        Debug.Log($"무기 추가됨 : {newWeapon.addressID}");
     }
 }
 

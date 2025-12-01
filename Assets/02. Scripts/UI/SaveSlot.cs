@@ -1,3 +1,4 @@
+using DocumentFormat.OpenXml.Office2010.ExcelAc;
 using System;
 using TMPro;
 using UnityEngine;
@@ -52,10 +53,12 @@ public class SaveSlot : MonoBehaviour
         if (!GameManager.Instance.currentData.previewData.isUsed)
         {
             GameManager.Instance.currentData.previewData.isUsed = true;
+            // 기본금 + 기본 무기 지급
             GameManager.Instance.currentData.previewData.gold = 5000000;
-            // 무기 소유 데이터가 추가되면 초기화해주는 코드 작성해야함
-
+            GameManager.Instance.currentData.myWeapons = new();
+            GameManager.Instance.userDataManager.GetWeapon("Wooden Sword");
         }
+        GameManager.Instance.selectWeaponIndex = 0;
         SceneManager.LoadScene(1);
         GameManager.Instance.saveDataManager.StartSave(num);
     }
