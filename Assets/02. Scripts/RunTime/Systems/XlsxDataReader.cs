@@ -49,6 +49,11 @@ public static class XlsxDataReader<T> where T : new()
         if (string.IsNullOrEmpty(value)) return null;
 
         if (targetType == typeof(string)) return value;
+        if (targetType == typeof(List<int>)) return value
+                .Split(',')
+                .Select(v => int.TryParse(v.Trim(), out var i) ? i : 0)
+                .Where(i => i != 0)
+                .ToList();
         if (targetType == typeof(int)) return int.TryParse(value, out var i) ? i : 0;
         if (targetType == typeof(float)) return float.TryParse(value, out var f) ? f : 0f;
         if (targetType == typeof(double)) return double.TryParse(value, out var d) ? d : 0d;
