@@ -1,0 +1,128 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Swords
+  m_EditorClassIdentifier: 
+  m_GroupName: Swords
+  m_GUID: 9300b2e4d301d1746a248250bacffba4
+  m_SerializeEntries:
+  - m_GUID: 02830cfdbccdc9949b32663109d47409
+    m_Address: Colorless Glass Sword2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0542179b48d2c3f4aa8033fd1b28d6a5
+    m_Address: Jeweled Sword
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0c18eb906486c6b4d9700d6040fbf715
+    m_Address: kItetsu 3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 33be9130b17dfc44888eada81ed7d85d
+    m_Address: Ancient Sword
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 361f52e38a266334bac0a9e722079ca2
+    m_Address: Caladbolg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 687005a0f22a51148aee25231569fdd1
+    m_Address: Sword of Admiral Yi Sun-sin 1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7b82fb7dc350149c5a5ec2851bb0fa44
+    m_Address: Excalibur
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7ee07e1e9833c2641ade04b12a179128
+    m_Address: Iron Chain Fang
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8d22da4f2dcf39a4bac1bff55280f5a6
+    m_Address: Sword of Admiral Yi Sun-sin 2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a2b70335f82f3de41ad4c9eed45cf051
+    m_Address: Fragarach
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aacbf6af0fa551545bf58f0f549a0211
+    m_Address: Durandal
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ab88ee812c842164c989e913e98190df
+    m_Address: Colorless Glass Sword
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: adf0048935a49bc4bac6682c0e037349
+    m_Address: Kasaka's Venom Fang
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b7c4e61c1c136ac4da4b5b07bac88074
+    m_Address: Blue Dragon Crescent Blade
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bd9e9cb35f9d1bd49aee82a6af97c683
+    m_Address: Dragon Slayer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c512e064401bd4e4ba9b13c8b635c9a3
+    m_Address: Wooden Sword
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d3f0b54ae30bbca4690eeeea378dde2c
+    m_Address: Master Sword
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e60387f524438e546a239dcc11143f83
+    m_Address: Nightbringer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e913cbd4684f4be4d94ab6968b15bf75
+    m_Address: Tyrfing
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f4d386edc06ee7446af0d465601f76f4
+    m_Address: Zweihander
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f4dab77b064aed942aa48c69a2a1a397
+    m_Address: Kusanagi-no-Tsurugi
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 61cf9c46bbecf46caaa44215727d294f, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 987ffd166c3ea344b8414681131e33f7, type: 2}
+    - {fileID: 11400000, guid: 06aa5e00340a2e74a93a232e347d349b, type: 2}

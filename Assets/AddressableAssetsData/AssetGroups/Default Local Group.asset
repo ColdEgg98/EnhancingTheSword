@@ -15,11 +15,6 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 70cee6e0fa9044c6baf58bf8af6eedee
   m_SerializeEntries:
-  - m_GUID: 7b82fb7dc350149c5a5ec2851bb0fa44
-    m_Address: excalibur
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8697592d70e994c77978878d210b4c46
     m_Address: Assets/05. Image/Sword/katana.png
     m_ReadOnly: 0
