@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/AddressableAssetsData/AssetGroups/Schemas/Swords_BundledAssetGroupSchema.asset.meta
 guid: 987ffd166c3ea344b8414681131e33f7
 NativeFormatImporter:
+========
+guid: eb563333c2bbd744ba53c08c85a22f27
+DefaultImporter:
+>>>>>>>> f4497dc6664dd1d30c7677fe567e9575ea72042f:Assets/StreamingAssets/~$Weapons.xlsx.meta
   externalObjects: {}
   mainObjectFileID: 11400000
   userData: 
