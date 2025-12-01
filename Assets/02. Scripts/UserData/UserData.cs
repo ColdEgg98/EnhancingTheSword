@@ -40,7 +40,10 @@ public class WrapperPreviewData
 public class Weapon
 {
     public string name;
-    public int gold;
+    public double price;
     public string id;
     public float probability;
+    public double enhancingPrice;
+    public string addressID;
+    public List<int> needItems;
 }
