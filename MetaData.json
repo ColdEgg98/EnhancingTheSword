@@ -5,21 +5,21 @@
             "slotNumber": 0,
             "achivementCount": 0,
             "time": "",
-            "gold": 0.0
+            "gold": 0
         },
         {
             "isUsed": true,
             "slotNumber": 0,
             "achivementCount": 0,
-            "time": "2025.12.01\nAM 10시 42분",
-            "gold": 5000000.0
+            "time": "2025.12.01\n오후 09시 35분",
+            "gold": 5000000
         },
         {
             "isUsed": false,
             "slotNumber": 0,
             "achivementCount": 0,
             "time": "",
-            "gold": 0.0
+            "gold": 0
         }
     ]
 }

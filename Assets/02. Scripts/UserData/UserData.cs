@@ -27,7 +27,7 @@ public class PreviewData
     public int slotNumber;
     public int achivementCount;
     public string time;
-    public double gold;
+    public long gold;
 }
 
 [Serializable]

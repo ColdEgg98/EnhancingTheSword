@@ -37,7 +37,7 @@ public class GameManager : Singleton<GameManager>
         // 무기 데이터를 게임 매니저가 적재
         foreach(Weapon w in weaponList)
         {
-            allOfWeaponDictionary.Add(w.id, w);
+            allOfWeaponDictionary.Add(w.addressID, w);
         }
     }
 }

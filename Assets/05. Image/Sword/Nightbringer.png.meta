@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 7b82fb7dc350149c5a5ec2851bb0fa44
+guid: e60387f524438e546a239dcc11143f83
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3461159865076740677
-    second: excalibur_0
+      213: 3044227306721781056
+    second: Nightbringer_0
+  - first:
+      213: -6304101049510475777
+    second: Nightbringer_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -97,19 +100,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: iOS
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -152,13 +142,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: excalibur_0
+      name: Nightbringer_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 512
-        height: 512
+        x: 235
+        y: 376
+        width: 2349
+        height: 1009
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,8 +157,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 542fcbc2f82880030800000000000000
-      internalID: 3461159865076740677
+      spriteID: 04522b04b944f3a20800000000000000
+      internalID: 3044227306721781056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Nightbringer_1
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 194
+        width: 2400
+        height: 728
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff7c2cbfe755388a0800000000000000
+      internalID: -6304101049510475777
       vertices: []
       indices: 
       edges: []
@@ -187,7 +199,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      excalibur_0: 3461159865076740677
+      Nightbringer_0: 3044227306721781056
+      Nightbringer_1: -6304101049510475777
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

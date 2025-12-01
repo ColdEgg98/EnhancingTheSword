@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 7b82fb7dc350149c5a5ec2851bb0fa44
+guid: f4dab77b064aed942aa48c69a2a1a397
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3461159865076740677
-    second: excalibur_0
+      213: -2024220263049239091
+    second: Kusanagi-no-Tsurugi_0
+  - first:
+      213: -5003842194775333800
+    second: Kusanagi-no-Tsurugi_1
+  - first:
+      213: 5403790406931090403
+    second: Kusanagi-no-Tsurugi_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -97,19 +103,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: iOS
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -152,13 +145,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: excalibur_0
+      name: Kusanagi-no-Tsurugi_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 512
-        height: 512
+        x: 192
+        y: 409
+        width: 2433
+        height: 951
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,8 +160,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 542fcbc2f82880030800000000000000
-      internalID: 3461159865076740677
+      spriteID: dc56dc1456688e3e0800000000000000
+      internalID: -2024220263049239091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kusanagi-no-Tsurugi_1
+      rect:
+        serializedVersion: 2
+        x: 1496
+        y: 282
+        width: 471
+        height: 153
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8542e4c0908ce8ab0800000000000000
+      internalID: -5003842194775333800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kusanagi-no-Tsurugi_2
+      rect:
+        serializedVersion: 2
+        x: 701
+        y: 176
+        width: 848
+        height: 205
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3eb8acd9ebe1efa40800000000000000
+      internalID: 5403790406931090403
       vertices: []
       indices: 
       edges: []
@@ -187,7 +224,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      excalibur_0: 3461159865076740677
+      Kusanagi-no-Tsurugi_0: -2024220263049239091
+      Kusanagi-no-Tsurugi_1: -5003842194775333800
+      Kusanagi-no-Tsurugi_2: 5403790406931090403
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
