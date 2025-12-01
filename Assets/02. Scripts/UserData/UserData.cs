@@ -39,11 +39,11 @@ public class WrapperPreviewData
 [Serializable]
 public class Weapon
 {
-    public int index;
-    public string name;
-    public double price;
-    public float probability;
-    public double enhancingPrice;
-    public string addressID;
-    public List<int> needItems;
+    public int index { get; set; }
+    public string name {  get; set; }
+    public double price { get; set; }
+    public float probability { get; set; }
+    public double enhancingPrice { get; set; }
+    public string addressID { get; set; }
+    public List<int> needItems { get; set; }
 }
