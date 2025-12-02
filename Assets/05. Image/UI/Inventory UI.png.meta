@@ -1,22 +1,10 @@
 fileFormatVersion: 2
-guid: 1d23b105119f46443b003111f7a20d4d
+guid: d3d86770c655f9b4c8c4325f95e9139d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5382197054143347865
-    second: Anvil_0
-  - first:
-      213: -4799043013350739443
-    second: Anvil_1
-  - first:
-      213: 2118240084931468591
-    second: Anvil_2
-  - first:
-      213: 5919575467048510242
-    second: Anvil_3
-  - first:
-      213: -5917829466525693442
-    second: Anvil_4
+      213: 6945321831648613733
+    second: Inventory UI_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -58,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -151,111 +139,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Anvil_0
+      name: Inventory UI_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 360
-        width: 332
-        height: 152
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 99c3e5364b761ba40800000000000000
-      internalID: 5382197054143347865
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Anvil_1
-      rect:
-        serializedVersion: 2
-        x: 90
-        y: 330
-        width: 62
-        height: 62
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d02b8674ecf566db0800000000000000
-      internalID: -4799043013350739443
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Anvil_2
-      rect:
-        serializedVersion: 2
-        x: 360
-        y: 360
-        width: 62
-        height: 62
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f2d55536220856d10800000000000000
-      internalID: 2118240084931468591
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Anvil_3
-      rect:
-        serializedVersion: 2
-        x: 30
-        y: 180
-        width: 125
-        height: 122
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2232b86268e862250800000000000000
-      internalID: 5919575467048510242
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Anvil_4
-      rect:
-        serializedVersion: 2
-        x: 120
         y: 0
-        width: 392
-        height: 332
+        width: 2048
+        height: 2048
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 684, y: 723, z: 782, w: 682}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ef985664475afdda0800000000000000
-      internalID: -5917829466525693442
+      spriteID: 5655e22786db26060800000000000000
+      internalID: 6945321831648613733
       vertices: []
       indices: 
       edges: []
@@ -264,7 +164,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 80e9dc3ee69655b42bef3b34b8e1e854
     internalID: 0
     vertices: []
     indices: 
@@ -274,11 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Anvil_0: 5382197054143347865
-      Anvil_1: -4799043013350739443
-      Anvil_2: 2118240084931468591
-      Anvil_3: 5919575467048510242
-      Anvil_4: -5917829466525693442
+      Inventory UI_0: 6945321831648613733
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

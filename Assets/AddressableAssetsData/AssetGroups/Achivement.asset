@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Achivement
+  m_EditorClassIdentifier: 
+  m_GroupName: Achivement
+  m_GUID: 798721b6087c19045b3a4e20ac9cdb62
+  m_SerializeEntries:
+  - m_GUID: 04a62ca8aa41e1948a1d08f5d163aef5
+    m_Address: Lotto
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 415aea808b9e366429d6143ec85c685b
+    m_Address: SwordMaster
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7bf70a9cf884c614085413acac0bffa4
+    m_Address: Weapon Store
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e9fb28fde4fc1d348bacfc095fee7b39
+    m_Address: AIKU
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f268cb33a874a9247801ba3389070a13
+    m_Address: A Thousand Beats
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 61cf9c46bbecf46caaa44215727d294f, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 62033e129fb468d439a2a83c7ad912ba, type: 2}
+    - {fileID: 11400000, guid: 7c2515eded0810441aaf7f9bbf7a72cf, type: 2}

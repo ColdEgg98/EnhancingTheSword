@@ -13,6 +13,11 @@ public class SaveDataManager : MonoBehaviour
     string path; // User Data{Num} 파일
     public WrapperForPreviewData wrapperPreviewData;
 
+    private void Awake()
+    {
+        PathSetting();
+    }
+
     private void PathSetting()
     {
         int slotNum = GameManager.Instance.activeSaveSlotNum;

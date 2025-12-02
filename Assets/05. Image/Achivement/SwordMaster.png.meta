@@ -1,0 +1,858 @@
+fileFormatVersion: 2
+guid: 415aea808b9e366429d6143ec85c685b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3084861971111179903
+    second: SwordMaster_0
+  - first:
+      213: -9003204932386639017
+    second: SwordMaster_1
+  - first:
+      213: -6991993966999433798
+    second: SwordMaster_2
+  - first:
+      213: -8534097175939227113
+    second: SwordMaster_3
+  - first:
+      213: -8163042931175336649
+    second: SwordMaster_4
+  - first:
+      213: -5382793501997791456
+    second: SwordMaster_5
+  - first:
+      213: 3818710514239429675
+    second: SwordMaster_6
+  - first:
+      213: 4498622094826978030
+    second: SwordMaster_7
+  - first:
+      213: 5631148820796174317
+    second: SwordMaster_8
+  - first:
+      213: 103806335435955369
+    second: SwordMaster_9
+  - first:
+      213: 7121871039690697189
+    second: SwordMaster_10
+  - first:
+      213: 8893823506314364325
+    second: SwordMaster_11
+  - first:
+      213: 6378351782035572672
+    second: SwordMaster_12
+  - first:
+      213: -1951523596887174626
+    second: SwordMaster_13
+  - first:
+      213: -1592875752361595519
+    second: SwordMaster_14
+  - first:
+      213: -4872536927187664263
+    second: SwordMaster_15
+  - first:
+      213: -7714163466247278755
+    second: SwordMaster_16
+  - first:
+      213: 7887082112452459693
+    second: SwordMaster_17
+  - first:
+      213: 5071297206191475649
+    second: SwordMaster_18
+  - first:
+      213: -4966701774986306774
+    second: SwordMaster_19
+  - first:
+      213: 7019021791367345200
+    second: SwordMaster_20
+  - first:
+      213: -2994247306693461750
+    second: SwordMaster_21
+  - first:
+      213: 4405814223101939397
+    second: SwordMaster_22
+  - first:
+      213: -1049635975781985930
+    second: SwordMaster_23
+  - first:
+      213: 7682279020235915933
+    second: SwordMaster_24
+  - first:
+      213: 4423720561668152882
+    second: SwordMaster_25
+  - first:
+      213: -2130527112833144550
+    second: SwordMaster_26
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SwordMaster_0
+      rect:
+        serializedVersion: 2
+        x: 644
+        y: 1464
+        width: 814
+        height: 492
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1898ecea16e5035d0800000000000000
+      internalID: -3084861971111179903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_1
+      rect:
+        serializedVersion: 2
+        x: 1539
+        y: 1796
+        width: 47
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 753bc05a0d03e0380800000000000000
+      internalID: -9003204932386639017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_2
+      rect:
+        serializedVersion: 2
+        x: 1590
+        y: 1808
+        width: 22
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abd035d388277fe90800000000000000
+      internalID: -6991993966999433798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_3
+      rect:
+        serializedVersion: 2
+        x: 1616
+        y: 1797
+        width: 47
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7126a7585dbc09980800000000000000
+      internalID: -8534097175939227113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_4
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 1719
+        width: 74
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 735d70924bb07be80800000000000000
+      internalID: -8163042931175336649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_5
+      rect:
+        serializedVersion: 2
+        x: 476
+        y: 1757
+        width: 35
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 027042644d97c45b0800000000000000
+      internalID: -5382793501997791456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_6
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 1769
+        width: 74
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2c5a45faf8cef430800000000000000
+      internalID: 3818710514239429675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_7
+      rect:
+        serializedVersion: 2
+        x: 1628
+        y: 1770
+        width: 74
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eeab2e4e5f05e6e30800000000000000
+      internalID: 4498622094826978030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_8
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 1731
+        width: 35
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: def6ae4740cd52e40800000000000000
+      internalID: 5631148820796174317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_9
+      rect:
+        serializedVersion: 2
+        x: 1538
+        y: 1719
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ac5815ef4bc07100800000000000000
+      internalID: 103806335435955369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_10
+      rect:
+        serializedVersion: 2
+        x: 1590
+        y: 1680
+        width: 21
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e9e7e03af7f5d260800000000000000
+      internalID: 7121871039690697189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_11
+      rect:
+        serializedVersion: 2
+        x: 1617
+        y: 1719
+        width: 47
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a503e48b553d6b70800000000000000
+      internalID: 8893823506314364325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_12
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 1604
+        width: 123
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c7c5bcd625748850800000000000000
+      internalID: 6378351782035572672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_13
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 92
+        width: 1236
+        height: 1610
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e125fb4d0abcae4e0800000000000000
+      internalID: -1951523596887174626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_14
+      rect:
+        serializedVersion: 2
+        x: 476
+        y: 1680
+        width: 35
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18d672151f7f4e9e0800000000000000
+      internalID: -1592875752361595519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_15
+      rect:
+        serializedVersion: 2
+        x: 1680
+        y: 1539
+        width: 110
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97281040b75416cb0800000000000000
+      internalID: -4872536927187664263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_16
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 1296
+        width: 137
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5fe807e239c1f490800000000000000
+      internalID: -7714163466247278755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_17
+      rect:
+        serializedVersion: 2
+        x: 1731
+        y: 1272
+        width: 97
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dacf01bc46b847d60800000000000000
+      internalID: 7887082112452459693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_18
+      rect:
+        serializedVersion: 2
+        x: 1602
+        y: 1143
+        width: 139
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1cb497da0fdd06640800000000000000
+      internalID: 5071297206191475649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_19
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 963
+        width: 111
+        height: 138
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2b93a4ec0bb21bb0800000000000000
+      internalID: -4966701774986306774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_20
+      rect:
+        serializedVersion: 2
+        x: 1578
+        y: 823
+        width: 226
+        height: 265
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0343d218123986160800000000000000
+      internalID: 7019021791367345200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_21
+      rect:
+        serializedVersion: 2
+        x: 1693
+        y: 1041
+        width: 97
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a09bdd250fb4276d0800000000000000
+      internalID: -2994247306693461750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_22
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 797
+        width: 213
+        height: 227
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ceca5261b8942d30800000000000000
+      internalID: 4405814223101939397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_23
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 528
+        width: 138
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6715b0824a1fe61f0800000000000000
+      internalID: -1049635975781985930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_24
+      rect:
+        serializedVersion: 2
+        x: 1654
+        y: 554
+        width: 98
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9209920110fc9a60800000000000000
+      internalID: 7682279020235915933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_25
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 323
+        width: 188
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23e52d7b966346d30800000000000000
+      internalID: 4423720561668152882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SwordMaster_26
+      rect:
+        serializedVersion: 2
+        x: 1527
+        y: 323
+        width: 213
+        height: 201
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a19ed3ff0e8de62e0800000000000000
+      internalID: -2130527112833144550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      SwordMaster_0: -3084861971111179903
+      SwordMaster_1: -9003204932386639017
+      SwordMaster_10: 7121871039690697189
+      SwordMaster_11: 8893823506314364325
+      SwordMaster_12: 6378351782035572672
+      SwordMaster_13: -1951523596887174626
+      SwordMaster_14: -1592875752361595519
+      SwordMaster_15: -4872536927187664263
+      SwordMaster_16: -7714163466247278755
+      SwordMaster_17: 7887082112452459693
+      SwordMaster_18: 5071297206191475649
+      SwordMaster_19: -4966701774986306774
+      SwordMaster_2: -6991993966999433798
+      SwordMaster_20: 7019021791367345200
+      SwordMaster_21: -2994247306693461750
+      SwordMaster_22: 4405814223101939397
+      SwordMaster_23: -1049635975781985930
+      SwordMaster_24: 7682279020235915933
+      SwordMaster_25: 4423720561668152882
+      SwordMaster_26: -2130527112833144550
+      SwordMaster_3: -8534097175939227113
+      SwordMaster_4: -8163042931175336649
+      SwordMaster_5: -5382793501997791456
+      SwordMaster_6: 3818710514239429675
+      SwordMaster_7: 4498622094826978030
+      SwordMaster_8: 5631148820796174317
+      SwordMaster_9: 103806335435955369
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

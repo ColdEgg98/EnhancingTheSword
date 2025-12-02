@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: c779cb7fa6737384396a8418d25ee3f5
+guid: 7bf70a9cf884c614085413acac0bffa4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3338749442709606003
-    second: Coin_0
+      213: 5584013706537341867
+    second: Weapon Store_0
+  - first:
+      213: -2245884344961406640
+    second: Weapon Store_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +49,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -139,13 +142,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Coin_0
+      name: Weapon Store_0
       rect:
         serializedVersion: 2
-        x: 548
-        y: 243
-        width: 1304
-        height: 1306
+        x: 80
+        y: 131
+        width: 1889
+        height: 1798
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +157,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d81b24142116aa1d0800000000000000
-      internalID: -3338749442709606003
+      spriteID: ba3121771e66e7d40800000000000000
+      internalID: 5584013706537341867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Weapon Store_1
+      rect:
+        serializedVersion: 2
+        x: 529
+        y: 119
+        width: 70
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 059e6f3661405d0e0800000000000000
+      internalID: -2245884344961406640
       vertices: []
       indices: 
       edges: []
@@ -164,7 +189,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -174,7 +199,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Coin_0: -3338749442709606003
+      Weapon Store_0: 5584013706537341867
+      Weapon Store_1: -2245884344961406640
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

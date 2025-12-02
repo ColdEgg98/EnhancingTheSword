@@ -24,7 +24,6 @@ public class SaveSlot : MonoBehaviour
 
     void Start()
     {
-        wrapper = GameManager.Instance.saveDataManager.wrapperPreviewData;
         SetSlotButtons();
         SetPreviewText();
     }
@@ -65,6 +64,7 @@ public class SaveSlot : MonoBehaviour
     /// <summary>UI에 표시되는 데이터를 변경합니다</summary>
     private void SetPreviewText()
     {
+        wrapper = GameManager.Instance.saveDataManager.wrapperPreviewData;
         int index = 0;
         foreach (PreviewData data in wrapper.slots)
         {
