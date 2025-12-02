@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -10,12 +11,7 @@ public class SaveDataManager : MonoBehaviour
     string folderPath; // 게임.exe가 존재하는 폴더, 에디터에서는 Asset의 상위 폴더
     string indexPath; // MetaData 파일
     string path; // User Data{Num} 파일
-    public WrapperPreviewData wrapperPreviewData;
-
-    private void Awake()
-    {
-        PathSetting();
-    }
+    public WrapperForPreviewData wrapperPreviewData;
 
     private void PathSetting()
     {
@@ -40,12 +36,19 @@ public class SaveDataManager : MonoBehaviour
     {
         PathSetting();
 
+        // JsonUtility가 프로퍼티를 저장하지 않기때문에, addressID(string)을 통한 레퍼런스로 저장
+        foreach (Weapon w in GameManager.Instance.currentData.myWeapons)
+        {
+            GameManager.Instance.currentData.myWeaponRefs.Add(w.addressID);
+        }
+
         UserData data = new()
         {
             previewData = GameManager.Instance.currentData.previewData,
             test = GameManager.Instance.currentData.test,
-            // 무기 현황 저장
+            myWeaponRefs = GameManager.Instance.currentData.myWeaponRefs
         };
+
         data.previewData.time = DateTime.Now.ToString("yyyy.MM.dd\ntt hh시 mm분");
 
         IndexDataSave();
@@ -97,7 +100,7 @@ public class SaveDataManager : MonoBehaviour
         if (File.Exists(indexPath))
         {
             string data = File.ReadAllText(indexPath);
-            WrapperPreviewData WPD = JsonUtility.FromJson<WrapperPreviewData>(data);
+            WrapperForPreviewData WPD = JsonUtility.FromJson<WrapperForPreviewData>(data);
             return WPD.slots[index];
         }
         else
@@ -114,12 +117,26 @@ public class SaveDataManager : MonoBehaviour
         if (File.Exists(path))
         {
             string data = File.ReadAllText(path);
+            GameManager.Instance.currentData.myWeapons = ResolveWeaponReferences();
             return JsonUtility.FromJson<UserData>(data);
         }
         else if (File.Exists(indexPath))
-            return new UserData(JsonUtility.FromJson<WrapperPreviewData>(File.ReadAllText(indexPath)).slots[index]);
+            return new UserData(JsonUtility.FromJson<WrapperForPreviewData>(File.ReadAllText(indexPath)).slots[index]);
         else
             return new UserData(new PreviewData());
+    }
+
+    private List<Weapon> ResolveWeaponReferences()
+    {
+        List<Weapon> list = new();
+        foreach (string s in GameManager.Instance.currentData.myWeaponRefs)
+        {
+            if (!GameManager.Instance.allOfWeaponDictionary.ContainsKey(s))
+                Debug.LogError($"로딩중 확인되지 않는 레퍼런스 : {s}");
+            else
+                list.Add(GameManager.Instance.allOfWeaponDictionary[s]);
+        }
+        return list;
     }
     #endregion
 

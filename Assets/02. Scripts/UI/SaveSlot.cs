@@ -14,7 +14,7 @@ public class SaveSlot : MonoBehaviour
     [Header("Buttons")]
     [SerializeField] private Button[] slotButtons;
 
-    private WrapperPreviewData wrapper;
+    private WrapperForPreviewData wrapper;
     private string dataFormat;
 
     private void Awake()
@@ -58,7 +58,6 @@ public class SaveSlot : MonoBehaviour
             GameManager.Instance.currentData.myWeapons = new();
             GameManager.Instance.userDataManager.GetWeapon("Wooden Sword");
         }
-        GameManager.Instance.selectWeaponIndex = 0;
         SceneManager.LoadScene(1);
         GameManager.Instance.saveDataManager.StartSave(num);
     }

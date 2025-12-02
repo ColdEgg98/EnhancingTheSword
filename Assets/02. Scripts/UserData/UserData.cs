@@ -7,16 +7,25 @@ using UnityEngine;
 [Serializable]
 public class UserData
 {
-    public UserData() { }
+    public UserData()
+    {
+        myWeaponRefs = new();
+        myWeapons = new();
+        previewData = new();
+    }
 
     public UserData(PreviewData data)
     {
         previewData = data;
+        myWeaponRefs = new();
+        myWeapons = new();
+        previewData = new();
     }
 
     public PreviewData previewData;
     public int test;
     public List<Weapon> myWeapons;
+    public List<String> myWeaponRefs;
     // items
 }
 
@@ -31,7 +40,7 @@ public class PreviewData
 }
 
 [Serializable]
-public class WrapperPreviewData
+public class WrapperForPreviewData
 {
     public PreviewData[] slots;
 }
