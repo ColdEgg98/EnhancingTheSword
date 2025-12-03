@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.RenderGraphModule;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -7,6 +9,9 @@ public class GameManager : Singleton<GameManager>
     public UserDataManager userDataManager;
 
     public Dictionary<string, Weapon> allOfWeaponDictionary;
+    public Dictionary<string, Achivement> allOfAchivementDictionary;
+    private string weaponXlsxFileName;
+    private string achivementXlsxFileName;
 
     public int activeSaveSlotNum;
     public UserData currentData;
@@ -19,25 +24,41 @@ public class GameManager : Singleton<GameManager>
 
         saveDataManager = GetComponent<SaveDataManager>();
         selectWeaponIndex = 1;
+        allOfAchivementDictionary = new();
+
+        weaponXlsxFileName = "WeaponDatas.xlsx";
+        achivementXlsxFileName = "AchivementDatas.xlsx";
     }
 
     void Start()
     {
-        //SaveAllWeaponsData();
+        SaveEssentialDictionarys();
     }
-
-    void SaveAllWeaponsData()
+    
+    private void SaveEssentialDictionarys()
     {
-        // 무기 데이터를 읽어서 allOf~에 집어넣기
-        string weaponPath = System.IO.Path.Combine(Application.streamingAssetsPath, "WeaponDatas.xlsx");
-        if (weaponPath == null)
-            Debug.LogError("무기 데이터(엑셀 파일)를 찾을 수 없습니다.");
-        List<Weapon> weaponList = XlsxDataReader<Weapon>.MapFromExcel(weaponPath);
-        
-        // 무기 데이터를 게임 매니저가 적재
+        List<Weapon> weaponList = SaveAllTDatas<Weapon>(weaponXlsxFileName);
         foreach(Weapon w in weaponList)
         {
             allOfWeaponDictionary.Add(w.addressID, w);
         }
+
+        List<Achivement> achivementList = SaveAllTDatas<Achivement>(achivementXlsxFileName);
+        foreach(Achivement a in achivementList)
+        {
+            allOfAchivementDictionary.Add(a.achivementID, a);
+        }
+    }
+
+    public List<T> SaveAllTDatas<T>(string xlsxFileName) where T : class, new()
+    {
+        string path = System.IO.Path.Combine(Application.streamingAssetsPath, $"{xlsxFileName}");
+        List<T> TList = XlsxDataReader<T>.MapFromExcel(path);
+        if (TList == null)
+        {
+            Debug.LogError($"{xlsxFileName}을 찾을 수 없습니다.");
+            return default(List<T>);
+        }
+        return TList;
     }
 }
