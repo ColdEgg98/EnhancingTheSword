@@ -1,3 +1,4 @@
+using DocumentFormat.OpenXml.Office2010.ExcelAc;
 using System;
 using TMPro;
 using UnityEngine;
@@ -13,7 +14,7 @@ public class SaveSlot : MonoBehaviour
     [Header("Buttons")]
     [SerializeField] private Button[] slotButtons;
 
-    private WrapperPreviewData wrapper;
+    private WrapperForPreviewData wrapper;
     private string dataFormat;
 
     private void Awake()
@@ -23,7 +24,6 @@ public class SaveSlot : MonoBehaviour
 
     void Start()
     {
-        wrapper = GameManager.Instance.saveDataManager.wrapperPreviewData;
         SetSlotButtons();
         SetPreviewText();
     }
@@ -52,9 +52,10 @@ public class SaveSlot : MonoBehaviour
         if (!GameManager.Instance.currentData.previewData.isUsed)
         {
             GameManager.Instance.currentData.previewData.isUsed = true;
+            // 기본금 + 기본 무기 지급
             GameManager.Instance.currentData.previewData.gold = 5000000;
-            // 무기 소유 데이터가 추가되면 초기화해주는 코드 작성해야함
-
+            GameManager.Instance.currentData.myWeapons = new();
+            GameManager.Instance.userDataManager.GetWeapon("Wooden Sword");
         }
         SceneManager.LoadScene(1);
         GameManager.Instance.saveDataManager.StartSave(num);
@@ -63,6 +64,7 @@ public class SaveSlot : MonoBehaviour
     /// <summary>UI에 표시되는 데이터를 변경합니다</summary>
     private void SetPreviewText()
     {
+        wrapper = GameManager.Instance.saveDataManager.wrapperPreviewData;
         int index = 0;
         foreach (PreviewData data in wrapper.slots)
         {

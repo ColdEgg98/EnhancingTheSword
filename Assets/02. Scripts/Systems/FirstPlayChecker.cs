@@ -28,7 +28,7 @@ public class FirstPlayChecker : MonoBehaviour
     private void AssignMetaData()
     {
         string jsonMetaStr = File.ReadAllText(path);
-        GameManager.Instance.saveDataManager.wrapperPreviewData = JsonUtility.FromJson<WrapperPreviewData>(jsonMetaStr);
+        GameManager.Instance.saveDataManager.wrapperPreviewData = JsonUtility.FromJson<WrapperForPreviewData>(jsonMetaStr);
         Debug.Log("AssignMetaData is Run");
     }
 }

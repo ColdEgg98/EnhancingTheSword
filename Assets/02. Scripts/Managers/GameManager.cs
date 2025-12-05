@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.Rendering.RenderGraphModule;
 
@@ -23,7 +24,9 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
 
         saveDataManager = GetComponent<SaveDataManager>();
-        selectWeaponIndex = 1;
+        userDataManager = new UserDataManager();
+        selectWeaponIndex = 0;
+        allOfWeaponDictionary = new Dictionary<string, Weapon>();
         allOfAchivementDictionary = new();
 
         weaponXlsxFileName = "WeaponDatas.xlsx";

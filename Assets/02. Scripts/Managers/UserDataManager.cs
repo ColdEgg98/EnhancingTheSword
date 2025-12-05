@@ -21,10 +21,14 @@ public class UserDataManager
     public void GetWeapon(string ID)
     {
         if (!GameManager.Instance.allOfWeaponDictionary.ContainsKey(ID))
+        {
+            Debug.LogError($"확인되지 않은 무기 ID : {ID}");
             return;
+        }
 
         Weapon newWeapon = GameManager.Instance.allOfWeaponDictionary[ID];
         GameManager.Instance.currentData.myWeapons.Add(newWeapon);
+        Debug.Log($"무기 추가됨 : {newWeapon.addressID}");
     }
 }
 
