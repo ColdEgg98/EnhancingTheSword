@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.IO;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -14,7 +12,6 @@ public class UserData
     public UserData()
     {
         myWeaponRefs = new();
-        myWeapons = new();
         previewData = new();
         myAchivementRefs = new();
     }
@@ -23,14 +20,14 @@ public class UserData
     {
         previewData = data;
         myWeaponRefs = new();
-        myWeapons = new();
         previewData = data;
         myAchivementRefs = new();
     }
 
     public PreviewData previewData;
     public int test;
-    public List<Weapon> myWeapons;
+    public List<String> myWeaponRefs;
+    public List<String> myAchivementRefs;
     // items
 }
 
@@ -78,6 +75,7 @@ public class Weapon
             targetImage.sprite = sprite;
         }
     }
+}
 
 [Serializable]
 public class Achivement : IDisposable
