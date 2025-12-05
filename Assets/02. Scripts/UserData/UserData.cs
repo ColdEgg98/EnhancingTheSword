@@ -11,21 +11,23 @@ public class UserData
 {
     public UserData()
     {
-        myWeaponRefs = new();
         previewData = new();
+        myWeapons = new();
+        myWeaponRefs = new();
         myAchivementRefs = new();
     }
 
     public UserData(PreviewData data)
     {
         previewData = data;
+        myWeapons = new();
         myWeaponRefs = new();
-        previewData = data;
         myAchivementRefs = new();
     }
 
     public PreviewData previewData;
     public int test;
+    public List<Weapon> myWeapons;
     public List<String> myWeaponRefs;
     public List<String> myAchivementRefs;
     // items
