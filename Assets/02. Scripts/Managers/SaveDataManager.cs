@@ -46,7 +46,7 @@ public class SaveDataManager : MonoBehaviour
         // JsonUtility가 프로퍼티를 저장하지 않기때문에, addressID(string)을 통한 레퍼런스로 저장
         foreach (Weapon w in GameManager.Instance.currentData.myWeapons)
         {
-            GameManager.Instance.currentData.myWeaponRefs.Add(w.addressID);
+            GameManager.Instance.currentData.myWeaponRefs.Add(w.index);
         }
 
         UserData data = new()
@@ -139,12 +139,12 @@ public class SaveDataManager : MonoBehaviour
     private List<Weapon> ResolveWeaponReferences(UserData data)
     {
         List<Weapon> list = new();
-        foreach (string s in data.myWeaponRefs)
+        foreach (int i in data.myWeaponRefs)
         {
-            if (!GameManager.Instance.allOfWeaponDictionary.ContainsKey(s))
-                Debug.LogError($"로딩중 확인되지 않는 레퍼런스 : {s}");
+            if (!GameManager.Instance.allOfWeaponDictionary.ContainsKey(i))
+                Debug.LogError($"로딩중 확인되지 않는 레퍼런스 : {i}");
             else
-                list.Add(GameManager.Instance.allOfWeaponDictionary[s]);
+                list.Add(GameManager.Instance.allOfWeaponDictionary[i]);
         }
         return list;
     }

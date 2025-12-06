@@ -9,7 +9,7 @@ public class GameManager : Singleton<GameManager>
     public SaveDataManager saveDataManager;
     public UserDataManager userDataManager;
 
-    public Dictionary<string, Weapon> allOfWeaponDictionary;
+    public Dictionary<int, Weapon> allOfWeaponDictionary;
     public Dictionary<string, Achivement> allOfAchivementDictionary;
     private string weaponXlsxFileName;
     private string achivementXlsxFileName;
@@ -26,7 +26,7 @@ public class GameManager : Singleton<GameManager>
         saveDataManager = GetComponent<SaveDataManager>();
         userDataManager = new UserDataManager();
         selectWeaponIndex = 0;
-        allOfWeaponDictionary = new Dictionary<string, Weapon>();
+        allOfWeaponDictionary = new Dictionary<int, Weapon>();
         allOfAchivementDictionary = new();
 
         weaponXlsxFileName = "WeaponsData.xlsx";
@@ -43,7 +43,7 @@ public class GameManager : Singleton<GameManager>
         List<Weapon> weaponList = SaveAllTDatas<Weapon>(weaponXlsxFileName);
         foreach(Weapon w in weaponList)
         {
-            allOfWeaponDictionary.Add(w.addressID, w);
+            allOfWeaponDictionary.Add(w.index, w);
         }
 
         List<Achivement> achivementList = SaveAllTDatas<Achivement>(achivementXlsxFileName);

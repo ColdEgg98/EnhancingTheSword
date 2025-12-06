@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -18,7 +17,7 @@ public class UserDataManager
         GameManager.Instance.currentData.myWeapons.Add(newWeapon);
     }
 
-    public void GetWeapon(string ID)
+    public void GetWeapon(int ID)
     {
         if (!GameManager.Instance.allOfWeaponDictionary.ContainsKey(ID))
         {
@@ -34,6 +33,10 @@ public class UserDataManager
 
 public class AchivementData
 {
+    AchivementData(UserData data)
+    {
+        this.iD = data.myWeapons[GameManager.Instance.selectWeaponIndex].addressID;
+    }
     public string iD;
     public string Title;
     public string contnet;
@@ -43,15 +46,15 @@ public class AchivementData
 
 public class Reward
 {
-    public void ProcessReward(RewardType type, string value)
+    public void ProcessReward(RewardType type, int index = 0, int value = 0)
     {
         switch (type)
         {
             case RewardType.Gold:
-                GameManager.Instance.userDataManager.GetGold(int.Parse(value));
+                GameManager.Instance.userDataManager.GetGold(value);
                 break;
             case RewardType.Weapon:
-                GameManager.Instance.userDataManager.GetWeapon(value);
+                GameManager.Instance.userDataManager.GetWeapon(index);
                 break;
             default:
                 break;

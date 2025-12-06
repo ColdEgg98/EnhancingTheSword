@@ -28,7 +28,7 @@ public class UserData
     public PreviewData previewData;
     public int test;
     public List<Weapon> myWeapons;
-    public List<String> myWeaponRefs;
+    public List<int> myWeaponRefs;
     public List<String> myAchivementRefs;
     // items
 }

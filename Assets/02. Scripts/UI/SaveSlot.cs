@@ -55,7 +55,7 @@ public class SaveSlot : MonoBehaviour
             // 기본금 + 기본 무기 지급
             GameManager.Instance.currentData.previewData.gold = 5000000;
             GameManager.Instance.currentData.myWeapons = new();
-            GameManager.Instance.userDataManager.GetWeapon("Wooden Sword");
+            GameManager.Instance.userDataManager.GetWeapon(1); // 목검
             GameManager.Instance.saveDataManager.StartSave(num);
         }
         SceneManager.LoadScene(1);
