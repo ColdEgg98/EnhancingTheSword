@@ -41,6 +41,8 @@ public class SaveDataManager : MonoBehaviour
     {
         PathSetting();
 
+        GameManager.Instance.currentData.myWeaponRefs.Clear();
+
         // JsonUtility가 프로퍼티를 저장하지 않기때문에, addressID(string)을 통한 레퍼런스로 저장
         foreach (Weapon w in GameManager.Instance.currentData.myWeapons)
         {
@@ -92,6 +94,7 @@ public class SaveDataManager : MonoBehaviour
     /// <param name="index">User DataN에서 N을 맡고 있습니다</param>
     public void StartLoad(int index)
     {
+        GameManager.Instance.activeSaveSlotNum = index;
         PathSetting();
 
         //GameManager.Instance.currentData.previewData = PreviewDataLoad(index);
@@ -119,11 +122,13 @@ public class SaveDataManager : MonoBehaviour
     /// <returns>User Data{슬롯 번호}.json 파일에서 읽음</returns>
     private UserData UserDataLoad(int index)
     {
+        Debug.Log($"File Exists?: {File.Exists(path)}");
         if (File.Exists(path))
         {
             string data = File.ReadAllText(path);
-            GameManager.Instance.currentData.myWeapons = ResolveWeaponReferences();
-            return JsonUtility.FromJson<UserData>(data);
+            UserData tempData = JsonUtility.FromJson<UserData>(data);
+            tempData.myWeapons = ResolveWeaponReferences(tempData);
+            return tempData;
         }
         else if (File.Exists(indexPath))
             return new UserData(JsonUtility.FromJson<WrapperForPreviewData>(File.ReadAllText(indexPath)).slots[index]);
@@ -131,10 +136,10 @@ public class SaveDataManager : MonoBehaviour
             return new UserData(new PreviewData());
     }
 
-    private List<Weapon> ResolveWeaponReferences()
+    private List<Weapon> ResolveWeaponReferences(UserData data)
     {
         List<Weapon> list = new();
-        foreach (string s in GameManager.Instance.currentData.myWeaponRefs)
+        foreach (string s in data.myWeaponRefs)
         {
             if (!GameManager.Instance.allOfWeaponDictionary.ContainsKey(s))
                 Debug.LogError($"로딩중 확인되지 않는 레퍼런스 : {s}");

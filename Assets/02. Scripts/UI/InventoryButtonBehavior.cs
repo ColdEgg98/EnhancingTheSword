@@ -27,9 +27,9 @@ public class InventoryButtonBehavior : MonoBehaviour
         myWeapons = GameManager.Instance.currentData.myWeapons;
     }
 
-    public void OnClickButton()
+    public async Task OnClickButton()
     {
-        ButtonBehavior();
+        await ButtonBehavior();
     }
 
     public async Task ButtonBehavior()

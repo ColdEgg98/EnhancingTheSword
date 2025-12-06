@@ -13,7 +13,7 @@ public class SceneHandler : MonoBehaviour
 
     void Start()
     {
-        // 내가 선택한 (보고있는) 무기의 addressID를 따옴
+        // 내가 선택한 (보고있는) 무기의 addressID를  따옴
         spriteID = GameManager.Instance.currentData.myWeapons[GameManager.Instance.selectWeaponIndex].addressID;
         LoadSprite(spriteID);
     }

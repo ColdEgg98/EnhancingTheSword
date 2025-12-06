@@ -56,9 +56,9 @@ public class SaveSlot : MonoBehaviour
             GameManager.Instance.currentData.previewData.gold = 5000000;
             GameManager.Instance.currentData.myWeapons = new();
             GameManager.Instance.userDataManager.GetWeapon("Wooden Sword");
+            GameManager.Instance.saveDataManager.StartSave(num);
         }
         SceneManager.LoadScene(1);
-        GameManager.Instance.saveDataManager.StartSave(num);
     }
 
     /// <summary>UI에 표시되는 데이터를 변경합니다</summary>

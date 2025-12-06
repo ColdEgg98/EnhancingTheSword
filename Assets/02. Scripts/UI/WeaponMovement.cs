@@ -9,32 +9,36 @@ public class WeaponMovement : MonoBehaviour
     [SerializeField] private TextMeshProUGUI weaponName;
 
     [Header("무기")]
-    [SerializeField] private float moveValue = 10f;
-    [SerializeField] private float duration = 3f;
+    private float moveValue;
+    private float duration;
     private Image weapon;
+    private float originY;
 
     private void Awake()
     {
         weapon = GetComponentInChildren<Image>();
+        moveValue = 10f;
+        duration = 3f;
+        originY = weapon.transform.localPosition.y;
     }
 
     private void Start()
     {
         // 무기 바뀔 때 text 바뀌어야 하지만 일단 임시
-        weaponName.text = GameManager.Instance.currentData.myWeapons[GameManager.Instance.selectWeaponIndex].addressID;
+        weaponName.text = GameManager.Instance.currentData.myWeapons[GameManager.Instance.selectWeaponIndex].name;
         WeaponMoveUp();
     }
 
     private void WeaponMoveUp()
     {
-        transform.DOMoveY(weapon.transform.position.y + moveValue, duration)
+        weapon.transform.DOLocalMoveY(originY + moveValue, duration)
             .SetEase(Ease.OutSine)
             .OnComplete(WeaponMoveDown);
     }
 
     private void WeaponMoveDown()
     {
-        transform.DOMoveY(weapon.transform.position.y - moveValue, duration)
+        weapon.transform.DOLocalMoveY(originY - moveValue, duration)
             .SetEase(Ease.OutSine)
             .OnComplete(WeaponMoveUp);
     }
