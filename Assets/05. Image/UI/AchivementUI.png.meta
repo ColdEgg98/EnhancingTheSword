@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8ef3f1fe034ee3348bbedae7acef154b
+guid: 6a7245bbc7e6b6d43ac4e3d52873a1b4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2092182024910022517
-    second: Three Great Demon Iron_0
+      213: 6099607492233333654
+    second: AchivementUI_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Three Great Demon Iron_0
+      name: AchivementUI_0
       rect:
         serializedVersion: 2
-        x: 144
-        y: 215
-        width: 2528
-        height: 1106
+        x: 251
+        y: 22
+        width: 522
+        height: 529
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b88d7cf788317f2e0800000000000000
-      internalID: -2092182024910022517
+      spriteID: 69b01e372b826a450800000000000000
+      internalID: 6099607492233333654
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Three Great Demon Iron_0: -2092182024910022517
+      AchivementUI_0: 6099607492233333654
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

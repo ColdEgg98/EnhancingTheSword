@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8ef3f1fe034ee3348bbedae7acef154b
+guid: bd41ca33b8b21e344a9ab55885c21884
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2092182024910022517
-    second: Three Great Demon Iron_0
+      213: 5382197054143347865
+    second: Anvil_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Three Great Demon Iron_0
+      name: Anvil_0
       rect:
         serializedVersion: 2
-        x: 144
-        y: 215
-        width: 2528
-        height: 1106
+        x: 296
+        y: 170
+        width: 689
+        height: 374
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b88d7cf788317f2e0800000000000000
-      internalID: -2092182024910022517
+      spriteID: 99c3e5364b761ba40800000000000000
+      internalID: 5382197054143347865
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Three Great Demon Iron_0: -2092182024910022517
+      Anvil_0: 5382197054143347865
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -29,8 +29,8 @@ public class GameManager : Singleton<GameManager>
         allOfWeaponDictionary = new Dictionary<string, Weapon>();
         allOfAchivementDictionary = new();
 
-        weaponXlsxFileName = "WeaponDatas.xlsx";
-        achivementXlsxFileName = "AchivementDatas.xlsx";
+        weaponXlsxFileName = "WeaponsData.xlsx";
+        achivementXlsxFileName = "AchivementsData.xlsx";
     }
 
     void Start()

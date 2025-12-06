@@ -25,18 +25,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0c18eb906486c6b4d9700d6040fbf715
-    m_Address: kItetsu 3
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 33be9130b17dfc44888eada81ed7d85d
-    m_Address: Ancient Sword
+  - m_GUID: 07246076ba3cedc48ba636988faf354c
+    m_Address: Zweihander
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 361f52e38a266334bac0a9e722079ca2
     m_Address: Caladbolg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 54cb4e919b4641742947f089e623a1a0
+    m_Address: Blue Dragon Crescent Blade
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -60,6 +60,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8ef3f1fe034ee3348bbedae7acef154b
+    m_Address: Three Great Demon Iron
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a2b70335f82f3de41ad4c9eed45cf051
     m_Address: Fragarach
     m_ReadOnly: 0
@@ -80,18 +85,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b7c4e61c1c136ac4da4b5b07bac88074
-    m_Address: Blue Dragon Crescent Blade
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bd9e9cb35f9d1bd49aee82a6af97c683
     m_Address: Dragon Slayer
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c512e064401bd4e4ba9b13c8b635c9a3
-    m_Address: Wooden Sword
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -100,18 +95,23 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e27b332385bc97245b8c46b6cc684446
+    m_Address: 'Ancient Sword '
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e60387f524438e546a239dcc11143f83
     m_Address: Nightbringer
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e913cbd4684f4be4d94ab6968b15bf75
-    m_Address: Tyrfing
+  - m_GUID: e60c7fe1fa715974287cac6f0ec08810
+    m_Address: Wooden Sword
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f4d386edc06ee7446af0d465601f76f4
-    m_Address: Zweihander
+  - m_GUID: e913cbd4684f4be4d94ab6968b15bf75
+    m_Address: Tyrfing
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
