@@ -19,19 +19,22 @@ public class EnhanceSword : MonoBehaviour
 
     private void RunEnhancing()
     {
+        // 현재 무기 정보 세팅
+        SetWeaponValue();
         if (selectedWeapon.index == 20)
             return;
 
-        // 현재 무기 정보 세팅
-        SetWeaponValue();
         // 재화 소모
         GameManager.Instance.currentData.previewData.gold -= selectedWeapon.enhancingPrice;
         // 확률 따라서 통과 시
         bool result = CheckSuccess(selectedWeapon.probability);
+        // 파티클 이펙트
+
         // 무기 인덱스 다음 껄로 변환
         if (result)
             EnhancingSuccessed();
-
+        else
+            myWeapons.Remove(selectedWeapon);
     }
 
     private void SetWeaponValue()
