@@ -9,7 +9,7 @@ public class UserDataManager
 
     public void GetGold(int value)
     {
-        GameManager.Instance.currentData.previewData.gold += value;
+        GameManager.Instance.currentData.previewData.goldRef += value;
     }
 
     public void GetWeapon(Weapon newWeapon)

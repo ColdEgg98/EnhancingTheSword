@@ -55,7 +55,7 @@ public class SaveDataManager : MonoBehaviour
             test = GameManager.Instance.currentData.test,
             myWeaponRefs = GameManager.Instance.currentData.myWeaponRefs
         };
-
+        data.previewData.goldRef = GameManager.Instance.gold.Value;
         data.previewData.time = DateTime.Now.ToString("yyyy.MM.dd\ntt hh시 mm분");
 
         IndexDataSave();
@@ -99,6 +99,7 @@ public class SaveDataManager : MonoBehaviour
 
         //GameManager.Instance.currentData.previewData = PreviewDataLoad(index);
         GameManager.Instance.currentData = UserDataLoad(index);
+        GameManager.Instance.gold.Value = GameManager.Instance.currentData.previewData.goldRef;
     }
 
     /// <summary>UI에 표기되는 데이터 로드</summary>

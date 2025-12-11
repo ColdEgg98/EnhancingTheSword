@@ -53,7 +53,7 @@ public class SaveSlot : MonoBehaviour
         {
             GameManager.Instance.currentData.previewData.isUsed = true;
             // 기본금 + 기본 무기 지급
-            GameManager.Instance.currentData.previewData.gold = 5000000;
+            GameManager.Instance.currentData.previewData.goldRef = 5000000;
             GameManager.Instance.currentData.myWeapons = new();
             GameManager.Instance.userDataManager.GetWeapon(1); // 목검
             GameManager.Instance.saveDataManager.StartSave(num);
@@ -75,7 +75,7 @@ public class SaveSlot : MonoBehaviour
             }
             else
             {
-                previewText[index].text = string.Format(dataFormat, data.gold, data.achivementCount);
+                previewText[index].text = string.Format(dataFormat, data.goldRef, data.achivementCount);
                 timeText[index].text = data.time;
             }
             index++;

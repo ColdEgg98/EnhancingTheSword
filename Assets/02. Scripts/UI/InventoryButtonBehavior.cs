@@ -69,6 +69,7 @@ public class InventoryButtonBehavior : MonoBehaviour
 
     public void WeaponContentButtonBehavior()
     {
-
+        // 커서 올리면 무기 이름 뜨기
+        // 클릭하면 인벤 닫히면서 메인 화면 무기 바꾸기
     }
 }

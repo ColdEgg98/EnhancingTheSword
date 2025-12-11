@@ -40,7 +40,7 @@ public class PreviewData
     public int slotNumber;
     public int achivementCount;
     public string time;
-    public long gold;
+    public long goldRef;
 }
 
 [Serializable]
