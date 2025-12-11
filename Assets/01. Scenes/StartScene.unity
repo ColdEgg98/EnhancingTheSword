@@ -1726,7 +1726,10 @@ MonoBehaviour:
       time: 
       gold: 0
     test: 0
-    weapons: []
+    myWeapons: []
+    myWeaponRefs: 
+    myAchivementRefs: []
+  selectWeaponIndex: 0
 --- !u!4 &1266887906
 Transform:
   m_ObjectHideFlags: 0

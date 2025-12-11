@@ -27,14 +27,14 @@ public class InventoryButtonBehavior : MonoBehaviour
         myWeapons = GameManager.Instance.currentData.myWeapons;
     }
 
-    public async Task OnClickButton()
+    public async void OnClickButton()
     {
         await ButtonBehavior();
     }
 
     public async Task ButtonBehavior()
     {
-        int count = Mathf.Min(myWeapons.Count, weaponContents.Length);
+        int count = myWeapons.Count;
 
         // 1. 모든 작업을 리스트에 담음
         List<Task> loadingTasks = new List<Task>();

@@ -25,7 +25,9 @@ public class EnhanceSword : MonoBehaviour
             return;
 
         // 재화 소모
+        Debug.Log($"{GameManager.Instance.currentData.previewData.gold}에서 {selectedWeapon.enhancingPrice}만큼 차감됨");
         GameManager.Instance.currentData.previewData.gold -= selectedWeapon.enhancingPrice;
+        Debug.Log($"남은 골드 : {GameManager.Instance.currentData.previewData.gold}");
         // 확률 따라서 통과 시
         bool result = CheckSuccess(selectedWeapon.probability);
         // 파티클 이펙트
@@ -35,6 +37,9 @@ public class EnhanceSword : MonoBehaviour
             EnhancingSuccessed();
         else
             myWeapons.Remove(selectedWeapon);
+
+        // 저장
+        GameManager.Instance.saveDataManager.StartSave();
     }
 
     private void SetWeaponValue()
@@ -56,6 +61,6 @@ public class EnhanceSword : MonoBehaviour
         int listIndex = myWeapons.IndexOf(selectedWeapon);
         myWeapons[listIndex] = newWeapon;
         // 씬의 이미지랑 이름 표기 바꿔줘야함
-        Debug.Log($"RunEnhancing : Weapon Enhanced\n{selectedWeapon}이 {newWeapon}으로 강화됨.");
+        Debug.Log($"RunEnhancing : Weapon Enhanced\n{selectedWeapon.name}이 {newWeapon.name}으로 강화됨.");
     }
 }
