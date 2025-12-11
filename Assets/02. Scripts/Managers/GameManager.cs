@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Reflection;
+using UniRx;
 using UnityEngine;
-using UnityEngine.Rendering.RenderGraphModule;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -16,6 +14,7 @@ public class GameManager : Singleton<GameManager>
 
     public int activeSaveSlotNum;
     public UserData currentData;
+    public ReactiveProperty<long> gold;
 
     public int selectWeaponIndex;
 
