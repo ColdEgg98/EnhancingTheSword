@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -8,7 +9,7 @@ public class EnhanceSword : MonoBehaviour
 {
     // 모루 컴포넌트로 사용
     private Button button;
-    private Weapon selectedWeapon;
+    private ReactiveProperty<Weapon> selectedWeapon;
     List<Weapon> myWeapons;
 
     void Awake()
@@ -21,22 +22,28 @@ public class EnhanceSword : MonoBehaviour
     {
         // 현재 무기 정보 세팅
         SetWeaponValue();
-        if (selectedWeapon.index == 20)
+        if (selectedWeapon.Value.index == 20)
+        {
+            // 마지막 단계 예외 처리
             return;
+        }
 
         // 재화 소모
-        GameManager.Instance.gold.Value -= selectedWeapon.enhancingPrice;
+        GameManager.Instance.gold.Value -= selectedWeapon.Value.enhancingPrice;
         Debug.Log(GameManager.Instance.gold.Value);
 
         // 확률 따라서 통과 시
-        bool result = CheckSuccess(selectedWeapon.probability);
+        bool result = CheckSuccess(selectedWeapon.Value.probability);
         // 파티클 이펙트
 
         // 무기 인덱스 다음 껄로 변환
         if (result)
             EnhancingSuccessed();
         else
-            myWeapons.Remove(selectedWeapon);
+        {
+            Debug.Log($"{selectedWeapon.Value.name}이 파괴됨.");
+            myWeapons.Remove(selectedWeapon.Value);
+        }
 
         // 저장
         GameManager.Instance.saveDataManager.StartSave();
@@ -47,7 +54,7 @@ public class EnhanceSword : MonoBehaviour
         myWeapons = GameManager.Instance.currentData.myWeapons;
         int selectIndex = GameManager.Instance.selectWeaponIndex.Value;
 
-        selectedWeapon = myWeapons[selectIndex];
+        selectedWeapon.Value = myWeapons[selectIndex];
     }
 
     private bool CheckSuccess(float p)
@@ -57,10 +64,10 @@ public class EnhanceSword : MonoBehaviour
 
     private void EnhancingSuccessed()
     {
-        Weapon newWeapon = GameManager.Instance.allOfWeaponDictionary[selectedWeapon.index + 1];
-        int listIndex = myWeapons.IndexOf(selectedWeapon);
+        Weapon newWeapon = GameManager.Instance.allOfWeaponDictionary[selectedWeapon.Value.index + 1];
+        int listIndex = myWeapons.IndexOf(selectedWeapon.Value);
         myWeapons[listIndex] = newWeapon;
         // 씬의 이미지랑 이름 표기 바꿔줘야함
-        Debug.Log($"RunEnhancing : Weapon Enhanced\n{selectedWeapon.name}이 {newWeapon.name}으로 강화됨.");
+        Debug.Log($"RunEnhancing : Weapon Enhanced\n{selectedWeapon.Value.name}이 {newWeapon.name}으로 강화됨.");
     }
 }

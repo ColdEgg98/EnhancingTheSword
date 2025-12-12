@@ -55,6 +55,7 @@ public static class XlsxDataReader<T> where T : new()
                 .Where(i => i != 0)
                 .ToList();
         if (targetType == typeof(int)) return int.TryParse(value, out var i) ? i : 0;
+        if (targetType == typeof(long)) return long.TryParse(value, out var l) ? l : 0L;
         if (targetType == typeof(float)) return float.TryParse(value, out var f) ? f : 0f;
         if (targetType == typeof(double)) return double.TryParse(value, out var d) ? d : 0d;
         if (targetType == typeof(bool)) return bool.TryParse(value, out var b) ? b : false;

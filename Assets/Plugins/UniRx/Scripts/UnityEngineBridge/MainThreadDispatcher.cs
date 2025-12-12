@@ -449,7 +449,7 @@ namespace UniRx
 
                 try
                 {
-                    dispatcher = GameObject.FindObjectOfType<MainThreadDispatcher>();
+                    dispatcher = GameObject.FindAnyObjectByType<MainThreadDispatcher>();
                 }
                 catch
                 {
@@ -588,7 +588,7 @@ namespace UniRx
         {
             if (instance == this)
             {
-                instance = GameObject.FindObjectOfType<MainThreadDispatcher>();
+                instance = GameObject.FindAnyObjectByType<MainThreadDispatcher>();
                 initialized = instance != null;
 
                 /*
