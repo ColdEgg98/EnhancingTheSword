@@ -42,7 +42,7 @@ public class UserDataManager
     {
         if (!int.TryParse(strID, out int ID))
             Debug.LogWarning("GetWeapon 과정 중 변환 실패");
-            
+
         if (!GameManager.Instance.allOfWeaponDictionary.ContainsKey(ID))
         {
             Debug.LogError($"확인되지 않은 무기 ID : {ID}");
@@ -59,7 +59,7 @@ public class AchivementData
 {
     AchivementData(UserData data)
     {
-        this.iD = data.myWeapons[GameManager.Instance.selectWeaponIndex].addressID;
+        this.iD = data.myWeapons[GameManager.Instance.selectWeaponIndex.Value].addressID;
     }
     public string iD;
     public string Title;

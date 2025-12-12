@@ -16,7 +16,7 @@ public class GameManager : Singleton<GameManager>
     public UserData currentData;
     public ReactiveProperty<long> gold;
 
-    public int selectWeaponIndex;
+    public ReactiveProperty<int> selectWeaponIndex;
 
     protected override void Awake()
     {
@@ -24,7 +24,7 @@ public class GameManager : Singleton<GameManager>
 
         saveDataManager = GetComponent<SaveDataManager>();
         userDataManager = new UserDataManager();
-        selectWeaponIndex = 0;
+        selectWeaponIndex.Value = 0;
         allOfWeaponDictionary = new Dictionary<int, Weapon>();
         allOfAchivementDictionary = new();
 

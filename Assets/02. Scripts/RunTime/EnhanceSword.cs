@@ -45,7 +45,7 @@ public class EnhanceSword : MonoBehaviour
     private void SetWeaponValue()
     {
         myWeapons = GameManager.Instance.currentData.myWeapons;
-        int selectIndex = GameManager.Instance.selectWeaponIndex;
+        int selectIndex = GameManager.Instance.selectWeaponIndex.Value;
 
         selectedWeapon = myWeapons[selectIndex];
     }

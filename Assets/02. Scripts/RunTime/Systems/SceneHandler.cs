@@ -1,4 +1,5 @@
-using System.Threading.Tasks;
+using TMPro;
+using UniRx;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -11,11 +12,19 @@ public class SceneHandler : MonoBehaviour
     private string spriteID;
     private Sprite sprite;
 
+    [Header("무기 이름")]
+    [SerializeField] private ReactiveProperty<TextMeshProUGUI> weaponName;
+
     void Start()
     {
-        // 내가 선택한 (보고있는) 무기의 addressID를  따옴
-        spriteID = GameManager.Instance.currentData.myWeapons[GameManager.Instance.selectWeaponIndex].addressID;
-        LoadSprite(spriteID);
+        GameManager.Instance.selectWeaponIndex
+        .Subscribe(id =>
+        {
+            spriteID = GameManager.Instance.currentData.myWeapons[id].addressID;
+            weaponName.Value.text = GameManager.Instance.currentData.myWeapons[id].name;
+            LoadSprite(spriteID);
+        })
+        .AddTo(this);
     }
 
     public async void LoadSprite(string id)

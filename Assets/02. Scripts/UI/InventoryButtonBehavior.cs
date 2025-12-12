@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +15,6 @@ public class InventoryButtonBehavior : MonoBehaviour
     private GameObject inventory;
     [SerializeField]
     private Button XButton;
-
     private bool isWeaponSold;
     private List<Weapon> myWeapons;
 
@@ -60,16 +57,26 @@ public class InventoryButtonBehavior : MonoBehaviour
         await myWeapons[index].ApplySpriteToImage(weaponContents[index]);
         Color c = weaponContents[index].color;
         weaponContents[index].color = Color.white;
+
+        // 커서 올리면 무기 이름 뜨기
+
+        // Button 연결
+        Button tempBtn;
+        tempBtn = weaponContents[index].GetComponent<Button>();
+        tempBtn.onClick.AddListener(() => WeaponContentButtonBehavior(index));
     }
 
     public void OnClickXButton()
     {
+        // 인벤 내부 정보 리셋 추가되야할듯
+        
         inventory.SetActive(false);
     }
 
-    public void WeaponContentButtonBehavior()
+    public void WeaponContentButtonBehavior(int index)
     {
-        // 커서 올리면 무기 이름 뜨기
         // 클릭하면 인벤 닫히면서 메인 화면 무기 바꾸기
+        GameManager.Instance.selectWeaponIndex.Value = index;
+        OnClickXButton();
     }
 }
