@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +19,12 @@ public class TestHelper : MonoBehaviour
     [SerializeField] private List<GameObject> gameObjects;
     [SerializeField] private List<Button> activeSetter;
 
+    [Header("골드 획득 UI")]
+    [SerializeField] private TMP_InputField goldAmountInput;
+
+    [Header("무기 획득 UI")]
+    [SerializeField] private TMP_InputField weaponIndexInput;
+
     private void Awake()
     {
         #if UNITY_EDITOR
@@ -33,6 +41,16 @@ public class TestHelper : MonoBehaviour
         activeSetter = ButtonsTarget.GetComponentsInChildren<Button>().ToList();
         // 버튼들에 각각의 오브젝트들을 제어하는 함수 부여
         SetGameObjectsActive();
+
+        if (goldAmountInput == null)
+            Debug.LogWarning("goldInputField가 연결되지 않았습니다.");
+        else
+            goldAmountInput.onSubmit.AddListener(OnSubmitGoldInput);
+        
+        if (weaponIndexInput == null)
+            Debug.LogWarning("weaponIndexInput가 연결되지 않았습니다.");
+        else
+            weaponIndexInput.onSubmit.AddListener(OnSubmitWeaponIndexInput);
     }
 
     private void CallTesterUI()
@@ -62,6 +80,18 @@ public class TestHelper : MonoBehaviour
         }
     }
 
+    public void OnSubmitGoldInput(string amount)
+    {
+        GameManager.Instance.userDataManager.GetGold(amount);
+        XButton();
+    }
+
+    public void OnSubmitWeaponIndexInput(string amount)
+    {
+        GameManager.Instance.userDataManager.GetWeapon(amount);
+        XButton();
+    }
+
 /// <summary>각각 X버튼 유니티 이벤트에다 할당. 따로 부여할 수도있지만 귀찮음</summary>
     public void XButton()
     {
@@ -69,7 +99,12 @@ public class TestHelper : MonoBehaviour
         Panel.SetActive(false);
         foreach(GameObject g in gameObjects)
         {
-            g.SetActive(false);
+            if (g == null)
+            {
+                Debug.LogWarning("리스트 할당이 되지않은 오브젝트가 있습니다.");
+            }
+            else
+                g.SetActive(false);
         }
     }
 }

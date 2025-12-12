@@ -1,3 +1,4 @@
+using DocumentFormat.OpenXml.Drawing.Charts;
 using UnityEngine;
 
 /// <summary>
@@ -9,7 +10,15 @@ public class UserDataManager
 
     public void GetGold(int value)
     {
-        GameManager.Instance.currentData.previewData.goldRef += value;
+        GameManager.Instance.gold.Value += value;
+    }
+
+    public void GetGold(string value)
+    {
+        if (long.TryParse(value, out long amount))
+            GameManager.Instance.gold.Value += amount;
+        else
+            Debug.LogError("GetGold 과정 중 타입 변환에 실패했습니다.");
     }
 
     public void GetWeapon(Weapon newWeapon)
@@ -19,6 +28,21 @@ public class UserDataManager
 
     public void GetWeapon(int ID)
     {
+        if (!GameManager.Instance.allOfWeaponDictionary.ContainsKey(ID))
+        {
+            Debug.LogError($"확인되지 않은 무기 ID : {ID}");
+            return;
+        }
+
+        Weapon newWeapon = GameManager.Instance.allOfWeaponDictionary[ID];
+        GameManager.Instance.currentData.myWeapons.Add(newWeapon);
+        Debug.Log($"무기 추가됨 : {newWeapon.addressID}");
+    }
+    public void GetWeapon(string strID)
+    {
+        if (!int.TryParse(strID, out int ID))
+            Debug.LogWarning("GetWeapon 과정 중 변환 실패");
+            
         if (!GameManager.Instance.allOfWeaponDictionary.ContainsKey(ID))
         {
             Debug.LogError($"확인되지 않은 무기 ID : {ID}");
