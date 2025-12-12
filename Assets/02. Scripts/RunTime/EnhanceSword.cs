@@ -25,9 +25,9 @@ public class EnhanceSword : MonoBehaviour
             return;
 
         // 재화 소모
-        Debug.Log($"{GameManager.Instance.currentData.previewData.goldRef}에서 {selectedWeapon.enhancingPrice}만큼 차감됨");
-        GameManager.Instance.currentData.previewData.goldRef -= selectedWeapon.enhancingPrice;
-        Debug.Log($"남은 골드 : {GameManager.Instance.currentData.previewData.goldRef}");
+        GameManager.Instance.gold.Value -= selectedWeapon.enhancingPrice;
+        Debug.Log(GameManager.Instance.gold.Value);
+
         // 확률 따라서 통과 시
         bool result = CheckSuccess(selectedWeapon.probability);
         // 파티클 이펙트
