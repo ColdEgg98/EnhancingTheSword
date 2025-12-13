@@ -10080,6 +10080,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285b74077b294475e8b56d120d223a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetImage: {fileID: 864530987}
+  weaponNameText: {fileID: 160200895}
+  enhanceButton: {fileID: 556367423}
 --- !u!1 &1887856957
 GameObject:
   m_ObjectHideFlags: 0

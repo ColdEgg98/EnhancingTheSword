@@ -55,8 +55,8 @@ public class InventoryButtonBehavior : MonoBehaviour
     public async Task ImageChange(int index)
     {
         await myWeapons[index].ApplySpriteToImage(weaponContents[index]);
-        Color c = weaponContents[index].color;
         weaponContents[index].color = Color.white;
+        weaponContents[index].raycastTarget = true;
 
         // 커서 올리면 무기 이름 뜨기
 
@@ -68,8 +68,14 @@ public class InventoryButtonBehavior : MonoBehaviour
 
     public void OnClickXButton()
     {
-        // 인벤 내부 정보 리셋 추가되야할듯
-        
+        // 인벤 내부 정보 리셋
+        for (int i = 0; i < myWeapons.Count; i++)
+        {
+            int index = i;
+            Color c = weaponContents[index].color;
+            weaponContents[index].color = Color.clear;
+            weaponContents[index].raycastTarget = false;
+        }
         inventory.SetActive(false);
     }
 
