@@ -29,6 +29,12 @@ public class EnhanceSword : MonoBehaviour
 
     private void RunEnhancing()
     {
+        if (GameManager.Instance.currentWeapon.Value == null)
+        {
+            Debug.LogWarning("무기 정보가 비어있음");
+            return;
+        }
+
         Weapon currentWeapon = GameManager.Instance.currentWeapon.Value;
 
         // 레벨 상한 체크
@@ -87,8 +93,14 @@ public class EnhanceSword : MonoBehaviour
     {
         Debug.Log($"{currentWeapon.name} 파괴됨.");
 
-        // 1. 실제 데이터(GameManager)에서 삭제
+        // 실제 데이터(GameManager)에서 삭제
         var myWeapons = GameManager.Instance.currentData.myWeapons;
+
+        // UI 갱신
+        GameManager.Instance.currentWeapon.Value = null;
+
+        // 1번에서 깨지고, 인벤에서 1번 누르면 반응할 수 있도록
+        GameManager.Instance.selectWeaponIndex.Value = -1;
 
         // 리스트에서 제거 (인덱스 밀림 주의)
         if (currentWeaponIndex < myWeapons.Count)
@@ -96,7 +108,5 @@ public class EnhanceSword : MonoBehaviour
             myWeapons.RemoveAt(currentWeaponIndex);
         }
 
-        // 2. 무기 표시 꺼짐
-        GameManager.Instance.currentWeapon.Value = null;
     }
 }

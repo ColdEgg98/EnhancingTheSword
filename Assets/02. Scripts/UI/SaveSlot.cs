@@ -58,8 +58,12 @@ public class SaveSlot : MonoBehaviour
             GameManager.Instance.userDataManager.GetWeapon(1); // 목검
             GameManager.Instance.saveDataManager.StartSave(num);
         }
+
+        // 화면 바뀔 때 무기 표시
         if (GameManager.Instance.currentData.myWeapons.Count > 0)
             GameManager.Instance.currentWeapon.Value = GameManager.Instance.currentData.myWeapons[0];
+        else if (GameManager.Instance.currentData.myWeapons.Count == 0)
+            GameManager.Instance.selectWeaponIndex.Value = -1;
 
         SceneManager.LoadScene(1);
     }
