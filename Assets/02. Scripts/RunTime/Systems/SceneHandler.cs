@@ -58,7 +58,7 @@ public class SceneHandler : MonoBehaviour
                     return;
                 }
 
-                LoadSprite(GameManager.Instance.currentData.myWeapons[index].addressID);
+                GameManager.Instance.currentWeapon.Value = GameManager.Instance.currentData.myWeapons[index];
             })
             .AddTo(this);
     }

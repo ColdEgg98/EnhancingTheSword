@@ -96,10 +96,7 @@ public class EnhanceSword : MonoBehaviour
         // 실제 데이터(GameManager)에서 삭제
         var myWeapons = GameManager.Instance.currentData.myWeapons;
 
-        // UI 갱신
-        GameManager.Instance.currentWeapon.Value = null;
-
-        // 1번에서 깨지고, 인벤에서 1번 누르면 반응할 수 있도록
+        // UI 갱신 & 0번에서 깨지고, 인벤에서 0번 누르면 반응할 수 있도록
         GameManager.Instance.selectWeaponIndex.Value = -1;
 
         // 리스트에서 제거 (인덱스 밀림 주의)

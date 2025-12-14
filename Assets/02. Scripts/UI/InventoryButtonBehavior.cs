@@ -47,7 +47,7 @@ public class InventoryButtonBehavior : MonoBehaviour
         await Task.WhenAll(loadingTasks);
 
         // 3. 여기까지 오면 모든 이미지가 100% 로딩 완료된 상태임
-        Debug.Log("모든 무기 이미지 로딩 완료!");
+        Debug.Log("모든 무기 이미지 로딩 완료");
 
         inventory.SetActive(true);
     }
@@ -82,6 +82,7 @@ public class InventoryButtonBehavior : MonoBehaviour
     public void WeaponContentButtonBehavior(int index)
     {
         // 클릭하면 인벤 닫히면서 메인 화면 무기 바꾸기
+        Debug.Log($"인덱스 변경 {GameManager.Instance.selectWeaponIndex.Value} -> {index}");
         GameManager.Instance.selectWeaponIndex.Value = index;
         OnClickXButton();
     }
