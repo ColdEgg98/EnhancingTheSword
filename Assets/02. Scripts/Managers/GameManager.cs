@@ -16,6 +16,7 @@ public class GameManager : Singleton<GameManager>
     public UserData currentData;
     public ReactiveProperty<long> gold;
 
+    public ReactiveProperty<Weapon> currentWeapon;
     public ReactiveProperty<int> selectWeaponIndex;
 
     protected override void Awake()
@@ -24,9 +25,12 @@ public class GameManager : Singleton<GameManager>
 
         saveDataManager = GetComponent<SaveDataManager>();
         userDataManager = new UserDataManager();
-        selectWeaponIndex.Value = 0;
-        allOfWeaponDictionary = new Dictionary<int, Weapon>();
+
+        allOfWeaponDictionary = new ();
         allOfAchivementDictionary = new();
+
+        selectWeaponIndex.Value = 0;
+        currentWeapon.Value = new();
 
         weaponXlsxFileName = "WeaponsData.xlsx";
         achivementXlsxFileName = "AchivementsData.xlsx";

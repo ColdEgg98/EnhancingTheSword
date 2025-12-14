@@ -21,6 +21,8 @@ public class ShowStatus : MonoBehaviour
 
     private string ToWonFormat(long gold)
     {
+        if (gold == 0) return $"0원";
+
         long jo = gold / 1000000000000;
         gold %= 1000000000000;
         long eok = gold / 100000000;
@@ -28,17 +30,19 @@ public class ShowStatus : MonoBehaviour
         long man = gold / 10000;
         gold %= 10000;
 
-        format = "소지금 : ";
-        if (jo > 0)
-            format += $"{jo}조 ";
-        if (eok > 0)
-            format += $"{eok}억 ";
-        if (man > 0)
-            format += $"{man}만 ";
-        if (gold > 0)
-            format += gold;
-        format += "원";
+        System.Text.StringBuilder sb = new System.Text.StringBuilder();
 
-        return format;
+        if (jo > 0)
+            sb.Append($"{jo}조 ");
+        if (eok > 0)
+            sb.Append($"{eok}억 ");
+        if (man > 0)
+            sb.Append($"{man}만 ");
+        if (gold >= 0)
+            sb.Append($"{gold}");
+
+        sb.Append("원");
+
+        return sb.ToString();
     }
 }

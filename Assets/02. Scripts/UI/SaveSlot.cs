@@ -58,6 +58,9 @@ public class SaveSlot : MonoBehaviour
             GameManager.Instance.userDataManager.GetWeapon(1); // 목검
             GameManager.Instance.saveDataManager.StartSave(num);
         }
+        if (GameManager.Instance.currentData.myWeapons.Count > 0)
+            GameManager.Instance.currentWeapon.Value = GameManager.Instance.currentData.myWeapons[0];
+
         SceneManager.LoadScene(1);
     }
 
