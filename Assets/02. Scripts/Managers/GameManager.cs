@@ -6,6 +6,7 @@ public class GameManager : Singleton<GameManager>
 {
     public SaveDataManager saveDataManager;
     public UserDataManager userDataManager;
+    public UIFactoryManager uIFactoryManager;
 
     public Dictionary<int, Weapon> allOfWeaponDictionary;
     public Dictionary<string, Achivement> allOfAchivementDictionary;
@@ -25,6 +26,7 @@ public class GameManager : Singleton<GameManager>
 
         saveDataManager = GetComponent<SaveDataManager>();
         userDataManager = new UserDataManager();
+        uIFactoryManager = GetComponent<UIFactoryManager>();
 
         allOfWeaponDictionary = new ();
         allOfAchivementDictionary = new();

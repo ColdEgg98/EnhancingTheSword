@@ -1696,6 +1696,7 @@ GameObject:
   - component: {fileID: 1266887906}
   - component: {fileID: 1266887905}
   - component: {fileID: 1266887907}
+  - component: {fileID: 1266887908}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1717,6 +1718,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDontDestroy: 1
   saveDataManager: {fileID: 0}
+  uIFactoryManager: {fileID: 0}
   activeSaveSlotNum: 0
   currentData:
     previewData:
@@ -1724,12 +1726,17 @@ MonoBehaviour:
       slotNumber: 0
       achivementCount: 0
       time: 
-      gold: 0
+      goldRef: 0
     test: 0
     myWeapons: []
     myWeaponRefs: 
     myAchivementRefs: []
-  selectWeaponIndex: 0
+    materialRefs: 
+  gold:
+    value: 0
+  currentWeapon: {}
+  selectWeaponIndex:
+    value: 0
 --- !u!4 &1266887906
 Transform:
   m_ObjectHideFlags: 0
@@ -1759,6 +1766,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wrapperPreviewData:
     slots: []
+--- !u!114 &1266887908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266887904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7cecf5ab0eda8741beb38c92bfb5760, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1277231988
 GameObject:
   m_ObjectHideFlags: 0

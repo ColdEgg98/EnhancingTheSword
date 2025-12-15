@@ -1,4 +1,3 @@
-using DocumentFormat.OpenXml.Drawing.Charts;
 using UnityEngine;
 
 /// <summary>

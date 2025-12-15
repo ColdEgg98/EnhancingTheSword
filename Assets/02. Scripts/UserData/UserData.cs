@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
+using static Achivement;
 
 [Serializable]
 public class UserData
@@ -15,6 +16,8 @@ public class UserData
         myWeapons = new();
         myWeaponRefs = new();
         myAchivementRefs = new();
+        materials = new();
+        materialRefs = new();
     }
 
     public UserData(PreviewData data)
@@ -23,6 +26,8 @@ public class UserData
         myWeapons = new();
         myWeaponRefs = new();
         myAchivementRefs = new();
+        materials = new();
+        materialRefs = new();
     }
 
     public PreviewData previewData;
@@ -30,7 +35,8 @@ public class UserData
     public List<Weapon> myWeapons;
     public List<int> myWeaponRefs;
     public List<String> myAchivementRefs;
-    // items
+    public List<MaterialItem> materials;
+    public List<int> materialRefs;
 }
 
 [Serializable]
@@ -106,4 +112,12 @@ public class Achivement : IDisposable
             Addressables.Release(_handle);
         _handle = default;
     }
+}
+
+public class MaterialItem
+{
+    public int index { get; set; }
+    public string name { get; set; }
+    public string description { get; set; }
+    // 이미지 추가?
 }

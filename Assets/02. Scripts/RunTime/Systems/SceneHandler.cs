@@ -125,7 +125,7 @@ public class SceneHandler : MonoBehaviour
 
     private string ListToString(List<int> list)
     {
-        string str;
-        return str = (list == null || list.Count == 0) ? "-" : string.Join(",", list);
+        string str = (list == null || list.Count == 0) ? "-" : string.Join(",", list);
+        return str;
     }
 }
