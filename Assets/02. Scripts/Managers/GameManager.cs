@@ -6,7 +6,7 @@ public class GameManager : Singleton<GameManager>
 {
     public SaveDataManager saveDataManager;
     public UserDataManager userDataManager;
-    public UIFactoryManager uIFactoryManager;
+    public UIManager uiManager;
 
     public Dictionary<int, Weapon> allOfWeaponDictionary;
     public Dictionary<string, Achivement> allOfAchivementDictionary;
@@ -26,9 +26,9 @@ public class GameManager : Singleton<GameManager>
 
         saveDataManager = GetComponent<SaveDataManager>();
         userDataManager = new UserDataManager();
-        uIFactoryManager = GetComponent<UIFactoryManager>();
+        uiManager = GetComponent<UIManager>();
 
-        allOfWeaponDictionary = new ();
+        allOfWeaponDictionary = new();
         allOfAchivementDictionary = new();
 
         selectWeaponIndex.Value = 0;
@@ -42,17 +42,17 @@ public class GameManager : Singleton<GameManager>
     {
         SaveEssentialDictionarys();
     }
-    
+
     private void SaveEssentialDictionarys()
     {
         List<Weapon> weaponList = SaveAllTDatas<Weapon>(weaponXlsxFileName);
-        foreach(Weapon w in weaponList)
+        foreach (Weapon w in weaponList)
         {
             allOfWeaponDictionary.Add(w.index, w);
         }
 
         List<Achivement> achivementList = SaveAllTDatas<Achivement>(achivementXlsxFileName);
-        foreach(Achivement a in achivementList)
+        foreach (Achivement a in achivementList)
         {
             allOfAchivementDictionary.Add(a.achivementID, a);
         }

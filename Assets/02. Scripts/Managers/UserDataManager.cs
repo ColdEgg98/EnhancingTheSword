@@ -20,11 +20,6 @@ public class UserDataManager
             Debug.LogError("GetGold 과정 중 타입 변환에 실패했습니다.");
     }
 
-    public void GetWeapon(Weapon newWeapon)
-    {
-        GameManager.Instance.currentData.myWeapons.Add(newWeapon);
-    }
-
     public void GetWeapon(int ID)
     {
         if (!GameManager.Instance.allOfWeaponDictionary.ContainsKey(ID))
@@ -37,6 +32,7 @@ public class UserDataManager
         GameManager.Instance.currentData.myWeapons.Add(newWeapon);
         Debug.Log($"무기 추가됨 : {newWeapon.addressID}");
     }
+
     public void GetWeapon(string strID)
     {
         if (!int.TryParse(strID, out int ID))
@@ -51,6 +47,12 @@ public class UserDataManager
         Weapon newWeapon = GameManager.Instance.allOfWeaponDictionary[ID];
         GameManager.Instance.currentData.myWeapons.Add(newWeapon);
         Debug.Log($"무기 추가됨 : {newWeapon.addressID}");
+    }
+
+    public void GetItem(int ID)
+    {
+        // 아이템 딕셔너리 검색
+        // Toast를 UIManager에서 출력
     }
 }
 

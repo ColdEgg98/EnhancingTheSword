@@ -24,6 +24,13 @@ public class SaveSlot : MonoBehaviour
 
     void Start()
     {
+        // 씬 로드 다음에 UIManager를 Init
+        SceneManager.sceneLoaded += (scene, mode) =>
+        {
+            if (scene.buildIndex == 1)
+                GameManager.Instance.uiManager.Init();
+        };
+
         SetSlotButtons();
         SetPreviewText();
     }

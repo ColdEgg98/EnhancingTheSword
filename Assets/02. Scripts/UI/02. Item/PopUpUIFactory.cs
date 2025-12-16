@@ -16,12 +16,9 @@ public class PopUpUIFactory : MonoBehaviour
             {
                 return Instantiate(popUpPrefab, initializeTarget);
             },
-            actionOnGet: async obj =>
+            actionOnGet: obj =>
             {
                 obj.transform.SetAsLastSibling();
-                obj.Init();
-                await obj.PlayExitAnimation();
-                _pool.Release(obj);
             },
             actionOnRelease: obj => obj.gameObject.SetActive(false),
             actionOnDestroy: obj => Destroy(obj.gameObject),
@@ -29,17 +26,19 @@ public class PopUpUIFactory : MonoBehaviour
             maxSize: 10
             );
     }
-    public void ShowToast()
+
+    public void ShowToast(string itemName)
     {
         // Fire and Forget (결과를 기다리지 않고 실행만 함)
-        SpawnAndReleaseRoutine().Forget();
+        SpawnAndReleaseRoutine(itemName).Forget();
     }
 
     // 생성 -> 애니메이션 -> 반납 과정을 담당하는 로직
-    private async UniTask SpawnAndReleaseRoutine()
+    private async UniTask SpawnAndReleaseRoutine(string itemName)
     {
         // Get
         var item = _pool.Get();
+        item.Init(itemName);
 
         // 애니메이션 실행 및 대기
         await item.PlayExitAnimation();
