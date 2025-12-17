@@ -52,7 +52,7 @@ public class SaveDataManager : MonoBehaviour
         UserData data = new()
         {
             previewData = GameManager.Instance.currentData.previewData,
-            test = GameManager.Instance.currentData.test,
+            chanceBonus = GameManager.Instance.currentData.chanceBonus,
             myWeaponRefs = GameManager.Instance.currentData.myWeaponRefs
         };
         data.previewData.goldRef = GameManager.Instance.gold.Value;

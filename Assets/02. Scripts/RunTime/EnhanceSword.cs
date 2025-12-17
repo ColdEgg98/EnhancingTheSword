@@ -29,27 +29,11 @@ public class EnhanceSword : MonoBehaviour
 
     private void RunEnhancing()
     {
-        if (GameManager.Instance.currentWeapon.Value == null)
-        {
-            Debug.LogWarning("무기 정보가 비어있음");
-            return;
-        }
-
         Weapon currentWeapon = GameManager.Instance.currentWeapon.Value;
 
-        // 레벨 상한 체크
-        if (currentWeapon.index >= 20)
-        {
-            Debug.Log("최대 레벨 도달");
+        // 강화 유효 판단
+        if (IsValid(currentWeapon) == false)
             return;
-        }
-
-        // 재화 및 요구 아이템 체크
-        if (GameManager.Instance.gold.Value < currentWeapon.enhancingPrice)
-        {
-            Debug.Log("골드 부족");
-            return;
-        }
 
         // 재화 소모
         GameManager.Instance.gold.Value -= currentWeapon.enhancingPrice;
@@ -67,9 +51,35 @@ public class EnhanceSword : MonoBehaviour
         GameManager.Instance.saveDataManager.StartSave();
     }
 
+    private bool IsValid(Weapon weapon)
+    {
+        if (GameManager.Instance.currentWeapon.Value == null)
+        {
+            Debug.LogWarning("무기 정보가 비어있음");
+            return false;
+        }
+
+        // 레벨 상한 체크
+        if (weapon.index >= 20)
+        {
+            Debug.Log("최대 레벨 도달");
+            return false;
+        }
+
+        // 재화 및 요구 아이템 체크
+        if (GameManager.Instance.gold.Value < weapon.enhancingPrice)
+        {
+            Debug.Log("골드 부족");
+            return false;
+        }
+
+        return true;
+    }
+
     private bool CheckSuccess(float p)
     {
-        return Random.value * 100 <= p;
+        float percent = p + GameManager.Instance.currentData.chanceBonus;
+        return Random.value * 100 <= percent;
     }
 
     private void EnhancingSuccessed(Weapon currentWeapon)
@@ -96,14 +106,10 @@ public class EnhanceSword : MonoBehaviour
         // 실제 데이터(GameManager)에서 삭제
         var myWeapons = GameManager.Instance.currentData.myWeapons;
 
+        // 리스트에서 제거
+        myWeapons.RemoveAt(currentWeaponIndex);
+
         // UI 갱신 & 0번에서 깨지고, 인벤에서 0번 누르면 반응할 수 있도록
         GameManager.Instance.selectWeaponIndex.Value = -1;
-
-        // 리스트에서 제거 (인덱스 밀림 주의)
-        if (currentWeaponIndex < myWeapons.Count)
-        {
-            myWeapons.RemoveAt(currentWeaponIndex);
-        }
-
     }
 }

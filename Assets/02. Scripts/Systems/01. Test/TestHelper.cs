@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,6 +24,9 @@ public class TestHelper : MonoBehaviour
     [Header("무기 획득 UI")]
     [SerializeField] private TMP_InputField weaponIndexInput;
 
+    [Header("토스트 메세지 UI")]
+    [SerializeField] private TMP_InputField MesageInput;
+
     private void Awake()
     {
         #if UNITY_EDITOR
@@ -42,15 +44,7 @@ public class TestHelper : MonoBehaviour
         // 버튼들에 각각의 오브젝트들을 제어하는 함수 부여
         SetGameObjectsActive();
 
-        if (goldAmountInput == null)
-            Debug.LogWarning("goldInputField가 연결되지 않았습니다.");
-        else
-            goldAmountInput.onSubmit.AddListener(OnSubmitGoldInput);
-        
-        if (weaponIndexInput == null)
-            Debug.LogWarning("weaponIndexInput가 연결되지 않았습니다.");
-        else
-            weaponIndexInput.onSubmit.AddListener(OnSubmitWeaponIndexInput);
+        InputFieldsInit();
     }
 
     private void CallTesterUI()
@@ -80,15 +74,42 @@ public class TestHelper : MonoBehaviour
         }
     }
 
+    private void InputFieldsInit()
+    {
+        if (goldAmountInput == null)
+            Debug.LogWarning("goldInputField가 연결되지 않았습니다.");
+        else
+            goldAmountInput.onSubmit.AddListener(OnSubmitGoldInput);
+        
+        if (weaponIndexInput == null)
+            Debug.LogWarning("weaponIndexInput가 연결되지 않았습니다.");
+        else
+            weaponIndexInput.onSubmit.AddListener(OnSubmitWeaponIndexInput);
+
+        if (MesageInput == null)
+            Debug.LogWarning("weaponIndexInput가 연결되지 않았습니다.");
+        else
+            MesageInput.onSubmit.AddListener(OnSubmitToastMesage);
+    }
+
     public void OnSubmitGoldInput(string amount)
     {
         GameManager.Instance.userDataManager.GetGold(amount);
+        goldAmountInput.text = string.Empty;
         XButton();
     }
 
     public void OnSubmitWeaponIndexInput(string amount)
     {
         GameManager.Instance.userDataManager.GetWeapon(amount);
+        weaponIndexInput.text = string.Empty;
+        XButton();
+    }
+
+    public void OnSubmitToastMesage(string mesage)
+    {
+        GameManager.Instance.uiManager.popupUIFactory.ShowToast(mesage);
+        MesageInput.text = string.Empty;
         XButton();
     }
 

@@ -1,11 +1,19 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GetToastTest : MonoBehaviour
 {
-    private void Start()
+    private Button btn;
+    public string mesage = "테스트";
+
+    void Awake()
     {
-        GameManager.Instance.uiManager.popupUIFactory.ShowToast("임시 아이템");
-        GameManager.Instance.uiManager.popupUIFactory.ShowToast("임시 아이템");
-        GameManager.Instance.uiManager.popupUIFactory.ShowToast("임시 아이템");
+        btn = GetComponent<Button>();
+        btn.onClick.AddListener(ShowToast);
+    }
+
+    private void ShowToast()
+    {
+        GameManager.Instance.uiManager.popupUIFactory.ShowToast(mesage);
     }
 }
