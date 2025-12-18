@@ -36,6 +36,7 @@ public class UserData
     public List<String> myAchivementRefs;
     public List<MaterialItem> materials;
     public List<int> materialRefs;
+    public long totalGold;
 }
 
 [Serializable]

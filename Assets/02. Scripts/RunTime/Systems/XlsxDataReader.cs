@@ -59,8 +59,9 @@ public static class XlsxDataReader<T> where T : new()
         if (targetType == typeof(float)) return float.TryParse(value, out var f) ? f : 0f;
         if (targetType == typeof(double)) return double.TryParse(value, out var d) ? d : 0d;
         if (targetType == typeof(bool)) return bool.TryParse(value, out var b) ? b : false;
+        if (targetType == typeof(Enum)) return Enum.TryParse(targetType, value, true, out var e) ? e : "End";
 
-        // 필요하다면 DateTime, Enum 등 추가 가능
+        // 필요하다면 DateTime 등 추가 가능
         return null;
     }
 }

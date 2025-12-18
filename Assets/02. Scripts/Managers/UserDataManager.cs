@@ -15,15 +15,18 @@ public class UserDataManager
         // 골드같은거 구독해서 조건 검색
     }
 
-    public void GetGold(int value)
+    public void GetGold(long value)
     {
         GameManager.Instance.gold.Value += value;
+        GameManager.Instance.currentData.totalGold += value;
     }
 
     public void GetGold(string value)
     {
         if (long.TryParse(value, out long amount))
-            GameManager.Instance.gold.Value += amount;
+        {
+            GetGold(amount);
+        }
         else
             Debug.LogError("GetGold 과정 중 타입 변환에 실패했습니다.");
     }
@@ -90,7 +93,8 @@ public class Achivement : IDisposable
     public string description { get; set; }
     public RewardType rewardType { get; set; }
     public float value { get; set; }
-    // 조건 관련 변수 추가되어야 할듯
+    public RewardType conditionType { get; set; }
+    public long conditionValue { get; set; }
     public bool isAchive;
     private AsyncOperationHandle<Sprite> _handle;
     public async Task AchivementSpriteApply(Image targetImage)
