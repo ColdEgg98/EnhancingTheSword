@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class GetToastTest : MonoBehaviour
 {
     private Button btn;
-    public string mesage = "테스트";
+    public string mesage = string.Empty;
 
     void Awake()
     {

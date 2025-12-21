@@ -1,30 +1,82 @@
 using UnityEngine;
 using UnityEngine.Pool;
 using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
+using System;
 
 public class PopUpUIFactory : MonoBehaviour
 {
-    [SerializeField] private GetItemPopupUI popUpPrefab;
-    [SerializeField] private Transform initializeTarget;
-
-    private IObjectPool<GetItemPopupUI> _pool;
+    [Header("Prefab Assets")]
+    [SerializeField] private List<UIBase> UIBaseprefabs;
+    private Dictionary<Type, UIBase> _prefabDict;
+    private Dictionary<Type, IObjectPool<UIBase>> _poolDict;
+    
+    [Header("Monitoring")]
+    public int poolDictCounter;
 
     private void Awake()
     {
-        _pool = new ObjectPool<GetItemPopupUI>(
-            createFunc: () =>
+        PopulatePrefabDict();
+    }
+
+    private void PopulatePrefabDict()
+    {
+        _poolDict = new();
+        _prefabDict = new();
+
+        foreach (var prefab in UIBaseprefabs)
+        {
+            Type type = prefab.GetType();
+            _prefabDict[type] = prefab;
+
+            _poolDict[type] = CreatePool(type);
+        }
+    }
+
+    private IObjectPool<UIBase> CreatePool(Type type)
+    {
+        poolDictCounter++;
+        Debug.Log($"{type.Name} 타입 pool 생성 및 반환 시도");
+        return new ObjectPool<UIBase>(
+            createFunc: () => 
             {
-                return Instantiate(popUpPrefab, initializeTarget);
+                var instance = Instantiate(_prefabDict[type]);
+                instance.TryInitTarget();
+                instance.gameObject.SetActive(false);
+                return instance;
             },
-            actionOnGet: obj =>
+            actionOnGet: ui => 
             {
-                obj.transform.SetAsLastSibling();
+                ui.gameObject.SetActive(true);
             },
-            actionOnRelease: obj => obj.gameObject.SetActive(false),
-            actionOnDestroy: obj => Destroy(obj.gameObject),
-            defaultCapacity: 3,
+            actionOnRelease: ui => ui.gameObject.SetActive(false),
+            actionOnDestroy: ui => Destroy(ui.gameObject),
+            defaultCapacity: 1,
             maxSize: 10
-            );
+        );
+    }
+
+    public T Get<T>() where T : UIBase
+    {
+        var type = typeof(T);
+
+        if (_poolDict.TryGetValue(type, out var pool))
+        {
+            // BasePopup으로 반환된 것을 T로 캐스팅
+            return (T)pool.Get();
+        }
+
+        Debug.LogError($"[PopupFactory] Pool not found for type: {type}");
+        return null;
+    }
+
+    public void Release(UIBase item)
+    {
+        var type = item.GetType();
+        if (_poolDict.TryGetValue(type, out var pool))
+        {
+            pool.Release(item);
+        }
     }
 
     public void ShowToast(string itemName)
@@ -37,13 +89,13 @@ public class PopUpUIFactory : MonoBehaviour
     private async UniTask SpawnAndReleaseRoutine(string itemName)
     {
         // Get
-        var item = _pool.Get();
+        var item = Get<ToastPopupUI>();
         item.Init(itemName);
 
         // 애니메이션 실행 및 대기
-        await item.PlayExitAnimation();
+        await item.PlayAnimation();
 
         // Release
-        _pool.Release(item);
+        Release(item);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class ToggleActiveShortcut
 {
-    // Ctrl+H ·Î Åä±Û
+    // Ctrl+H ë‹¨ì¶•í‚¤ í• ë‹¹
     [MenuItem("GameObject/Toggle Active %h", false, 0)]
     private static void ToggleActive()
     {
@@ -15,13 +15,13 @@ public static class ToggleActiveShortcut
             return;
         }
 
-        // µ¿ÀÏ »óÅÂ·Î ¸ÂÃß°Å³ª ´Ü¼ø ¹İÀü Áß ¼±ÅÃ: ¿©±â¼± '°¢ÀÚ ¹İÀü'
+        // ì—¬ëŸ¬ ì˜¤ë¸Œì íŠ¸ë¥¼ í† ê¸€í•´ë„ Undo(Ctrl+Z) í•œ ë²ˆìœ¼ë¡œ ë˜ëŒë¦¬ê¸° ìœ„í•´ ê·¸ë£¹ ì‹œì‘
         Undo.IncrementCurrentGroup();
         int group = Undo.GetCurrentGroup();
 
         foreach (var obj in selected)
         {
-            // Prefab ´Ü°è¿¡¼­ SetActive´Â Çã¿ëµÇÁö¸¸, Prefab ¿¡¼Â ÀÚÃ¼ ¼öÁ¤Àº ºÒ°¡
+            // ë³€ê²½ ì‚¬í•­ì„ Undo ì‹œìŠ¤í…œì— ê¸°ë¡í•˜ê³ , ì €ì¥ í•„ìš”(Dirty) ìƒíƒœë¡œ í‘œì‹œ
             Undo.RecordObject(obj, "Toggle Active");
             obj.SetActive(!obj.activeSelf);
             EditorUtility.SetDirty(obj);
@@ -36,11 +36,11 @@ public static class InspectorLockToggle
     [MenuItem("Window/Toggle Inspector Lock #l")] // Shift+L
     private static void ToggleInspectorLock()
     {
-        // ÇöÀç ¿­·Á ÀÖ´Â Inspector Ã¢ °¡Á®¿À±â
+        // í˜„ì¬ ì—´ë ¤ ìˆëŠ” Inspector ìœˆë„ìš° ì¸ìŠ¤í„´ìŠ¤ ê°€ì ¸ì˜¤ê¸°
         var inspectorType = typeof(Editor).Assembly.GetType("UnityEditor.InspectorWindow");
         var window = EditorWindow.GetWindow(inspectorType);
 
-        // isLocked ¼Ó¼º °¡Á®¿À±â
+        // ë¹„ê³µê°œ(private) ì†ì„±ì¸ 'isLocked' í”„ë¡œí¼í‹° ì •ë³´ ê°€ì ¸ì˜¤ê¸°
         var isLockedProp = inspectorType.GetProperty("isLocked", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
         bool current = (bool)isLockedProp.GetValue(window, null);

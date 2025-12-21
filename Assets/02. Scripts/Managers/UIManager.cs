@@ -3,7 +3,6 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     public PopUpUIFactory popupUIFactory;
-
     // saveSlot에서 호출
     public void Init()
     {
@@ -11,3 +10,4 @@ public class UIManager : MonoBehaviour
             popupUIFactory = FindAnyObjectByType<PopUpUIFactory>();
     }
 }
+    //사용법 : GameManager.Instance.uiManager.popupUIFactory.ShowToast(mesage);

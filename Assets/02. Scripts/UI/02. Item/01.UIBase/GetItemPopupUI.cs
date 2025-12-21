@@ -1,28 +1,30 @@
 using DG.Tweening;
-using DocumentFormat.OpenXml.Spreadsheet;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
-public class GetItemPopupUI : MonoBehaviour
+public class ToastPopupUI : UIBase
 {
     private CanvasGroup cg;
     private TextMeshProUGUI contentText;
+    public override Transform initializeTarget { get; protected set; }
+
 
     private void Awake()
     {
         cg = GetComponent<CanvasGroup>();
         contentText = GetComponentInChildren<TextMeshProUGUI>();
+        initializeTarget = GameObject.FindWithTag("ToastPopupTarget").transform;
     }
 
-    public void Init(string itemName)
+    public override void Init(string itemName)
     {
         contentText.text = $"{itemName}을(를) 획득했습니다.";
         cg.alpha = 1f;
         gameObject.SetActive(true);
     }
 
-    public async Task PlayExitAnimation()
+    public override async Task PlayAnimation()
     {
         Sequence seq = DOTween.Sequence();
         seq.Join(cg.DOFade(0f, 5f).SetEase(Ease.InCubic));

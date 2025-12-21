@@ -88,6 +88,15 @@ public class SceneHandler : MonoBehaviour
             return;
         }
 
+        if (weapon.index == 20)
+        {
+            probabilityText.text = "마지막 단계에 도달했습니다.";
+            InfoText.text = $"무기 강화 금액\n\t-\n" +
+                            $"필요 아이템\n\t-\n" +
+                            $"무기 판매 가격\n\t-";
+            return;
+        }
+
         float Bonus = GameManager.Instance.currentData.chanceBonus;
 
         probabilityText.text = $"강화 확률 : <color=#FF0000>{weapon.probability}%</color>";

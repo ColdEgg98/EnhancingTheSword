@@ -28,6 +28,7 @@ public class SaveDataManager : MonoBehaviour
         indexPath = Path.Combine(folderPath, "MetaData.json");
         path = Path.Combine(folderPath, $"User Data{slotNum}.json");
 #else
+        Application.targetFrameRate = 60;
         path = System.IO.Path.Combine(Application.persistentDataPath, "User Data.json");
 #endif
         Debug.Log("PathSetting is Run");
