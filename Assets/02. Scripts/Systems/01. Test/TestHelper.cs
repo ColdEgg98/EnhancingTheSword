@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -18,14 +19,15 @@ public class TestHelper : MonoBehaviour
     [SerializeField] private List<GameObject> gameObjects;
     [SerializeField] private List<Button> activeSetter;
 
-    [Header("골드 획득 UI")]
+    [Header("InputFields")]
     [SerializeField] private TMP_InputField goldAmountInput;
-
-    [Header("무기 획득 UI")]
     [SerializeField] private TMP_InputField weaponIndexInput;
+    [SerializeField] private TMP_InputField toastInput;
+    [SerializeField] private TMP_InputField NoticeInput;
 
-    [Header("토스트 메세지 UI")]
-    [SerializeField] private TMP_InputField MesageInput;
+    [Header("Toggle")]
+    [SerializeField] private Toggle colorToggle;
+    private Color c;
 
     private void Awake()
     {
@@ -39,6 +41,8 @@ public class TestHelper : MonoBehaviour
     {
         btn = GetComponentInChildren<Button>();
         btn.onClick.AddListener(CallTesterUI);
+
+        c = Color.white;
 
         activeSetter = ButtonsTarget.GetComponentsInChildren<Button>().ToList();
         // 버튼들에 각각의 오브젝트들을 제어하는 함수 부여
@@ -76,20 +80,17 @@ public class TestHelper : MonoBehaviour
 
     private void InputFieldsInit()
     {
-        if (goldAmountInput == null)
-            Debug.LogWarning("goldInputField가 연결되지 않았습니다.");
-        else
-            goldAmountInput.onSubmit.AddListener(OnSubmitGoldInput);
-        
-        if (weaponIndexInput == null)
-            Debug.LogWarning("weaponIndexInput가 연결되지 않았습니다.");
-        else
-            weaponIndexInput.onSubmit.AddListener(OnSubmitWeaponIndexInput);
+        goldAmountInput.onSubmit.AddListener(OnSubmitGoldInput);
+        weaponIndexInput.onSubmit.AddListener(OnSubmitWeaponIndexInput);
+        toastInput.onSubmit.AddListener(OnSubmitToastMesage);
+        NoticeInput.onSubmit.AddListener(OnSubmitNoticeMesage);
 
-        if (MesageInput == null)
-            Debug.LogWarning("weaponIndexInput가 연결되지 않았습니다.");
-        else
-            MesageInput.onSubmit.AddListener(OnSubmitToastMesage);
+        colorToggle.onValueChanged.AddListener(colorChange);
+    }
+
+    private void colorChange(bool arg0)
+    {
+        c = (arg0) ? Color.white : Color.red;
     }
 
     public void OnSubmitGoldInput(string amount)
@@ -108,12 +109,19 @@ public class TestHelper : MonoBehaviour
 
     public void OnSubmitToastMesage(string mesage)
     {
-        GameManager.Instance.uiManager.popupUIFactory.ShowToast(mesage);
-        MesageInput.text = string.Empty;
+        GameManager.Instance.uiManager.UIFactory.ShowToast(mesage);
+        toastInput.text = string.Empty;
         XButton();
     }
 
-/// <summary>각각 X버튼 유니티 이벤트에다 할당. 따로 부여할 수도있지만 귀찮음</summary>
+    public void OnSubmitNoticeMesage(string mesage)
+    {
+        GameManager.Instance.uiManager.UIFactory.ShowNotice(mesage, c);
+        NoticeInput.text = string.Empty;
+        XButton();
+    }
+
+    /// <summary>각각 X버튼 유니티 이벤트에다 할당. 따로 부여할 수도있지만 귀찮음</summary>
     public void XButton()
     {
         TesterUI.SetActive(false);

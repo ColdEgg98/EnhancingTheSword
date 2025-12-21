@@ -14,6 +14,6 @@ public class GetToastTest : MonoBehaviour
 
     private void ShowToast()
     {
-        GameManager.Instance.uiManager.popupUIFactory.ShowToast(mesage);
+        GameManager.Instance.uiManager.UIFactory.ShowToast(mesage);
     }
 }

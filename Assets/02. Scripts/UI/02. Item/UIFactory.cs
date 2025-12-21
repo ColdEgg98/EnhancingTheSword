@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using System;
 
-public class PopUpUIFactory : MonoBehaviour
+public class UIFactory : MonoBehaviour
 {
     [Header("Prefab Assets")]
     [SerializeField] private List<UIBase> UIBaseprefabs;
@@ -82,14 +82,26 @@ public class PopUpUIFactory : MonoBehaviour
     public void ShowToast(string itemName)
     {
         // Fire and Forget (결과를 기다리지 않고 실행만 함)
-        SpawnAndReleaseRoutine(itemName).Forget();
+        SpawnAndRelease<ToastPopupUI>(itemName).Forget();
+    }
+
+    public void ShowNotice(string itemName)
+    {
+        // Fire and Forget (결과를 기다리지 않고 실행만 함)
+        SpawnAndRelease<NoticeUI>(itemName).Forget();
+    }
+
+    public void ShowNotice(string itemName, Color c)
+    {
+        // Fire and Forget (결과를 기다리지 않고 실행만 함)
+        SpawnAndRelease<NoticeUI>(itemName, c).Forget();
     }
 
     // 생성 -> 애니메이션 -> 반납 과정을 담당하는 로직
-    private async UniTask SpawnAndReleaseRoutine(string itemName)
+    private async UniTask SpawnAndRelease<T>(string itemName) where T : UIBase
     {
         // Get
-        var item = Get<ToastPopupUI>();
+        var item = Get<T>();
         item.Init(itemName);
 
         // 애니메이션 실행 및 대기
@@ -98,4 +110,20 @@ public class PopUpUIFactory : MonoBehaviour
         // Release
         Release(item);
     }
+    
+    // 생성 -> 애니메이션 -> 반납 과정을 담당하는 로직
+    private async UniTask SpawnAndRelease<T>(string itemName, Color textColor) where T : UIBase
+    {
+        // Get
+        var item = Get<T>();
+        item.SetContentText(textColor);
+        item.Init(itemName);
+
+        // 애니메이션 실행 및 대기
+        await item.PlayAnimation();
+
+        // Release
+        Release(item);
+    }
+
 }

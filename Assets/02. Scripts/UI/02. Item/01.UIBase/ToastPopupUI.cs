@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
-public class NoticeUI : UIBase
+public class ToastPopupUI : UIBase
 {
     public override Transform InitializeTarget { get; protected set; }
 
@@ -12,23 +12,22 @@ public class NoticeUI : UIBase
         SetContext();
     }
 
-    public override void Init(string message)
+    public override void Init(string itemName)
     {
-        base.Init(message);
-        ContentText.text = message;
+        base.Init(itemName);
+        ContentText.text = $"{itemName}을(를) 획득했습니다.";
     }
 
     public override async Task PlayAnimation()
     {
         Sequence seq = DOTween.Sequence();
-        seq.Join(Cg.DOFade(0f, 3f).SetEase(Ease.InCubic));
-
+        seq.Join(Cg.DOFade(0f, 5f).SetEase(Ease.InCubic));
         await seq.AsyncWaitForCompletion();
     }
 
     protected override void SetInitTarget()
     {
-        InitializeTarget = GameObject.FindWithTag("NoticeTarget").transform;
-        transform.position = InitializeTarget.position;
+        InitializeTarget = GameObject.FindWithTag("ToastPopupTarget").transform;
     }
-}
+
+}   
