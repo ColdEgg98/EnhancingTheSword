@@ -89,12 +89,15 @@ public class UserDataManager
 [Serializable]
 public class Achivement : IDisposable
 {
-    public string achivementID { get; set; }
-    public string description { get; set; }
-    public RewardType rewardType { get; set; }
-    public float value { get; set; }
-    public RewardType conditionType { get; set; }
-    public long conditionValue { get; set; }
+    // 조건 클래스 만들고 조건 클래스로 생성자 만들어서 데이터 심을까........?
+    public string AchivementID { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public RewardType RewardType { get; set; }
+    public float Value { get; set; }
+    public RewardType ConditionType { get; set; }
+    public long ConditionValue { get; set; }
+
     public bool isAchive;
     private AsyncOperationHandle<Sprite> _handle;
     public async Task AchivementSpriteApply(Image targetImage)
@@ -102,7 +105,7 @@ public class Achivement : IDisposable
         if (_handle.IsValid())
             Addressables.Release(_handle);
 
-        _handle = Addressables.LoadAssetAsync<Sprite>(achivementID);
+        _handle = Addressables.LoadAssetAsync<Sprite>(AchivementID);
         await _handle.Task;
         targetImage.sprite = _handle.Result;
     }

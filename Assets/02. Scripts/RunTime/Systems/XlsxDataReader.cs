@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using ClosedXML.Excel;
@@ -61,7 +62,7 @@ public static class XlsxDataReader<T> where T : new()
         if (targetType == typeof(bool)) return bool.TryParse(value, out var b) ? b : false;
         if (targetType == typeof(Enum)) return Enum.TryParse(targetType, value, true, out var e) ? e : "End";
 
-        // 필요하다면 DateTime 등 추가 가능
-        return null;
+        // 타입 변환 에러
+        throw new Exception("타입 변환 에러");
     }
 }

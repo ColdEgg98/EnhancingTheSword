@@ -10,4 +10,4 @@ public class UIManager : MonoBehaviour
             UIFactory = FindAnyObjectByType<UIFactory>();
     }
 }
-    //사용법 : GameManager.Instance.uiManager.popupUIFactory.ShowToast(mesage);
+//사용법 : GameManager.Instance.uiManager.UIFactory.ShowToast(mesage);

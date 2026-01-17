@@ -54,7 +54,7 @@ public class GameManager : Singleton<GameManager>
         List<Achivement> achivementList = SaveAllTDatas<Achivement>(achivementXlsxFileName);
         foreach (Achivement a in achivementList)
         {
-            allOfAchivementDictionary.Add(a.achivementID, a);
+            allOfAchivementDictionary.Add(a.AchivementID, a);
         }
     }
 
