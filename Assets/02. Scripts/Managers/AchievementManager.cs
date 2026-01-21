@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 // 업적 체크 및 보상 프로세스 가동
@@ -14,7 +15,7 @@ public class AchievementManager
         preWeapon = GameManager.Instance.currentWeapon.Value;
     }
 
-    public void CheckAchivement(ConditionType cType, long value)
+    public async void CheckAchivement(ConditionType cType, long value)
     {
         Debug.Log($"CheckAchievement Run: {cType}, Value: {value}");
         if (GameManager.Instance.AchieveByCondition.TryGetValue(cType, out List<Achievement> targetList))
@@ -28,6 +29,7 @@ public class AchievementManager
                 {
                     ProcessReward(a);
                     GameManager.Instance.currentData.myAchievementRefs.Add(a.AchivementID);
+                    await Task.Delay(3000);
                 }
             }
         }

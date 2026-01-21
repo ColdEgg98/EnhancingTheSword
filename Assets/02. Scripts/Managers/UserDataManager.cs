@@ -10,6 +10,9 @@ public class UserDataManager
         GameManager.Instance.gold.Value += value;
         GameManager.Instance.currentData.totalGold += value;
 
+        // UI 표시
+        GameManager.Instance.uiManager.UIFactory.ShowToast($"{value} 골드를 획득했습니다.");
+
         // 업적 체크
         GameManager.Instance.achievementManager.CheckAchivement(ConditionType.TotalGold, GameManager.Instance.currentData.enhanceCount++);
     }
@@ -34,6 +37,7 @@ public class UserDataManager
 
         Weapon newWeapon = GameManager.Instance.allOfWeaponDictionary[ID];
         GameManager.Instance.currentData.myWeapons.Add(newWeapon);
+        GameManager.Instance.uiManager.UIFactory.ShowToast($"{UIManager.AttachJoSa(newWeapon.name)} 획득했습니다.");
         Debug.Log($"무기 추가됨 : {newWeapon.addressID}");
     }
 
@@ -42,15 +46,7 @@ public class UserDataManager
         if (!int.TryParse(strID, out int ID))
             Debug.LogWarning("GetWeapon 과정 중 변환 실패");
 
-        if (!GameManager.Instance.allOfWeaponDictionary.ContainsKey(ID))
-        {
-            Debug.LogError($"확인되지 않은 무기 ID : {ID}");
-            return;
-        }
-
-        Weapon newWeapon = GameManager.Instance.allOfWeaponDictionary[ID];
-        GameManager.Instance.currentData.myWeapons.Add(newWeapon);
-        Debug.Log($"무기 추가됨 : {newWeapon.addressID}");
+        GetWeapon(ID);
     }
 
     public void GetItem(int ID)

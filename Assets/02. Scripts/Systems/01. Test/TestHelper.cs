@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -60,10 +61,11 @@ public class TestHelper : MonoBehaviour
     {
         Debug.Log("SetGameObjectsActive 실행");
         int index = 0;
+        StringBuilder sb = new();
         foreach (Button b in activeSetter)
         {
             int currentIndex = index;
-            Debug.Log($"현재 index에 저장된 오브젝트 : {currentIndex}번 : {gameObjects[currentIndex].name}");
+            sb.Append($"현재 index에 저장된 오브젝트 : {currentIndex}번 : {gameObjects[currentIndex].name}");
             b.onClick.RemoveAllListeners();
             b.onClick.AddListener(() =>
             {
@@ -76,6 +78,7 @@ public class TestHelper : MonoBehaviour
             });
             index++;
         }
+        Debug.Log(sb);
     }
 
     private void InputFieldsInit()

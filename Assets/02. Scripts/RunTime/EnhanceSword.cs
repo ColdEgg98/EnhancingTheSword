@@ -59,21 +59,21 @@ public class EnhanceSword : MonoBehaviour
     {
         if (GameManager.Instance.currentWeapon.Value == null)
         {
-            GameManager.Instance.uiManager.UIFactory.ShowNotice("선택된 무기가 없습니다");
+            GameManager.Instance.uiManager.UIFactory.ShowNotice("선택된 무기가 없습니다", Color.white);
             return false;
         }
 
         // 레벨 상한 체크
         if (weapon.index >= 20)
         {
-            GameManager.Instance.uiManager.UIFactory.ShowNotice("이미 최대 레벨에 도달했습니다");
+            GameManager.Instance.uiManager.UIFactory.ShowNotice("이미 최대 레벨에 도달했습니다", Color.white);
             return false;
         }
 
         // 재화 및 요구 아이템 체크
         if (GameManager.Instance.gold.Value < weapon.enhancingPrice)
         {
-            GameManager.Instance.uiManager.UIFactory.ShowNotice("골드가 부족합니다");
+            GameManager.Instance.uiManager.UIFactory.ShowNotice("골드가 부족합니다", Color.white);
             return false;
         }
 
