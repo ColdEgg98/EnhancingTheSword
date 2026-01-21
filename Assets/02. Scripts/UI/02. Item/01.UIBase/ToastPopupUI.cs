@@ -15,7 +15,7 @@ public class ToastPopupUI : UIBase
     public override void Init(string itemName)
     {
         base.Init(itemName);
-        ContentText.text = $"{itemName}을(를) 획득했습니다.";
+        ContentText.text = itemName;
     }
 
     public override async Task PlayAnimation()

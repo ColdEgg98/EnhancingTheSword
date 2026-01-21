@@ -1,5 +1,4 @@
-using DocumentFormat.OpenXml.Office2010.ExcelAc;
-using System;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -28,7 +27,10 @@ public class SaveSlot : MonoBehaviour
         SceneManager.sceneLoaded += (scene, mode) =>
         {
             if (scene.buildIndex == 1)
+            {
                 GameManager.Instance.uiManager.Init();
+                GameManager.Instance.achievementManager.Init();
+            }
         };
 
         SetSlotButtons();
@@ -64,6 +66,9 @@ public class SaveSlot : MonoBehaviour
             GameManager.Instance.currentData.myWeapons = new();
             GameManager.Instance.userDataManager.GetWeapon(1); // 목검
             GameManager.Instance.saveDataManager.StartSave(num);
+
+            // 게임 실행 업적
+            _ = GameManager.Instance.achievementManager.GameStartAchieved();
         }
 
         // 화면 바뀔 때 무기 표시

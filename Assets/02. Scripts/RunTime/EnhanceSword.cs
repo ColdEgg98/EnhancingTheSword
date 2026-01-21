@@ -41,11 +41,15 @@ public class EnhanceSword : MonoBehaviour
         // 강화 시도
         bool result = CheckSuccess(currentWeapon.probability);
 
+        // 업적 체크
+        GameManager.Instance.achievementManager.CheckAchivement(ConditionType.ShotEnhance, GameManager.Instance.currentData.enhanceCount++);
+
         // 강화 결과 처리
         if (result)
             EnhancingSuccessed(currentWeapon);
         else
             EnhancingFailed(currentWeapon);
+
 
         // 저장
         GameManager.Instance.saveDataManager.StartSave();
@@ -55,21 +59,21 @@ public class EnhanceSword : MonoBehaviour
     {
         if (GameManager.Instance.currentWeapon.Value == null)
         {
-            Debug.LogWarning("무기 정보가 비어있음");
+            GameManager.Instance.uiManager.UIFactory.ShowNotice("선택된 무기가 없습니다");
             return false;
         }
 
         // 레벨 상한 체크
         if (weapon.index >= 20)
         {
-            Debug.Log("최대 레벨 도달");
+            GameManager.Instance.uiManager.UIFactory.ShowNotice("이미 최대 레벨에 도달했습니다");
             return false;
         }
 
         // 재화 및 요구 아이템 체크
         if (GameManager.Instance.gold.Value < weapon.enhancingPrice)
         {
-            Debug.Log("골드 부족");
+            GameManager.Instance.uiManager.UIFactory.ShowNotice("골드가 부족합니다");
             return false;
         }
 
@@ -111,5 +115,8 @@ public class EnhanceSword : MonoBehaviour
 
         // UI 갱신 & 0번에서 깨지고, 인벤에서 0번 누르면 반응할 수 있도록
         GameManager.Instance.selectWeaponIndex.Value = -1;
+
+        // 업적 체크
+        GameManager.Instance.achievementManager.CheckAchivement(ConditionType.FailEnhance, GameManager.Instance.currentData.failCount++);
     }
 }

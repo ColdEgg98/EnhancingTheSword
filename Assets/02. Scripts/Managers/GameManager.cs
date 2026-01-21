@@ -7,9 +7,11 @@ public class GameManager : Singleton<GameManager>
     public SaveDataManager saveDataManager;
     public UserDataManager userDataManager;
     public UIManager uiManager;
+    public AchievementManager achievementManager;
 
     public Dictionary<int, Weapon> allOfWeaponDictionary;
-    public Dictionary<string, Achivement> allOfAchivementDictionary;
+    public Dictionary<string, Achievement> allOfAchivementDictionary;
+    public Dictionary<ConditionType, List<Achievement>> AchieveByCondition;
     private string weaponXlsxFileName;
     private string achivementXlsxFileName;
 
@@ -27,9 +29,11 @@ public class GameManager : Singleton<GameManager>
         saveDataManager = GetComponent<SaveDataManager>();
         userDataManager = new UserDataManager();
         uiManager = GetComponent<UIManager>();
+        achievementManager = new AchievementManager();
 
         allOfWeaponDictionary = new();
         allOfAchivementDictionary = new();
+        AchieveByCondition = new();
 
         selectWeaponIndex.Value = 0;
         currentWeapon.Value = new();
@@ -45,16 +49,24 @@ public class GameManager : Singleton<GameManager>
 
     private void SaveEssentialDictionarys()
     {
+        // 무기 xlsx 파일 데이터 저장
         List<Weapon> weaponList = SaveAllTDatas<Weapon>(weaponXlsxFileName);
         foreach (Weapon w in weaponList)
         {
             allOfWeaponDictionary.Add(w.index, w);
         }
 
-        List<Achivement> achivementList = SaveAllTDatas<Achivement>(achivementXlsxFileName);
-        foreach (Achivement a in achivementList)
+        // 업적 xlsx 파일 데이터 저장
+        List<Achievement> achivementList = SaveAllTDatas<Achievement>(achivementXlsxFileName);
+        foreach (Achievement a in achivementList)
         {
             allOfAchivementDictionary.Add(a.AchivementID, a);
+
+            // 딕셔너리 다중맵
+            if (!AchieveByCondition.ContainsKey(a.ConditionType))
+                AchieveByCondition[a.ConditionType] = new List<Achievement>();
+
+            AchieveByCondition[a.ConditionType].Add(a);
         }
     }
 

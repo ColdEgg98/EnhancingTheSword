@@ -60,7 +60,7 @@ public static class XlsxDataReader<T> where T : new()
         if (targetType == typeof(float)) return float.TryParse(value, out var f) ? f : 0f;
         if (targetType == typeof(double)) return double.TryParse(value, out var d) ? d : 0d;
         if (targetType == typeof(bool)) return bool.TryParse(value, out var b) ? b : false;
-        if (targetType == typeof(Enum)) return Enum.TryParse(targetType, value, true, out var e) ? e : "End";
+        if (targetType.IsEnum) return Enum.TryParse(targetType, value, true, out var e) ? e : Enum.Parse(targetType, "End", true);
 
         // 타입 변환 에러
         throw new Exception("타입 변환 에러");

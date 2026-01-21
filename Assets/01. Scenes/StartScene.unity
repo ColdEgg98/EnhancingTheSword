@@ -1727,10 +1727,12 @@ MonoBehaviour:
       achivementCount: 0
       time: 
       goldRef: 0
-    test: 0
+    chanceBonus: 0
+    totalGold: 0
+    enhanceCount: 0
+    failCount: 0
     myWeapons: []
     myWeaponRefs: 
-    myAchivementRefs: []
     materialRefs: 
   gold:
     value: 0
@@ -1778,7 +1780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7cecf5ab0eda8741beb38c92bfb5760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  popupUIFactory: {fileID: 0}
+  UIFactory: {fileID: 0}
 --- !u!1 &1277231988
 GameObject:
   m_ObjectHideFlags: 0

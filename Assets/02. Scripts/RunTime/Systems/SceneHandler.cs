@@ -27,17 +27,11 @@ public class SceneHandler : MonoBehaviour
             {
                 if (weapon == null)
                 {
-                    targetImage.gameObject.SetActive(false);
-                    weaponNameText.gameObject.SetActive(false);
-                    InfoText.gameObject.SetActive(false);
-                    probabilityText.gameObject.SetActive(false);
+                    GameObjectsSetActive(false);
                 }
                 else
                 {
-                    targetImage.gameObject.SetActive(true);
-                    weaponNameText.gameObject.SetActive(true);
-                    InfoText.gameObject.SetActive(true);
-                    probabilityText.gameObject .SetActive(true);
+                    GameObjectsSetActive(true);
 
                     weaponNameText.text = weapon.name;
                     LoadSprite(weapon.addressID);
@@ -63,6 +57,14 @@ public class SceneHandler : MonoBehaviour
             .AddTo(this);
     }
 
+    private void GameObjectsSetActive(bool v)
+    {
+        targetImage.gameObject.SetActive(v);
+        weaponNameText.gameObject.SetActive(v);
+        InfoText.gameObject.SetActive(v);
+        probabilityText.gameObject.SetActive(v);
+    }
+
     public async void LoadSprite(string id)
     {
         if (string.IsNullOrEmpty(id)) return;
@@ -84,7 +86,7 @@ public class SceneHandler : MonoBehaviour
     {
         if (weapon == null)
         {
-            // 파괴됨 알림창
+            GameManager.Instance.uiManager.UIFactory.ShowNotice("무기가 파괴되었습니다", Color.red);
             return;
         }
 

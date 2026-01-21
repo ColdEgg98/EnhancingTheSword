@@ -11,32 +11,42 @@ public class UserData
 {
     public UserData()
     {
-        previewData = new();
-        myWeapons = new();
-        myWeaponRefs = new();
-        myAchivementRefs = new();
-        materials = new();
-        materialRefs = new();
+        SetNew();
     }
 
     public UserData(PreviewData data)
     {
         previewData = data;
+        SetNew();
+    }
+
+    private void SetNew()
+    {
+        previewData = new();
         myWeapons = new();
         myWeaponRefs = new();
-        myAchivementRefs = new();
+        myAchievementRefs = new();
         materials = new();
         materialRefs = new();
     }
 
+    // Stat
     public PreviewData previewData;
     public float chanceBonus;
+    public long totalGold;
+    public int enhanceCount;
+    public int failCount;
+
+    // Weapon
     public List<Weapon> myWeapons;
     public List<int> myWeaponRefs;
-    public List<String> myAchivementRefs;
+
+    // Achievement
+    public HashSet<String> myAchievementRefs;
+
+    // Material
     public List<MaterialItem> materials;
     public List<int> materialRefs;
-    public long totalGold;
 }
 
 [Serializable]

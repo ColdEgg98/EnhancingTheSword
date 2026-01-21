@@ -1,24 +1,17 @@
 using UnityEngine;
-using System;
-using System.Threading.Tasks;
-using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.UI;
-using UnityEngine.AddressableAssets;
 
 /// <summary>
 /// 골드, 아이템, 무기 등 획득시 호출되어 재화 수급 및 업적 감지 기능을 관리합니다.
 /// </summary>
 public class UserDataManager
 {    
-    public UserDataManager()
-    {
-        // 골드같은거 구독해서 조건 검색
-    }
-
     public void GetGold(long value)
     {
         GameManager.Instance.gold.Value += value;
         GameManager.Instance.currentData.totalGold += value;
+
+        // 업적 체크
+        GameManager.Instance.achievementManager.CheckAchivement(ConditionType.TotalGold, GameManager.Instance.currentData.enhanceCount++);
     }
 
     public void GetGold(string value)
@@ -66,67 +59,4 @@ public class UserDataManager
         // Toast를 UIManager에서 출력
     }
 
-    public void ProcessReward(RewardType type, int value = 0)
-    {
-        switch (type)
-        {
-            case RewardType.Gold:
-                GameManager.Instance.userDataManager.GetGold(value);
-                break;
-            case RewardType.Weapon:
-                GameManager.Instance.userDataManager.GetWeapon(value);
-                break;
-            case RewardType.ProbabilityBonus:
-                GameManager.Instance.currentData.chanceBonus += value;
-                break;
-            default:
-                break;
-        }
-    }
-}
-
-
-[Serializable]
-public class Achivement : IDisposable
-{
-    // 조건 클래스 만들고 조건 클래스로 생성자 만들어서 데이터 심을까........?
-    public string AchivementID { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public RewardType RewardType { get; set; }
-    public float Value { get; set; }
-    public RewardType ConditionType { get; set; }
-    public long ConditionValue { get; set; }
-
-    public bool isAchive;
-    private AsyncOperationHandle<Sprite> _handle;
-    public async Task AchivementSpriteApply(Image targetImage)
-    {
-        if (_handle.IsValid())
-            Addressables.Release(_handle);
-
-        _handle = Addressables.LoadAssetAsync<Sprite>(AchivementID);
-        await _handle.Task;
-        targetImage.sprite = _handle.Result;
-    }
-
-    // 사용하는 UI에서 Dispose를 잘해줘야함.
-    // 업적 이미지가 내려갈 때 Dispose를 호출하게되거나
-    // 업적 Monobehavior 상속된 핸들러 클래스를 만들어서 업적 UI에 붙이면될듯
-    // 만약 이 솔루션으로 되면 dispose대신 ondestory 쓰면 되고
-    public void Dispose()
-    {
-        if (_handle.IsValid())
-            Addressables.Release(_handle);
-        _handle = default;
-    }
-}
-
-public enum RewardType
-{
-    Gold,
-    Weapon,
-    Item,
-    ProbabilityBonus,
-    End
 }

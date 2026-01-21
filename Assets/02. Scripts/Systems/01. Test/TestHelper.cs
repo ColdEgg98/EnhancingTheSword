@@ -31,10 +31,10 @@ public class TestHelper : MonoBehaviour
 
     private void Awake()
     {
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         gameObject.SetActive(true);
         TestAwake();
-        #endif
+#endif
     }
 
     private void TestAwake()
@@ -61,19 +61,20 @@ public class TestHelper : MonoBehaviour
     {
         Debug.Log("SetGameObjectsActive 실행");
         int index = 0;
-        foreach(Button b in activeSetter)
+        foreach (Button b in activeSetter)
         {
             int currentIndex = index;
+            Debug.Log($"현재 index에 저장된 오브젝트 : {currentIndex}번 : {gameObjects[currentIndex].name}");
             b.onClick.RemoveAllListeners();
-            b.onClick.AddListener(() => {
+            b.onClick.AddListener(() =>
+            {
                 if (gameObjects[currentIndex] != null)
                 {
                     gameObjects[currentIndex].SetActive(true);
-                    Debug.Log($"현재 index에 저장된 오브젝트 : {currentIndex}, {gameObjects[currentIndex].name}");
                 }
                 else
                     Debug.LogWarning($"{gameObjects[currentIndex].name}이 비어있음.");
-                });
+            });
             index++;
         }
     }
@@ -126,7 +127,7 @@ public class TestHelper : MonoBehaviour
     {
         TesterUI.SetActive(false);
         Panel.SetActive(false);
-        foreach(GameObject g in gameObjects)
+        foreach (GameObject g in gameObjects)
         {
             if (g == null)
             {
