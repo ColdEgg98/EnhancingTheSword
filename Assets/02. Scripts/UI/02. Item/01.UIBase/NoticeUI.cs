@@ -1,6 +1,5 @@
 using DG.Tweening;
 using System.Threading.Tasks;
-using TMPro;
 using UnityEngine;
 
 public class NoticeUI : UIBase
