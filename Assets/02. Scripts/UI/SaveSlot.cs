@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -63,7 +65,8 @@ public class SaveSlot : MonoBehaviour
             // 기본금 + 기본 무기 지급
             GameManager.Instance.gold.Value = 5000000;
             GameManager.Instance.currentData.myWeapons = new();
-            GameManager.Instance.userDataManager.GetWeapon(1); // 목검
+            Weapon woodSword = GameManager.Instance.allOfWeaponDictionary[1];
+            GameManager.Instance.currentData.myWeapons.Add(woodSword); // 목검
             GameManager.Instance.saveDataManager.StartSave(num);
 
             // 게임 실행 업적
