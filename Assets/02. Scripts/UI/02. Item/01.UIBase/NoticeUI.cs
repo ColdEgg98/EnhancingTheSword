@@ -11,12 +11,6 @@ public class NoticeUI : UIBase
         SetContext();
     }
 
-    public override void Init(string message)
-    {
-        base.Init(message);
-        ContentText.text = message;
-    }
-
     public override async Task PlayAnimation()
     {
         Sequence seq = DOTween.Sequence();

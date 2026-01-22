@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 
 // 업적 체크 및 보상 프로세스 가동
@@ -29,7 +30,8 @@ public class AchievementManager
                 {
                     ProcessReward(a);
                     GameManager.Instance.currentData.myAchievementRefs.Add(a.AchivementID);
-                    await Task.Delay(3000);
+                    await GameManager.Instance.uiManager.UIFactory
+                        .ShowAchievement(a.GetTextData(), EUIRole.MainImage, a.AchivementID);
                 }
             }
         }
@@ -39,8 +41,6 @@ public class AchievementManager
     {
         RewardType type = a.RewardType;
         float value = a.Value;
-
-        GameManager.Instance.uiManager.UIFactory.ShowNotice($"{a.Name} 업적을 달성했습니다.", Color.white);
 
         switch (type)
         {

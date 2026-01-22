@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 [Serializable]
 public class Achievement
@@ -15,6 +16,15 @@ public class Achievement
     // Condition
     public ConditionType ConditionType { get; set; }
     public long ConditionValue { get; set; }
+
+    public Dictionary<EUIRole, string> GetTextData()
+    {
+        return new Dictionary<EUIRole, string>
+        {
+            { EUIRole.Title, Name },
+            { EUIRole.Description, Description}
+        };
+    }
 }
 
 public enum RewardType

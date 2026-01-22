@@ -11,12 +11,6 @@ public class ToastPopupUI : UIBase
         SetContext();
     }
 
-    public override void Init(string itemName)
-    {
-        base.Init(itemName);
-        ContentText.text = itemName;
-    }
-
     public override async Task PlayAnimation()
     {
         Sequence seq = DOTween.Sequence();
@@ -28,5 +22,4 @@ public class ToastPopupUI : UIBase
     {
         InitializeTarget = GameObject.FindWithTag("ToastPopupTarget").transform;
     }
-
 }   

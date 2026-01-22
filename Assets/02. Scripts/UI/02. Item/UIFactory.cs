@@ -3,6 +3,7 @@ using UnityEngine.Pool;
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using System;
+using System.Threading.Tasks;
 
 public class UIFactory : MonoBehaviour
 {
@@ -97,6 +98,15 @@ public class UIFactory : MonoBehaviour
         SpawnAndRelease<NoticeUI>(itemName, c).Forget();
     }
 
+    public async UniTask ShowAchievement(Dictionary<EUIRole, string> data, EUIRole imageRole , string addKey)
+    {
+        var ui = Get<AchievementUI>();
+
+        await ui.ShowSequence(data, addKey);
+
+        Release(ui);
+    }
+
     // 생성 -> 애니메이션 -> 반납 과정을 담당하는 로직
     private async UniTask SpawnAndRelease<T>(string itemName) where T : UIBase
     {
@@ -116,7 +126,7 @@ public class UIFactory : MonoBehaviour
     {
         // Get
         var item = Get<T>();
-        item.SetContentText(textColor);
+        item.SetContentTextColor(textColor);
         item.Init(itemName);
 
         // 애니메이션 실행 및 대기
@@ -125,5 +135,4 @@ public class UIFactory : MonoBehaviour
         // Release
         Release(item);
     }
-
 }

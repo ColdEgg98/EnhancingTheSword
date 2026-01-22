@@ -103,7 +103,7 @@ public class SceneHandler : MonoBehaviour
 
         probabilityText.text = $"강화 확률 : <color=#FF0000>{weapon.probability}%</color>";
         if (Bonus != 0f)
-        probabilityText.text += $"+ <color=#FFD700>({Bonus}%)/color>";
+        probabilityText.text += $" + <color=#FFD700>({Bonus}%)</color>";
 
         string tempFormat = $"무기 강화 금액\n\t{ToWonFormat(weapon.enhancingPrice)}\n" +
                             $"필요 아이템\n\t{ListToString(weapon.needItems)}\n" +

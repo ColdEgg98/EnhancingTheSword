@@ -14,7 +14,7 @@ public class UserDataManager
         GameManager.Instance.uiManager.UIFactory.ShowToast($"{value} 골드를 획득했습니다.");
 
         // 업적 체크
-        GameManager.Instance.achievementManager.CheckAchivement(ConditionType.TotalGold, GameManager.Instance.currentData.enhanceCount++);
+        GameManager.Instance.achievementManager.CheckAchivement(ConditionType.TotalGold, GameManager.Instance.currentData.totalGold);
     }
 
     public void GetGold(string value)

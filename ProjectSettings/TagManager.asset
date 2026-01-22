@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ToastPopupTarget
   - NoticeTarget
+  - AchievementTarget
   layers:
   - Default
   - TransparentFX
