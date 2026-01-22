@@ -26,7 +26,10 @@ public class InventoryButtonBehavior : MonoBehaviour
 
     public async void OnClickButton()
     {
-        await ButtonBehavior();
+        if (!inventory.activeSelf)
+            await ButtonBehavior();
+        else
+            OnClickXButton();
     }
 
     public async Task ButtonBehavior()

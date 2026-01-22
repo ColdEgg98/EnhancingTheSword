@@ -5200,6 +5200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 684271986}
   - component: {fileID: 684271985}
+  - component: {fileID: 684271987}
   m_Layer: 0
   m_Name: SceneHandler
   m_TagString: Untagged
@@ -5238,6 +5239,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &684271987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 684271984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 784012b55720e46e48eb661fcd23c457, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &712435700
 GameObject:
   m_ObjectHideFlags: 0

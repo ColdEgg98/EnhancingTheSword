@@ -27,7 +27,7 @@ public class EnhanceSword : MonoBehaviour
             .AddTo(this);
     }
 
-    private void RunEnhancing()
+    public void RunEnhancing()
     {
         Weapon currentWeapon = GameManager.Instance.currentWeapon.Value;
 
@@ -42,7 +42,8 @@ public class EnhanceSword : MonoBehaviour
         bool result = CheckSuccess(currentWeapon.probability);
 
         // 업적 체크
-        GameManager.Instance.achievementManager.CheckAchivement(ConditionType.ShotEnhance, GameManager.Instance.currentData.enhanceCount++);
+        GameManager.Instance.currentData.enhanceCount++;
+        GameManager.Instance.achievementManager.CheckAchivement(ConditionType.ShotEnhance, GameManager.Instance.currentData.enhanceCount);
 
         // 강화 결과 처리
         if (result)
