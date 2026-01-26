@@ -11,7 +11,7 @@ public class UserDataManager
         GameManager.Instance.currentData.totalGold += value;
 
         // UI 표시
-        GameManager.Instance.uiManager.UIFactory.ShowToast($"{value} 골드를 획득했습니다.");
+        GameManager.Instance.uiManager.UIFactory.ShowToast($"{StrUtiity.ToWonFormat(value)}를 획득했습니다.");
 
         // 업적 체크
         GameManager.Instance.achievementManager.CheckAchivement(ConditionType.TotalGold, GameManager.Instance.currentData.totalGold);

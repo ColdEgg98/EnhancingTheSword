@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,12 +5,14 @@ public class InputActions : MonoBehaviour
 {
     private GameControls actions;
     private EnhanceSword enhanceSword;
+    private SellWeapon sellWeapon;
     private InventoryButtonBehavior inventoryButtonBehavior;
 
     void Awake()
     {
         actions = new();
         enhanceSword = FindAnyObjectByType<EnhanceSword>();
+        sellWeapon = FindAnyObjectByType<SellWeapon>();
         inventoryButtonBehavior = FindAnyObjectByType<InventoryButtonBehavior>();
     }
 
@@ -31,7 +32,7 @@ public class InputActions : MonoBehaviour
 
     private void OnSell(InputAction.CallbackContext context)
     {
-        throw new NotImplementedException();
+        sellWeapon.SetPanel();
     }
 
     private void OnInventory(InputAction.CallbackContext context)

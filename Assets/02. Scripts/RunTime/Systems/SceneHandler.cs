@@ -46,7 +46,7 @@ public class SceneHandler : MonoBehaviour
         GameManager.Instance.selectWeaponIndex
             .Subscribe(index =>
             {
-                if (GameManager.Instance.selectWeaponIndex.Value == -1)
+                if (GameManager.Instance.selectWeaponIndex.Value <= -1)
                 {
                     GameManager.Instance.currentWeapon.Value = null;
                     return;
@@ -84,18 +84,23 @@ public class SceneHandler : MonoBehaviour
 
     public void UpdateWeaponInfo(Weapon weapon)
     {
-        if (weapon == null)
+        // 파괴
+        if (GameManager.Instance.selectWeaponIndex.Value == -1)
         {
             GameManager.Instance.uiManager.UIFactory.ShowNotice("무기가 파괴되었습니다", Color.red);
             return;
         }
+
+        // 판매
+        if (GameManager.Instance.selectWeaponIndex.Value == -2)
+            return;
 
         if (weapon.index == 20)
         {
             probabilityText.text = "마지막 단계에 도달했습니다.";
             InfoText.text = $"무기 강화 금액\n\t-\n" +
                             $"필요 아이템\n\t-\n" +
-                            $"무기 판매 가격\n\t-";
+                            $"무기 판매 가격\n\t{StrUtiity.ToWonFormat(weapon.price)}";
             return;
         }
 
@@ -105,37 +110,10 @@ public class SceneHandler : MonoBehaviour
         if (Bonus != 0f)
         probabilityText.text += $" + <color=#FFD700>({Bonus}%)</color>";
 
-        string tempFormat = $"무기 강화 금액\n\t{ToWonFormat(weapon.enhancingPrice)}\n" +
+        string tempFormat = $"무기 강화 금액\n\t{StrUtiity.ToWonFormat(weapon.enhancingPrice)}\n" +
                             $"필요 아이템\n\t{ListToString(weapon.needItems)}\n" +
-                            $"무기 판매 가격\n\t{ToWonFormat(weapon.price)}";
+                            $"무기 판매 가격\n\t{StrUtiity.ToWonFormat(weapon.price)}";
         InfoText.text = tempFormat;
-    }
-
-    private string ToWonFormat(long gold)
-    {
-        if (gold == 0) return "0원";
-
-        long jo = gold / 1000000000000;
-        gold %= 1000000000000;
-        long eok = gold / 100000000;
-        gold %= 100000000;
-        long man = gold / 10000;
-        gold %= 10000;
-
-        System.Text.StringBuilder sb = new System.Text.StringBuilder();
-
-        if (jo > 0)
-            sb.Append($"<color=#FFD700>{jo}조</color> ");
-        if (eok > 0)
-            sb.Append($"<color=#FFD700>{eok}억</color> ");
-        if (man > 0)
-            sb.Append($"<color=#FFD700>{man}만</color> ");
-        if (gold > 0)
-            sb.Append($"<color=#FFD700>{gold}</color>");
-
-        sb.Append("원");
-
-        return sb.ToString();
     }
 
     private string ListToString(List<int> list)
