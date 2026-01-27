@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using UniRx;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class InventoryButtonBehavior : MonoBehaviour
@@ -11,17 +13,28 @@ public class InventoryButtonBehavior : MonoBehaviour
 
     [SerializeField]
     private Image[] weaponContents;
-    [SerializeField]
-    private GameObject inventory;
-    [SerializeField]
-    private Button XButton;
-    private bool isWeaponSold;
+    public GameObject inventory;
+    [SerializeField] private Button XButton;
+    public Button multiSellButton;
     private List<Weapon> myWeapons;
+    public ReactiveDictionary<int, Weapon> weaponsForSell;
 
     private void Awake()
     {
         XButton.onClick.AddListener(OnClickXButton);
         myWeapons = GameManager.Instance.currentData.myWeapons;
+        weaponsForSell = new();
+
+        weaponsForSell
+            .ObserveCountChanged()
+            .Subscribe(count =>
+            {
+                if (count != 0)
+                    multiSellButton.interactable = true;
+                else
+                    multiSellButton.interactable = false;
+            })
+            .AddTo(this);
     }
 
     public async void OnClickButton()
@@ -61,32 +74,58 @@ public class InventoryButtonBehavior : MonoBehaviour
         weaponContents[index].color = Color.white;
         weaponContents[index].raycastTarget = true;
 
-        // 커서 올리면 무기 이름 뜨기
-
         // Button 연결
         Button tempBtn;
         tempBtn = weaponContents[index].GetComponent<Button>();
+        tempBtn.onClick.RemoveAllListeners();
         tempBtn.onClick.AddListener(() => WeaponContentButtonBehavior(index));
-    }
-
-    public void OnClickXButton()
-    {
-        // 인벤 내부 정보 리셋
-        for (int i = 0; i < myWeapons.Count; i++)
-        {
-            int index = i;
-            Color c = weaponContents[index].color;
-            weaponContents[index].color = Color.clear;
-            weaponContents[index].raycastTarget = false;
-        }
-        inventory.SetActive(false);
     }
 
     public void WeaponContentButtonBehavior(int index)
     {
+        if (Keyboard.current.shiftKey.isPressed)
+        {
+            ShiftClickEvent(index);
+            return;
+        }
+
         // 클릭하면 인벤 닫히면서 메인 화면 무기 바꾸기
         Debug.Log($"인덱스 변경 {GameManager.Instance.selectWeaponIndex.Value} -> {index}");
         GameManager.Instance.selectWeaponIndex.Value = index;
         OnClickXButton();
+    }
+
+    private void ShiftClickEvent(int index)
+    {
+        RectTransform rect = weaponContents[index].gameObject.GetComponent<RectTransform>();
+        if (!weaponsForSell.ContainsKey(index))
+        {
+            weaponsForSell.Add(index, myWeapons[index]);
+            GameManager.Instance.redSquareManager.RedSquareGenerater(rect);
+        }
+        else
+        {
+            weaponsForSell.Remove(index);
+            GameManager.Instance.redSquareManager.RedSquareRemover(rect);
+        }
+        Debug.Log($"acitveRedSquare Count : {weaponsForSell.Count}");
+    }
+
+    public void OnClickXButton()
+    {
+        int index;
+        // 인벤 내부 정보 리셋
+        for (int i = 0; i < weaponContents.Length; i++)
+        {
+            index = i;
+            if (weaponContents == null)
+                continue;
+            Color c = weaponContents[index].color;
+            weaponContents[index].color = Color.clear;
+            weaponContents[index].raycastTarget = false;
+        }
+        GameManager.Instance.redSquareManager.RedSquareAllRemover();
+        weaponsForSell.Clear();
+        inventory.SetActive(false);
     }
 }

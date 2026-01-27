@@ -8,6 +8,7 @@ public class GameManager : Singleton<GameManager>
     public UserDataManager userDataManager;
     public UIManager uiManager;
     public AchievementManager achievementManager;
+    public RedSquareManager redSquareManager;
 
     public Dictionary<int, Weapon> allOfWeaponDictionary;
     public Dictionary<string, Achievement> allOfAchivementDictionary;
@@ -27,9 +28,10 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
 
         saveDataManager = GetComponent<SaveDataManager>();
-        userDataManager = new UserDataManager();
         uiManager = GetComponent<UIManager>();
-        achievementManager = new AchievementManager();
+        userDataManager = new();
+        achievementManager = new();
+        redSquareManager = new();
 
         allOfWeaponDictionary = new();
         allOfAchivementDictionary = new();
