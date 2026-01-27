@@ -42,6 +42,8 @@ public class GameManager : Singleton<GameManager>
 
         weaponXlsxFileName = "WeaponsData.xlsx";
         achivementXlsxFileName = "AchivementsData.xlsx";
+
+        Application.targetFrameRate = 120;
     }
 
     void Start()
