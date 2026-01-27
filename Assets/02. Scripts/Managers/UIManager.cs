@@ -38,7 +38,8 @@ public class UIManager : MonoBehaviour
 
     public void TipTextAppend(string s)
     {
-        tipList.Add(s);
+        if (!tipList.Contains(s))
+            tipList.Add(s);
     }
 
     public void TipTextSub(string s)

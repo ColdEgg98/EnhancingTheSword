@@ -32,7 +32,10 @@ public class InputActions : MonoBehaviour
 
     private void OnSell(InputAction.CallbackContext context)
     {
-        sellWeapon.SetPanel();
+        if (sellWeapon.weaponsForSell != null && sellWeapon.weaponsForSell.Count > 0)
+            sellWeapon.SetPanel(sellWeapon.weaponsForSell);
+        else
+            sellWeapon.SetPanel();
     }
 
     private void OnInventory(InputAction.CallbackContext context)

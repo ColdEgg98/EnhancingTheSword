@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,10 +25,13 @@ public class RedSquare : MonoBehaviour
             redSquareSprite = Resources.Load<Sprite>("Sprite/RedSquare");
     }
 
-    public void Generate(Transform TargetTransform)
+    public async UniTask Generate(Transform TargetTransform)
     {
         redSquareObje = new GameObject("RedSquare", typeof(Image));
         redSquareImage = redSquareObje.GetComponent<Image>();
+        Color c = redSquareImage.color;
+        c.a = 0f;
+        redSquareImage.color = c;
         redSquareImage.sprite = redSquareSprite;
 
         // 우 상단에 앵커 걸기
@@ -37,7 +42,20 @@ public class RedSquare : MonoBehaviour
         redDotRect.anchoredPosition = offSet;
 
         redDotRect.SetParent(TargetTransform.transform, false);
+        
+        await PlayAnimation();
     }
+
+    public async UniTask PlayAnimation()
+    {
+        Sequence seq = DOTween.Sequence();
+        
+        _ = seq.Join(redSquareImage.DOFade(1f, 0.5f).SetEase(Ease.OutBack));
+        _ = seq.Join(redSquareImage.transform.DOPunchScale(new Vector2(0.2f, 0.2f), 0.5f, 6, 0.8f));
+
+        await seq.AsyncWaitForCompletion();
+    }
+
 
     public void SetOffset(float offsetX, float offsetY)
     {
@@ -56,6 +74,7 @@ public class RedSquare : MonoBehaviour
     public void Remove()
     {
         Debug.Log($"[RedDot] Run Remove : {gameObject.name}");
+        transform.DOKill();
         Destroy(redSquareObje);
     }
 }

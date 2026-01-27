@@ -26,7 +26,7 @@ public class RedSquareManager
 
         if (!TargetRect.TryGetComponent(out instance))
             instance = TargetRect.AddComponent<RedSquare>();
-        instance.Generate(TargetRect);
+        _ = instance.Generate(TargetRect);
 
         activeRedSquares.Add(TargetRect, instance);
         Debug.Log($"[RedDotManager] 해당 게임 오브젝트에 부착됨 : {instance.gameObject}");

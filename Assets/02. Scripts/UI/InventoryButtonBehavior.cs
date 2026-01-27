@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TMPro;
 using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,6 +16,7 @@ public class InventoryButtonBehavior : MonoBehaviour
     private Image[] weaponContents;
     public GameObject inventory;
     [SerializeField] private Button XButton;
+    [SerializeField] private TextMeshProUGUI SellText;
     public Button multiSellButton;
     private List<Weapon> myWeapons;
     public ReactiveDictionary<int, Weapon> weaponsForSell;
@@ -30,9 +32,24 @@ public class InventoryButtonBehavior : MonoBehaviour
             .Subscribe(count =>
             {
                 if (count != 0)
+                {
                     multiSellButton.interactable = true;
+                    Color c = SellText.color;
+                    c.a = 1f;
+                    SellText.color = c;
+                    GameManager.Instance.uiManager.TipTextAppend("선택 목록 판매 (S)");
+                    GameManager.Instance.uiManager.TipTextSub("판매 (S)");
+                }
                 else
+                {
                     multiSellButton.interactable = false;
+                    Color c = SellText.color;
+                    c.a = 0.35f;
+                    SellText.color = c;
+                    GameManager.Instance.uiManager.TipTextSub("선택 목록 판매 (S)");
+                    GameManager.Instance.uiManager.TipTextAppend("판매 (S)");
+                }
+                    
             })
             .AddTo(this);
     }
