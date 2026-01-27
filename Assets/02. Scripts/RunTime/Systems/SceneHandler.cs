@@ -14,10 +14,14 @@ public class SceneHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI weaponNameText; // 무기 이름
     [SerializeField] private TextMeshProUGUI probabilityText; // 강화 확률
     [SerializeField] private TextMeshProUGUI InfoText; // 무기 강화 & 판매 정보 표기
+    [SerializeField] private TextMeshProUGUI TipText; // 좌상단에 튜토리얼
 
     private void Start()
     {
         SetSubscribe();
+        GameManager.Instance.uiManager.TipTextAppend("강화 하기 (Space)");
+        GameManager.Instance.uiManager.TipTextAppend("가방 열기 (E)");
+        GameManager.Instance.uiManager.TipTextAppend("판매 (S)");
     }
 
     private void SetSubscribe()
@@ -53,6 +57,16 @@ public class SceneHandler : MonoBehaviour
                 }
 
                 GameManager.Instance.currentWeapon.Value = GameManager.Instance.currentData.myWeapons[index];
+            })
+            .AddTo(this);
+
+        // 좌상단 팁 뜨는거 관리
+        GameManager.Instance.uiManager.tipList
+            .ObserveCountChanged()
+            .Subscribe(_ =>
+            {
+                string stringFormat = string.Join("\n", GameManager.Instance.uiManager.tipList);
+                TipText.text = stringFormat;
             })
             .AddTo(this);
     }

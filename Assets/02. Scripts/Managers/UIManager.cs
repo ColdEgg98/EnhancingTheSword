@@ -1,8 +1,11 @@
+using UniRx;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
     public UIFactory UIFactory;
+    public ReactiveCollection<string> tipList { get; private set; } = new();
+
     // saveSlot에서 호출
     public void Init()
     {
@@ -32,5 +35,14 @@ public class UIManager : MonoBehaviour
             return name + "를";
         }
     }
+
+    public void TipTextAppend(string s)
+    {
+        tipList.Add(s);
+    }
+
+    public void TipTextSub(string s)
+    {
+        tipList.Remove(s);
+    }
 }
-//사용법 : GameManager.Instance.uiManager.UIFactory.ShowToast(mesage);

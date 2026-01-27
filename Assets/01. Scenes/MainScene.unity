@@ -5793,6 +5793,7 @@ MonoBehaviour:
   weaponNameText: {fileID: 160200895}
   probabilityText: {fileID: 1289700726}
   InfoText: {fileID: 1970142006}
+  TipText: {fileID: 1142615982}
 --- !u!4 &684271986
 Transform:
   m_ObjectHideFlags: 0
@@ -8698,8 +8699,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 142, y: -57}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 242, y: -57}
+  m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1142615982
 MonoBehaviour:
@@ -8721,8 +8722,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uAC15\uD654 \uD558\uAE30 (Space)\n\uAC00\uBC29 \uC5F4\uAE30 (E)\n\uD310\uB9E4
-    (S)"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 49e186a941c41234f9f5a0b3fbefcb8b, type: 2}
   m_sharedMaterial: {fileID: 4365499184812594615, guid: 49e186a941c41234f9f5a0b3fbefcb8b, type: 2}

@@ -66,6 +66,12 @@ public class InventoryButtonBehavior : MonoBehaviour
         Debug.Log("모든 무기 이미지 로딩 완료");
 
         inventory.SetActive(true);
+
+        // 팁 변경
+        GameManager.Instance.uiManager.TipTextAppend("가방 닫기 (E)");
+        GameManager.Instance.uiManager.TipTextAppend("현재 무기 변경 (무기 이미지 클릭)");
+        GameManager.Instance.uiManager.TipTextAppend("다중 선택 (Shift + 클릭)");
+        GameManager.Instance.uiManager.TipTextSub("가방 열기 (E)");
     }
 
     public async Task ImageChange(int index)
@@ -127,5 +133,11 @@ public class InventoryButtonBehavior : MonoBehaviour
         GameManager.Instance.redSquareManager.RedSquareAllRemover();
         weaponsForSell.Clear();
         inventory.SetActive(false);
+        
+        // 팁 변경
+        GameManager.Instance.uiManager.TipTextAppend("가방 열기 (E)");
+        GameManager.Instance.uiManager.TipTextSub("현재 무기 변경 (무기 이미지 클릭)");
+        GameManager.Instance.uiManager.TipTextSub("다중 선택 (Shift + 클릭)");
+        GameManager.Instance.uiManager.TipTextSub("가방 닫기 (E)");
     }
 }
