@@ -23,12 +23,11 @@ public class SaveDataManager : MonoBehaviour
         int slotNum = GameManager.Instance.activeSaveSlotNum;
 
         // 실행 파일 혹은 프로젝트 루트 폴더에 세이브 경로를 확보합니다.
-#if UNITY_STANDALONE || UNITY_EDITOR
+#if UNITY_EDITOR
         folderPath = Directory.GetParent(Application.dataPath).FullName;
         indexPath = Path.Combine(folderPath, "MetaData.json");
         path = Path.Combine(folderPath, $"User Data{slotNum}.json");
 #else
-        Application.targetFrameRate = 60;
         path = System.IO.Path.Combine(Application.persistentDataPath, "User Data.json");
 #endif
         Debug.Log("PathSetting is Run");

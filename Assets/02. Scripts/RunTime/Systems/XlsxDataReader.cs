@@ -1,49 +1,60 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using ClosedXML.Excel;
-
 public static class XlsxDataReader<T> where T : new()
 {
-    public static List<T> MapFromExcel(string filePath, int sheetIndex = 1)
+    // 변경점: string filePath 대신 Stream stream을 받습니다.
+    public static List<T> MapFromExcel(Stream stream, int sheetIndex = 1)
     {
         var results = new List<T>();
-        var workbook = new XLWorkbook(filePath);
-        var worksheet = workbook.Worksheet(sheetIndex);
+        
+        // 폰트가 없는 환경(WebGL/Linux Server 등)을 위한 예외 처리 옵션
+        // 만약 폰트 관련 에러가 발생한다면 이 옵션을 활성화해야 합니다.
+        // var options = new LoadOptions {
+        //     GraphicEngine = DefaultGraphicEngine.CreateWithFontsAndSystemFonts(null) 
+        // };
 
-        // 첫 번째 행을 헤더로 사용
-        var headerOrigins = worksheet.Row(1).Cells().Select(c => c.GetString()).ToList();
-
-        // 헤더에 중복이 있을경우 걸러줌 (대소문자 무시)
-        List<string> headers = headerOrigins
-            .Distinct(StringComparer.OrdinalIgnoreCase)
-            .ToList<string>();
-
-        foreach (var row in worksheet.RowsUsed().Skip(1)) // 헤더 제외
+        // Stream을 사용하여 워크북 생성
+        using (var workbook = new XLWorkbook(stream)) 
         {
-            T obj = new();
-            // Reflection 활용. 들어온 클래스의 퍼블릭 인스턴스 변수를 PropertyInfo[] 구조로 그룹화
-            PropertyInfo[] props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var worksheet = workbook.Worksheet(sheetIndex);
 
-            for (int i = 0; i < headers.Count; i++)
+            // 첫 번째 행을 헤더로 사용
+            var headerOrigins = worksheet.Row(1).Cells().Select(c => c.GetString()).ToList();
+
+            List<string> headers = headerOrigins
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToList();
+
+            foreach (var row in worksheet.RowsUsed().Skip(1)) 
             {
-                string header = headers[i];
-                PropertyInfo prop = props.FirstOrDefault(p => p.Name.Equals(header, StringComparison.OrdinalIgnoreCase));
-                if (prop != null)
-                {
-                    string cellValue = row.Cell(i + 1).GetString();
-                    object convertedValue = ConvertValue(cellValue, prop.PropertyType);
-                    prop.SetValue(obj, convertedValue);
-                }
-            }
+                T obj = new();
+                PropertyInfo[] props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
-            results.Add(obj);
-        }
+                for (int i = 0; i < headers.Count; i++)
+                {
+                    string header = headers[i];
+                    PropertyInfo prop = props.FirstOrDefault(p => p.Name.Equals(header, StringComparison.OrdinalIgnoreCase));
+                    if (prop != null)
+                    {
+                        // 인덱스 안전 장치 추가
+                        if (i + 1 > row.CellCount()) continue; 
+                        
+                        string cellValue = row.Cell(i + 1).GetString();
+                        object convertedValue = ConvertValue(cellValue, prop.PropertyType);
+                        prop.SetValue(obj, convertedValue);
+                    }
+                }
+                results.Add(obj);
+            }
+        } // using 블록이 끝나면 workbook이 올바르게 Dispose 됩니다.
 
         return results;
     }
-
+    
     private static object ConvertValue(string value, Type targetType)
     {
         if (string.IsNullOrEmpty(value)) return null;
