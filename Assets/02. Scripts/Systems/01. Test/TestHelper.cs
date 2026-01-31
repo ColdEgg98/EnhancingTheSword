@@ -31,10 +31,12 @@ public class TestHelper : MonoBehaviour
 
     private void Awake()
     {
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
         gameObject.SetActive(true);
         TestAwake();
-#endif
+//#else
+        //gameObject.SetActive(false);
+//#endif
     }
 
     private void TestAwake()

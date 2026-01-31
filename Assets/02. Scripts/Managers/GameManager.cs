@@ -47,6 +47,8 @@ public class GameManager : Singleton<GameManager>
         achivementXlsxFileName = "AchivementsData.xlsx";
 
         Application.targetFrameRate = 120;
+
+        //Screen.SetResolution(1920, 1080, true);
     }
 
     async Awaitable Start()
