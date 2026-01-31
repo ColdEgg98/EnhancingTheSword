@@ -9,7 +9,7 @@ public class SetStartScene
     {
         // 플레이 버튼을 눌렀을 때 시작할 씬의 경로를 지정합니다.
         // Assets 폴더부터의 경로를 적어주세요.
-        string scenePath = "Assets/01. Scenes/StartScene.unity"; 
+        string scenePath = "Assets/01. Scenes/LoadScene.unity"; 
         
         SceneAsset sceneObject = AssetDatabase.LoadAssetAtPath<SceneAsset>(scenePath);
 

@@ -6,15 +6,18 @@ using UnityEngine;
 /// <summary>
 /// 세이브하고 세이브파일을 로드하는 함수가 작성된 클래스입니다.
 /// </summary>
-public class SaveDataManager : MonoBehaviour
+public class SaveDataManager
 {
     string folderPath; // 게임.exe가 존재하는 폴더, 에디터에서는 Asset의 상위 폴더
     string indexPath; // MetaData 파일
     string path; // User Data{Num} 파일
     public WrapperForPreviewData wrapperPreviewData;
 
-    private void Awake()
+    public void Init()
     {
+        if (wrapperPreviewData == null)
+            wrapperPreviewData = new WrapperForPreviewData();
+            
         PathSetting();
     }
 

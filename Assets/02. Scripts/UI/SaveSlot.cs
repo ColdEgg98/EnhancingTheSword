@@ -27,7 +27,7 @@ public class SaveSlot : MonoBehaviour
         // 씬 로드 다음에 UIManager를 Init
         SceneManager.sceneLoaded += (scene, mode) =>
         {
-            if (scene.buildIndex == 1)
+            if (scene.buildIndex == 2)
             {
                 GameManager.Instance.uiManager.Init();
                 GameManager.Instance.achievementManager.Init();
@@ -77,9 +77,9 @@ public class SaveSlot : MonoBehaviour
         if (GameManager.Instance.currentData.myWeapons.Count > 0)
             GameManager.Instance.currentWeapon.Value = GameManager.Instance.currentData.myWeapons[0];
         else if (GameManager.Instance.currentData.myWeapons.Count == 0)
-            GameManager.Instance.selectWeaponIndex.Value = -1;
+            GameManager.Instance.selectWeaponIndex.Value = -2;
 
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     /// <summary>UI에 표시되는 데이터를 변경합니다</summary>

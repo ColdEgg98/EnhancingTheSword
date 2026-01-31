@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 
 public class TestHelper : MonoBehaviour
 {
@@ -31,16 +33,13 @@ public class TestHelper : MonoBehaviour
 
     private void Awake()
     {
-//#if UNITY_EDITOR
-        gameObject.SetActive(true);
         TestAwake();
-//#else
-        //gameObject.SetActive(false);
-//#endif
     }
 
+    [Conditional("UNITY_EDITOR")]
     private void TestAwake()
     {
+
         btn = GetComponentInChildren<Button>();
         btn.onClick.AddListener(CallTesterUI);
 

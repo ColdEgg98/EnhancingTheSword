@@ -15,6 +15,7 @@ public class SceneHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI probabilityText; // 강화 확률
     [SerializeField] private TextMeshProUGUI InfoText; // 무기 강화 & 판매 정보 표기
     [SerializeField] private TextMeshProUGUI TipText; // 좌상단에 튜토리얼
+    [SerializeField] private GameObject TesterButton; // 테스트 헬퍼
 
     private void Start()
     {
@@ -22,6 +23,9 @@ public class SceneHandler : MonoBehaviour
         GameManager.Instance.uiManager.TipTextAppend("강화 하기 (Space)");
         GameManager.Instance.uiManager.TipTextAppend("가방 열기 (E)");
         GameManager.Instance.uiManager.TipTextAppend("판매 (S)");
+        #if UNITY_EDITOR
+        TesterButton.SetActive(true);
+        #endif
     }
 
     private void SetSubscribe()
