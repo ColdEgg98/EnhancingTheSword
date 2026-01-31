@@ -28,7 +28,8 @@ public class SaveDataManager : MonoBehaviour
         indexPath = Path.Combine(folderPath, "MetaData.json");
         path = Path.Combine(folderPath, $"User Data{slotNum}.json");
 #else
-        path = System.IO.Path.Combine(Application.persistentDataPath, "User Data.json");
+        path = System.IO.Path.Combine(Application.persistentDataPath, $"User Data{slotNum}.json");
+        indexPath = Path.Combine(Application.persistentDataPath, "MetaData.json");
 #endif
         Debug.Log("PathSetting is Run");
     }
