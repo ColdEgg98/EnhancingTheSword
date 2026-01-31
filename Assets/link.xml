@@ -1,0 +1,7 @@
+<linker>
+  <assembly fullname="ClosedXML" preserve="all"/>
+  <assembly fullname="DocumentFormat.OpenXml" preserve="all"/>
+  <assembly fullname="ExcelNumberFormat" preserve="all"/>
+  
+  <assembly fullname="Assembly-CSharp" preserve="all"/>
+</linker>
