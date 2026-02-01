@@ -11,13 +11,16 @@ using DG.Tweening;
 using ClosedXML.Excel;
 using ClosedXML.Graphics;
 using UnityEngine.SceneManagement;
+using UnityEngine.Scripting;
 
+[Preserve]
 public class LoadingHandler : MonoBehaviour
 {
     [Header("UI Elements")]
     [SerializeField] Slider slider;
 
-    public static LoadOptions loadOptions { get; private set; }
+    private byte[] fontData;
+    public LoadOptions loadOptions { get; private set; }
     public Dictionary<int, Weapon> allOfWeaponDictionary = new();
     public Dictionary<string, Achievement> allOfAchivementDictionary = new();
     public Dictionary<ConditionType, List<Achievement>> AchieveByCondition = new();
@@ -49,6 +52,8 @@ public class LoadingHandler : MonoBehaviour
         // 시간 측정 시작
         Stopwatch sw = Stopwatch.StartNew();
 
+        totalTasks = 3;
+
         // 1. 폰트 데이터 우선 로드 및 대기
         var task = ProcessTasks(LoadFontAsync());
         await task;
@@ -59,7 +64,6 @@ public class LoadingHandler : MonoBehaviour
             ProcessTasks(LoadWeaponDatas()),
             ProcessTasks(LoadAchevementDatas())
         };
-        totalTasks = tasks.Count + 1;
 
         await Task.WhenAll(tasks.ToArray());
 
@@ -95,15 +99,18 @@ public class LoadingHandler : MonoBehaviour
         {
             await www.SendWebRequest();
             if (www.result != UnityWebRequest.Result.Success) Debug.LogError($"❌ 폰트 다운로드 실패 : [{www.error}]");
-            
-            using (MemoryStream ms = new MemoryStream(www.downloadHandler.data))
+
+
+            MemoryStream ms = new MemoryStream(www.downloadHandler.data);
+
+            loadOptions = new LoadOptions
             {
-                loadOptions = new LoadOptions
-                {
-                    GraphicEngine = DefaultGraphicEngine.CreateOnlyWithFonts(ms)
-                };
-            }
-        Debug.Log("✅ 폰트 설정 완료");
+                GraphicEngine = DefaultGraphicEngine.CreateOnlyWithFonts(ms)
+            };
+            
+            fontData = www.downloadHandler.data;
+
+            Debug.Log("✅ 폰트 설정 완료");
         }
     }
 
@@ -145,7 +152,8 @@ public class LoadingHandler : MonoBehaviour
     public async Awaitable<List<T>> LoadTDatasAsync<T>(string fileName) where T : class, new()
     {
         string path = GetPath(fileName);
-        
+
+
         using (UnityWebRequest www = UnityWebRequest.Get(path))
         {
             await www.SendWebRequest();
@@ -162,7 +170,8 @@ public class LoadingHandler : MonoBehaviour
                 using (MemoryStream stream = new MemoryStream(data))
                 {
                     var result = XlsxDataReader<T>.MapFromExcel(stream);
-                    
+
+
                     return result;
                 }
             }
@@ -186,7 +195,8 @@ public class LoadingHandler : MonoBehaviour
 #endif
         return path;
     }
-    
+
+
     private void SetGameManagerDatas()
     {
         GameManager.Instance.allOfAchivementDictionary = allOfAchivementDictionary;

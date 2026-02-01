@@ -1,7 +1,12 @@
 <linker>
+  <assembly fullname="Assembly-CSharp" preserve="all"/>
+
+  <assembly fullname="System.IO.Packaging" preserve="all"/>
+
   <assembly fullname="ClosedXML" preserve="all"/>
   <assembly fullname="DocumentFormat.OpenXml" preserve="all"/>
   <assembly fullname="ExcelNumberFormat" preserve="all"/>
   
-  <assembly fullname="Assembly-CSharp" preserve="all"/>
+  <assembly fullname="SixLabors.Fonts" preserve="all"/>
+  <assembly fullname="SixLabors.ImageSharp" preserve="all"/>
 </linker>
