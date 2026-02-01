@@ -1,0 +1,49 @@
+{
+  "items": [
+    {
+      "AchivementID": "Game Start",
+      "Name": "게임 시작!",
+      "Description": "게임 시작",
+      "RewardType": 0,
+      "Value": 5000000.0,
+      "ConditionType": 0,
+      "ConditionValue": 0
+    },
+    {
+      "AchivementID": "Let's Enhance",
+      "Name": "첫 강화",
+      "Description": "강화를 시작해보자",
+      "RewardType": 0,
+      "Value": 50000.0,
+      "ConditionType": 2,
+      "ConditionValue": 1
+    },
+    {
+      "AchivementID": "Let's Fail",
+      "Name": "첫 실패",
+      "Description": "처음으로 강화를 실패했다",
+      "RewardType": 3,
+      "Value": 1.0,
+      "ConditionType": 4,
+      "ConditionValue": 1
+    },
+    {
+      "AchivementID": "100Enhance",
+      "Name": "백번의 두드림",
+      "Description": "강화를 100번 시도했다",
+      "RewardType": 3,
+      "Value": 1.0,
+      "ConditionType": 2,
+      "ConditionValue": 100
+    },
+    {
+      "AchivementID": "The begger",
+      "Name": "땡전 몇 푼 없는",
+      "Description": "무전 무죄",
+      "RewardType": 0,
+      "Value": 1000000.0,
+      "ConditionType": 5,
+      "ConditionValue": 100000
+    }
+  ]
+}

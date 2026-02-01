@@ -3,7 +3,6 @@ using UnityEngine.Pool;
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using System;
-using System.Threading.Tasks;
 
 public class UIFactory : MonoBehaviour
 {

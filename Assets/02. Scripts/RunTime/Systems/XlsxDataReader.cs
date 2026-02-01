@@ -4,18 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using ClosedXML.Excel;
-using UnityEngine.Scripting; // 유니티 빌드 시 코드 삭제 방지용
 
-[Preserve] // Linker가 이 클래스를 삭제하지 않도록 보호
 public static class XlsxDataReader<T> where T : new()
 {
-    /// <summary>
-    /// 엑셀 데이터를 읽어 리스트로 반환합니다.
-    /// WebGL 호환을 위해 파일 경로(string) 대신 Stream을 받습니다.
-    /// </summary>
-    /// <param name="stream">파일 스트림 (MemoryStream 등)</param>
-    /// <param name="options">폰트 설정이 포함된 로드 옵션 (WebGL 필수)</param>
-    /// <param name="sheetIndex">시트 번호 (기본 1)</param>
     public static List<T> MapFromExcel(Stream stream, LoadOptions options = null, int sheetIndex = 1)
     {
         var results = new List<T>();

@@ -1,0 +1,190 @@
+{
+  "items": [
+    {
+      "index": 1,
+      "name": "목검",
+      "price": 10000,
+      "probability": 100.0,
+      "enhancingPrice": 1000,
+      "addressID": "Wooden Sword",
+      "needItems": null
+    },
+    {
+      "index": 2,
+      "name": "고대의 검",
+      "price": 180000,
+      "probability": 100.0,
+      "enhancingPrice": 9000,
+      "addressID": "Ancient Sword",
+      "needItems": null
+    },
+    {
+      "index": 3,
+      "name": "쯔바이헨더",
+      "price": 400000,
+      "probability": 100.0,
+      "enhancingPrice": 20000,
+      "addressID": "Zweihander",
+      "needItems": null
+    },
+    {
+      "index": 4,
+      "name": "악귀 씌인 귀철의 검",
+      "price": 1000000,
+      "probability": 90.0,
+      "enhancingPrice": 70000,
+      "addressID": "Three Great Demon Iron",
+      "needItems": null
+    },
+    {
+      "index": 5,
+      "name": "82근의 언월도",
+      "price": 2000000,
+      "probability": 90.0,
+      "enhancingPrice": 120000,
+      "addressID": "Blue Dragon Crescent Blade",
+      "needItems": null
+    },
+    {
+      "index": 6,
+      "name": "거대한 뱀의 독니",
+      "price": 2800000,
+      "probability": 80.0,
+      "enhancingPrice": 180000,
+      "addressID": "Kasaka's Venom Fang",
+      "needItems": null
+    },
+    {
+      "index": 7,
+      "name": "드래곤 슬레이어",
+      "price": 3200000,
+      "probability": 80.0,
+      "enhancingPrice": 240000,
+      "addressID": "Dragon Slayer",
+      "needItems": null
+    },
+    {
+      "index": 8,
+      "name": "얼스터의 단단한 벼락",
+      "price": 3500000,
+      "probability": 80.0,
+      "enhancingPrice": 300000,
+      "addressID": "Caladbolg",
+      "needItems": null
+    },
+    {
+      "index": 9,
+      "name": "요괴왕의 송곳니 검",
+      "price": 4500000,
+      "probability": 80.0,
+      "enhancingPrice": 380000,
+      "addressID": "Iron Chain Fang",
+      "needItems": null
+    },
+    {
+      "index": 10,
+      "name": "산하동색의 석자검",
+      "price": 7000000,
+      "probability": 60.0,
+      "enhancingPrice": 650000,
+      "addressID": "Sword of Admiral Yi Sun-sin 1",
+      "needItems": null
+    },
+    {
+      "index": 11,
+      "name": "혈염산하의 석자검",
+      "price": 18000000,
+      "probability": 70.0,
+      "enhancingPrice": 1500000,
+      "addressID": "Sword of Admiral Yi Sun-sin 2",
+      "needItems": null
+    },
+    {
+      "index": 12,
+      "name": "물에빠진 정령의 검",
+      "price": 35000000,
+      "probability": 65.0,
+      "enhancingPrice": 2800000,
+      "addressID": "Excalibur",
+      "needItems": null
+    },
+    {
+      "index": 13,
+      "name": "태양신의 응보검",
+      "price": 90000000,
+      "probability": 65.0,
+      "enhancingPrice": 7000000,
+      "addressID": "Fragarach",
+      "needItems": null
+    },
+    {
+      "index": 14,
+      "name": "나이트 브링어",
+      "price": 105000000,
+      "probability": 65.0,
+      "enhancingPrice": 9500000,
+      "addressID": "Nightbringer",
+      "needItems": [
+        4,
+        6,
+        12
+      ]
+    },
+    {
+      "index": 15,
+      "name": "아홉머리 뱀을 심판한 천뢰검",
+      "price": 125200000,
+      "probability": 55.0,
+      "enhancingPrice": 12000000,
+      "addressID": "Kusanagi-no-Tsurugi",
+      "needItems": null
+    },
+    {
+      "index": 16,
+      "name": "필망의 마검 티르핑",
+      "price": 160000000,
+      "probability": 50.0,
+      "enhancingPrice": 22000000,
+      "addressID": "Tyrfing",
+      "needItems": [
+        14
+      ]
+    },
+    {
+      "index": 17,
+      "name": "듀랜달",
+      "price": 220000000,
+      "probability": 50.0,
+      "enhancingPrice": 36000000,
+      "addressID": "Durandal",
+      "needItems": null
+    },
+    {
+      "index": 18,
+      "name": "한정 마술예장의 만화경",
+      "price": 500000000,
+      "probability": 50.0,
+      "enhancingPrice": 90000000,
+      "addressID": "Jeweled Sword",
+      "needItems": null
+    },
+    {
+      "index": 19,
+      "name": "한 자루 무색유리검",
+      "price": 1500000000,
+      "probability": 30.0,
+      "enhancingPrice": 22000000,
+      "addressID": "Colorless Glass Sword",
+      "needItems": null
+    },
+    {
+      "index": 20,
+      "name": "마스터 소드",
+      "price": 4500000000,
+      "probability": 10.0,
+      "enhancingPrice": 60000000,
+      "addressID": "Master Sword",
+      "needItems": null
+    }
+  ]
+}
