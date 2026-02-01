@@ -20,7 +20,7 @@
     },
     {
       "AchivementID": "Let's Fail",
-      "Name": "첫 실패",
+      "Name": "어이쿠 손이 미끄러졌네",
       "Description": "처음으로 강화를 실패했다",
       "RewardType": 3,
       "Value": 1.0,
@@ -44,6 +44,60 @@
       "Value": 1000000.0,
       "ConditionType": 5,
       "ConditionValue": 100000
+    },
+    {
+      "AchivementID": "1000Enhance",
+      "Name": "어느새 천 번",
+      "Description": "천 번 강화를 시도했다",
+      "RewardType": 1,
+      "Value": 10.0,
+      "ConditionType": 2,
+      "ConditionValue": 1000
+    },
+    {
+      "AchivementID": "100Fail",
+      "Name": "자꾸만 손이 미끄러졌네",
+      "Description": "무기를 100번 파괴했다",
+      "RewardType": 3,
+      "Value": 1.0,
+      "ConditionType": 4,
+      "ConditionValue": 100
+    },
+    {
+      "AchivementID": "1000Fail",
+      "Name": "무기 파괴자",
+      "Description": "무기를 1000번 파괴했다",
+      "RewardType": 3,
+      "Value": 1.5,
+      "ConditionType": 4,
+      "ConditionValue": 100
+    },
+    {
+      "AchivementID": "10000Enhance",
+      "Name": "만 번 두드림의 법칙",
+      "Description": "만 번 강화를 시도했다",
+      "RewardType": 3,
+      "Value": 1.5,
+      "ConditionType": 2,
+      "ConditionValue": 10000
+    },
+    {
+      "AchivementID": "Lotto",
+      "Name": "로또 당첨",
+      "Description": "로또 1등 만큼의 돈을 보유했다",
+      "RewardType": 1,
+      "Value": 12.0,
+      "ConditionType": 5,
+      "ConditionValue": 2500000000
+    },
+    {
+      "AchivementID": "The Rich",
+      "Name": "우린 부자가 될거야",
+      "Description": "총 수익금이 100억을 넘겼다",
+      "RewardType": 1,
+      "Value": 15.0,
+      "ConditionType": 6,
+      "ConditionValue": 10000000000
     }
   ]
 }

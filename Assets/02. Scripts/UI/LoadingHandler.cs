@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 using System;
+using Newtonsoft.Json;
 
 public class LoadingHandler : MonoBehaviour
 {
@@ -25,8 +26,8 @@ public class LoadingHandler : MonoBehaviour
 
     void Awake()
     {
-        weaponXlsxFileName = "WeaponsData.xlsx";
-        achivementXlsxFileName = "AchivementsData.xlsx";
+        weaponXlsxFileName = "WeaponsData";
+        achivementXlsxFileName = "AchivementsData";
         slider.value = 0;
         totalTasks = 0;
         completedTasks = 0;
@@ -42,13 +43,14 @@ public class LoadingHandler : MonoBehaviour
         // 시간 측정 시작
         Stopwatch sw = Stopwatch.StartNew();
 
+        totalTasks = 2;
+
         // 1. 데이터들 병렬로 로드
         List<Task> tasks = new List<Task>
         {
             ProcessTasks($"Data/{weaponXlsxFileName}", LoadWeapons),
             ProcessTasks($"Data/{achivementXlsxFileName}", LoadAchievements)
         };
-        totalTasks = tasks.Count;
 
         await Task.WhenAll(tasks.ToArray());
 
@@ -81,7 +83,7 @@ public class LoadingHandler : MonoBehaviour
         float progress = (float)completedTasks / totalTasks;
 
         // 슬라이더 애니메이션
-        await slider.DOValue(progress, 0.2f).AsyncWaitForCompletion();
+        _ = slider.DOValue(progress, 0.2f);
 
         Debug.Log($"🔨 작업 완료 : ({completedTasks}/{totalTasks})");
     }
@@ -89,7 +91,7 @@ public class LoadingHandler : MonoBehaviour
     private void LoadWeapons(string json)
     {
         // Wrapper를 통해 리스트 복원
-        var wrapper = JsonUtility.FromJson<DataWrapper<Weapon>>(json);
+        var wrapper = JsonConvert.DeserializeObject<DataWrapper<Weapon>>(json);
         foreach (var w in wrapper.items)
         {
             if (!allOfWeaponDictionary.ContainsKey(w.index))
@@ -100,7 +102,7 @@ public class LoadingHandler : MonoBehaviour
 
     private void LoadAchievements(string json)
     {
-        var wrapper = JsonUtility.FromJson<DataWrapper<Achievement>>(json);
+        var wrapper = JsonConvert.DeserializeObject<DataWrapper<Achievement>>(json);
         foreach (var a in wrapper.items)
         {
             if (!allOfAchivementDictionary.ContainsKey(a.AchivementID))

@@ -118,6 +118,7 @@ public class EnhanceSword : MonoBehaviour
         GameManager.Instance.selectWeaponIndex.Value = -1;
 
         // 업적 체크
-        GameManager.Instance.achievementManager.CheckAchivement(ConditionType.FailEnhance, GameManager.Instance.currentData.failCount++);
+        GameManager.Instance.currentData.failCount++;
+        GameManager.Instance.achievementManager.CheckAchivement(ConditionType.FailEnhance, GameManager.Instance.currentData.failCount);
     }
 }
