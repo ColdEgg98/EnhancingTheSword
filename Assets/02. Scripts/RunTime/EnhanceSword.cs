@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,12 +8,22 @@ public class EnhanceSword : MonoBehaviour
 {
     [Header("UI Components")]
     [SerializeField] private Button enhanceButton;    // 강화 버튼
+    [SerializeField] private Image targetImage;
 
     private int currentWeaponIndex;
+
+    // Shader
+    private Material _materialInstance;
+    private int _flashID;
 
     private void Awake()
     {
         currentWeaponIndex = GameManager.Instance.selectWeaponIndex.Value;
+
+        // 프로퍼티 아이디 캐싱
+        _flashID = Shader.PropertyToID("_FlashAmount");
+
+        _materialInstance = targetImage.material;
     }
 
     void Start()
@@ -27,7 +38,7 @@ public class EnhanceSword : MonoBehaviour
             .AddTo(this);
     }
 
-    public void RunEnhancing()
+    public async void RunEnhancing()
     {
         Weapon currentWeapon = GameManager.Instance.currentWeapon.Value;
 
@@ -45,12 +56,14 @@ public class EnhanceSword : MonoBehaviour
         GameManager.Instance.currentData.enhanceCount++;
         GameManager.Instance.achievementManager.CheckAchivement(ConditionType.ShotEnhance, GameManager.Instance.currentData.enhanceCount);
 
+        // 애니메이션
+        await EnhanceAnimation();
+
         // 강화 결과 처리
         if (result)
-            EnhancingSuccessed(currentWeapon);
+            _ = EnhancingSuccessed(currentWeapon);
         else
             EnhancingFailed(currentWeapon);
-
 
         // 저장
         GameManager.Instance.saveDataManager.StartSave();
@@ -87,7 +100,15 @@ public class EnhanceSword : MonoBehaviour
         return Random.value * 100 <= percent;
     }
 
-    private void EnhancingSuccessed(Weapon currentWeapon)
+    private async Awaitable EnhanceAnimation()
+    {
+        _materialInstance.DOKill();
+        _materialInstance.SetFloat(_flashID, 0);
+
+        await _materialInstance.DOFloat(1f, _flashID, 0.75f).AsyncWaitForCompletion();
+    }
+
+    private async Awaitable EnhancingSuccessed(Weapon currentWeapon)
     {
         // 1. 다음 단계 무기 데이터 가져오기
         int nextIndex = currentWeapon.index + 1;
@@ -101,12 +122,18 @@ public class EnhanceSword : MonoBehaviour
         // 3. 무기 표시 변경
         GameManager.Instance.currentWeapon.Value = newWeapon;
 
+        // 4. 애니메이션
+        _materialInstance.DOKill();
+        await _materialInstance.DOFloat(0f, _flashID, 4f).AsyncWaitForCompletion();
+
         Debug.Log($"강화 성공: {newWeapon.name}");
     }
 
     private void EnhancingFailed(Weapon currentWeapon)
     {
         Debug.Log($"{currentWeapon.name} 파괴됨.");
+
+        _materialInstance.SetFloat( _flashID, 0);      
 
         // 실제 데이터(GameManager)에서 삭제
         var myWeapons = GameManager.Instance.currentData.myWeapons;

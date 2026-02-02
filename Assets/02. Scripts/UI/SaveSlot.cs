@@ -49,7 +49,7 @@ public class SaveSlot : MonoBehaviour
     }
 
     /// <summary>슬롯이 클릭됐을 떄 GameManager와 데이터를 주고받습니다.</summary>
-    private void SelectSaveSlot(int num)
+    private async void SelectSaveSlot(int num)
     {
         // User DataN 파일에서 데이터 로드해서 currentData에 넣어줘야함
         // 로드하는 코드를 SaveDataManager에 작성하고 호출
@@ -68,7 +68,7 @@ public class SaveSlot : MonoBehaviour
             GameManager.Instance.saveDataManager.StartSave(num);
 
             // 게임 실행 업적
-            _ = GameManager.Instance.achievementManager.GameStartAchieved();
+            await GameManager.Instance.achievementManager.GameStartAchieved();
         }
 
         // 화면 바뀔 때 무기 표시
