@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.Build.Pipeline;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour {
@@ -55,7 +56,7 @@ public class SoundManager : MonoBehaviour {
 
     public string GetCurrentBGMName()
     {
-        return bgmPlayer.clip.name;
+        return (bgmPlayer.clip != null) ? bgmPlayer.clip.name : string.Empty;
     }
 
     public void PlayENV(string name)

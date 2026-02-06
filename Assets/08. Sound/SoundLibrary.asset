@@ -24,11 +24,11 @@ MonoBehaviour:
   - soundName: 715708__prodbyrey__retro-game-music-loop
     type: 0
     clip: {fileID: 8300000, guid: c810f3d11fadac446b2ff9e34f6d60f7, type: 3}
-    volume: 0.8
+    volume: 0.52
   - soundName: 721948__audiocoffee__creative-background-loop-ver
     type: 0
     clip: {fileID: 8300000, guid: e44b8cb727d3ed24abcf44bb92586ae8, type: 3}
-    volume: 0.8
+    volume: 0.244
   - soundName: AnvilHit
     type: 1
     clip: {fileID: 8300000, guid: b00402881aab5b24ab03c139e253b015, type: 3}
