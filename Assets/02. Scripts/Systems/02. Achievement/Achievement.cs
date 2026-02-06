@@ -1,3 +1,4 @@
+using DocumentFormat.OpenXml;
 using System;
 using System.Collections.Generic;
 
@@ -17,6 +18,11 @@ public class Achievement
     public ConditionType ConditionType { get; set; }
     public long ConditionValue { get; set; }
 
+    // Feature
+    public string FeatureName { get; set; }
+
+    public string GetFeatureName() => FeatureName;
+
     public Dictionary<EUIRole, string> GetTextData()
     {
         return new Dictionary<EUIRole, string>
@@ -33,6 +39,7 @@ public enum RewardType
     Weapon,
     Item,
     ProbabilityBonus,
+    UnlockFeature,
     End
 }
 
@@ -41,7 +48,7 @@ public enum ConditionType
     GameStart,
     GameEnd,
     ShotEnhance,
-    MaxLevel,
+    WeaponLevel,
     FailEnhance,
     GoldAmount,
     TotalGold,

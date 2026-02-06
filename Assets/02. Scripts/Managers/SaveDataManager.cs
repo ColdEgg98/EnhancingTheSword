@@ -53,12 +53,14 @@ public class SaveDataManager
             GameManager.Instance.currentData.myWeaponRefs.Add(w.index);
         }
 
+
         UserData data = new()
-        {
-            previewData = GameManager.Instance.currentData.previewData,
-            chanceBonus = GameManager.Instance.currentData.chanceBonus,
-            myWeaponRefs = GameManager.Instance.currentData.myWeaponRefs
-        };
+            {
+                previewData = GameManager.Instance.currentData.previewData,
+                chanceBonus = GameManager.Instance.currentData.chanceBonus,
+                myWeaponRefs = GameManager.Instance.currentData.myWeaponRefs,
+                myAchievementRefs = GameManager.Instance.currentData.myAchievementRefs
+            };
         data.previewData.goldRef = GameManager.Instance.gold.Value;
         data.previewData.time = DateTime.Now.ToString("yyyy.MM.dd\ntt hh시 mm분");
 
@@ -101,7 +103,6 @@ public class SaveDataManager
         GameManager.Instance.activeSaveSlotNum = index;
         PathSetting();
 
-        //GameManager.Instance.currentData.previewData = PreviewDataLoad(index);
         GameManager.Instance.currentData = UserDataLoad(index);
         GameManager.Instance.gold.Value = GameManager.Instance.currentData.previewData.goldRef;
     }

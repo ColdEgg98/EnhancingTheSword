@@ -60,19 +60,24 @@ public class EnhanceSword : MonoBehaviour
 
         Weapon currentWeapon = GameManager.Instance.currentWeapon.Value;
 
+        // 소모 재화 계산
+        long price = currentWeapon.enhancingPrice;
+        if (GameManager.Instance.isFocusOn.Value) price += (long)(currentWeapon.enhancingPrice * 0.1f);
+
         // 강화 유효 판단
-        if (IsValid(currentWeapon) == false)
+        if (IsValid(currentWeapon, price) == false)
             return;
 
         // 재화 소모
-        GameManager.Instance.gold.Value -= currentWeapon.enhancingPrice;
+        GameManager.Instance.gold.Value -= price;
+        Debug.Log($"{StrUtiity.ToWonFormat(price)} 만큼 재화 소모");
 
         // 강화 시도
         bool result = CheckSuccess(currentWeapon.probability);
 
         // 업적 체크
         GameManager.Instance.currentData.enhanceCount++;
-        GameManager.Instance.achievementManager.CheckAchivement(ConditionType.ShotEnhance, GameManager.Instance.currentData.enhanceCount);
+        GameManager.Instance.achievementManager.CheckAchievement(ConditionType.ShotEnhance, GameManager.Instance.currentData.enhanceCount);
 
         // 애니메이션
         await EnhanceAnimation();
@@ -87,7 +92,7 @@ public class EnhanceSword : MonoBehaviour
         GameManager.Instance.saveDataManager.StartSave();
     }
 
-    private bool IsValid(Weapon weapon)
+    private bool IsValid(Weapon weapon, long price)
     {
         if (GameManager.Instance.currentWeapon.Value == null)
         {
@@ -103,7 +108,7 @@ public class EnhanceSword : MonoBehaviour
         }
 
         // 재화 및 요구 아이템 체크
-        if (GameManager.Instance.gold.Value < weapon.enhancingPrice)
+        if (GameManager.Instance.gold.Value < price)
         {
             GameManager.Instance.uiManager.UIFactory.ShowNotice("골드가 부족합니다", Color.white);
             return false;
@@ -114,7 +119,11 @@ public class EnhanceSword : MonoBehaviour
 
     private bool CheckSuccess(float p)
     {
-        float percent = p + GameManager.Instance.currentData.chanceBonus;
+        float bonus = GameManager.Instance.currentData.chanceBonus;
+        if (GameManager.Instance.isFocusOn.Value)
+            bonus = GameManager.Instance.currentData.chanceBonus + p * 0.1f;
+        Debug.Log($"[EnhanceSword] chanceBonus : {bonus}로 적용됨.");
+        float percent = p + bonus;
         return Random.value * 100 <= percent;
     }
 
@@ -146,6 +155,10 @@ public class EnhanceSword : MonoBehaviour
         // SetFlag
         isEnhancing = false;
 
+        // 10 레벨 업적 확인
+        if (newWeapon.index == 10)
+            GameManager.Instance.achievementManager.CheckAchievement(ConditionType.WeaponLevel, 10);
+
         // 5. 애니메이션
         _materialInstance.DOKill();
         await _materialInstance.DOFloat(0f, _flashID, 4f).AsyncWaitForCompletion();
@@ -176,6 +189,6 @@ public class EnhanceSword : MonoBehaviour
 
         // 업적 체크
         GameManager.Instance.currentData.failCount++;
-        GameManager.Instance.achievementManager.CheckAchivement(ConditionType.FailEnhance, GameManager.Instance.currentData.failCount);
+        GameManager.Instance.achievementManager.CheckAchievement(ConditionType.FailEnhance, GameManager.Instance.currentData.failCount);
     }
 }

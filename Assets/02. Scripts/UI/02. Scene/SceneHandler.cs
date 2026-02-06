@@ -19,6 +19,8 @@ public class SceneHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI InfoText; // 무기 강화 & 판매 정보 표기
     [SerializeField] private TextMeshProUGUI TipText; // 좌상단에 튜토리얼
     [SerializeField] private GameObject TesterButton; // 테스트 헬퍼
+    private Weapon weapon;
+    private bool isFocus;
 
     private void Awake()
     {
@@ -32,8 +34,6 @@ public class SceneHandler : MonoBehaviour
         GameManager.Instance.uiManager.TipTextAppend("강화 하기 (Space)");
         GameManager.Instance.uiManager.TipTextAppend("가방 열기 (E)");
         GameManager.Instance.uiManager.TipTextAppend("판매 (S)");
-
-        GameManager.Instance.soundManager.PlayBGM("578910__imania414__retro-80-s");
 #if UNITY_EDITOR
         TesterButton.SetActive(true);
 #endif
@@ -57,6 +57,7 @@ public class SceneHandler : MonoBehaviour
                 }
 
                 // 무기 정보(강화 비용 등) 갱신
+                this.weapon = weapon;
                 UpdateWeaponInfo(weapon);
             })
             .AddTo(this);
@@ -75,6 +76,15 @@ public class SceneHandler : MonoBehaviour
                 _material.SetFloat(_flashID, 0f);
 
                 GameManager.Instance.currentWeapon.Value = GameManager.Instance.currentData.myWeapons[index];
+            })
+            .AddTo(this);
+
+        // focus 켰을 때 UI 갱신
+        GameManager.Instance.isFocusOn
+            .Subscribe(boolean =>
+            {
+                isFocus = boolean;
+                UpdateWeaponInfo(weapon);
             })
             .AddTo(this);
 
@@ -136,12 +146,19 @@ public class SceneHandler : MonoBehaviour
         }
 
         float Bonus = GameManager.Instance.currentData.chanceBonus;
+        Bonus = (isFocus) ? Bonus + weapon.probability * 0.1f : Bonus;
+
+        long enhancingPrice = weapon.enhancingPrice;
+        long FocusPrice = weapon.enhancingPrice / 10;
+        enhancingPrice = (isFocus) ? weapon.enhancingPrice + FocusPrice : enhancingPrice;
+
+        string colorCode = (isFocus) ? "<color=#FF0000>" : "<color=#FFD700>";
 
         probabilityText.text = $"강화 확률 : <color=#FF0000>{weapon.probability}%</color>";
         if (Bonus != 0f)
-            probabilityText.text += $" + <color=#FFD700>({Bonus}%)</color>";
+            probabilityText.text += $" + {colorCode}({Bonus}%)</color>";
 
-        string tempFormat = $"무기 강화 금액\n\t{StrUtiity.ToWonFormat(weapon.enhancingPrice)}\n" +
+        string tempFormat = $"무기 강화 금액\n\t{StrUtiity.ToWonFormat(enhancingPrice, colorCode)}\n" +
                             $"필요 아이템\n\t{ListToString(weapon.needItems)}\n" +
                             $"무기 판매 가격\n\t{StrUtiity.ToWonFormat(weapon.price)}";
         InfoText.text = tempFormat;

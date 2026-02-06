@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class StrUtiity
 {
-    public static string ToWonFormat(long gold)
+    public static string ToWonFormat(long gold, string colorCode = "<color=#FFD700>")
     {
         if (gold == 0) return "0골드";
 
@@ -19,13 +19,13 @@ public class StrUtiity
         StringBuilder sb = new();
 
         if (jo > 0)
-            sb.Append($"<color=#FFD700>{jo}조</color> ");
+            sb.Append($"{colorCode}{jo}조</color> ");
         if (eok > 0)
-            sb.Append($"<color=#FFD700>{eok}억</color> ");
+            sb.Append($"{colorCode}{eok}억</color> ");
         if (man > 0)
-            sb.Append($"<color=#FFD700>{man}만</color> ");
+            sb.Append($"{colorCode}{man}만</color> ");
         if (AbsoluteValue > 0)
-            sb.Append($"<color=#FFD700>{gold}</color>");
+            sb.Append($"{colorCode}{gold}</color>");
 
         sb.Append("골드");
 

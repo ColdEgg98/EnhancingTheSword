@@ -6,9 +6,10 @@ using UnityEngine;
 public class RedSquareManager
 {
     public Action<RectTransform> RedSquareGenerater;
+    public Action<RectTransform, float, float> ResizableRedSquareGenerater;
     public Action<RectTransform> RedSquareRemover;
     public Action RedSquareAllRemover;
-    
+
     public Dictionary<RectTransform, RedSquare> activeRedSquares;
     private RedSquare instance;
 
@@ -16,9 +17,11 @@ public class RedSquareManager
     {
         activeRedSquares = new Dictionary<RectTransform, RedSquare>();
         RedSquareGenerater += GenerateRedSquare;
+        ResizableRedSquareGenerater += GenerateResizeRedSquare;
         RedSquareRemover += RemoveRedSquare;
         RedSquareAllRemover += RemoveAllOfRedSquare;
     }
+
 
     private void GenerateRedSquare(RectTransform TargetRect)
     {
@@ -31,7 +34,19 @@ public class RedSquareManager
         activeRedSquares.Add(TargetRect, instance);
         Debug.Log($"[RedDotManager] 해당 게임 오브젝트에 부착됨 : {instance.gameObject}");
     }
-    
+
+    private void GenerateResizeRedSquare(RectTransform TargetRect, float size, float offset)
+    {
+        if (activeRedSquares.ContainsKey(TargetRect)) return;
+
+        if (!TargetRect.TryGetComponent(out instance))
+            instance = TargetRect.AddComponent<RedSquare>();
+        _ = instance.Generate(TargetRect, size , offset);
+
+        activeRedSquares.Add(TargetRect, instance);
+        Debug.Log($"[RedDotManager] 해당 게임 오브젝트에 부착됨 : {instance.gameObject}");
+    }
+
     private void RemoveRedSquare(RectTransform TargetRect)
     {
         if (!activeRedSquares.ContainsKey(TargetRect)) return;

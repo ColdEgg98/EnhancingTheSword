@@ -7,7 +7,8 @@
       "RewardType": 0,
       "Value": 5000000.0,
       "ConditionType": 0,
-      "ConditionValue": 0
+      "ConditionValue": 0,
+      "FeatureName": null
     },
     {
       "AchivementID": "Let's Enhance",
@@ -16,7 +17,8 @@
       "RewardType": 0,
       "Value": 50000.0,
       "ConditionType": 2,
-      "ConditionValue": 1
+      "ConditionValue": 1,
+      "FeatureName": null
     },
     {
       "AchivementID": "Let's Fail",
@@ -25,7 +27,8 @@
       "RewardType": 3,
       "Value": 1.0,
       "ConditionType": 4,
-      "ConditionValue": 1
+      "ConditionValue": 1,
+      "FeatureName": null
     },
     {
       "AchivementID": "100Enhance",
@@ -34,7 +37,8 @@
       "RewardType": 3,
       "Value": 1.0,
       "ConditionType": 2,
-      "ConditionValue": 100
+      "ConditionValue": 100,
+      "FeatureName": null
     },
     {
       "AchivementID": "The begger",
@@ -43,7 +47,8 @@
       "RewardType": 0,
       "Value": 1000000.0,
       "ConditionType": 5,
-      "ConditionValue": 100000
+      "ConditionValue": 100000,
+      "FeatureName": null
     },
     {
       "AchivementID": "1000Enhance",
@@ -52,7 +57,8 @@
       "RewardType": 1,
       "Value": 10.0,
       "ConditionType": 2,
-      "ConditionValue": 1000
+      "ConditionValue": 1000,
+      "FeatureName": null
     },
     {
       "AchivementID": "100Fail",
@@ -61,7 +67,8 @@
       "RewardType": 3,
       "Value": 1.0,
       "ConditionType": 4,
-      "ConditionValue": 100
+      "ConditionValue": 100,
+      "FeatureName": null
     },
     {
       "AchivementID": "1000Fail",
@@ -70,7 +77,8 @@
       "RewardType": 3,
       "Value": 1.5,
       "ConditionType": 4,
-      "ConditionValue": 100
+      "ConditionValue": 100,
+      "FeatureName": null
     },
     {
       "AchivementID": "10000Enhance",
@@ -79,7 +87,8 @@
       "RewardType": 3,
       "Value": 1.5,
       "ConditionType": 2,
-      "ConditionValue": 10000
+      "ConditionValue": 10000,
+      "FeatureName": null
     },
     {
       "AchivementID": "Lotto",
@@ -88,7 +97,8 @@
       "RewardType": 1,
       "Value": 12.0,
       "ConditionType": 5,
-      "ConditionValue": 2500000000
+      "ConditionValue": 2500000000,
+      "FeatureName": null
     },
     {
       "AchivementID": "The Rich",
@@ -97,7 +107,18 @@
       "RewardType": 1,
       "Value": 15.0,
       "ConditionType": 6,
-      "ConditionValue": 10000000000
+      "ConditionValue": 10000000000,
+      "FeatureName": null
+    },
+    {
+      "AchivementID": "ReachLevel10",
+      "Name": "여정의 반",
+      "Description": "10레벨 무기를 획득했다.",
+      "RewardType": 4,
+      "Value": 10.0,
+      "ConditionType": 3,
+      "ConditionValue": 10,
+      "FeatureName": "집중 강화"
     }
   ]
 }

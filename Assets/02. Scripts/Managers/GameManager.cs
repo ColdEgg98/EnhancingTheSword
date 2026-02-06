@@ -25,6 +25,7 @@ public class GameManager : Singleton<GameManager>
     // Current Weapon
     public ReactiveProperty<Weapon> currentWeapon;
     public ReactiveProperty<int> selectWeaponIndex;
+    public BoolReactiveProperty isFocusOn;
 
     protected override void Awake()
     {
@@ -42,7 +43,8 @@ public class GameManager : Singleton<GameManager>
         AchieveByCondition = new();
 
         selectWeaponIndex.Value = 0;
-        currentWeapon.Value = new();
+        currentWeapon = new();
+        isFocusOn.Value = false;
     }
 
     void Start()
@@ -70,6 +72,11 @@ public class GameManager : Singleton<GameManager>
     public void PlayBGM(string name)
     {
         soundManager.PlayBGM(name);
+    }
+
+    public void SetFeautureCode(int code)
+    {
+        userDataManager.featureCode.Value = code;
     }
     #endregion
 }

@@ -15,7 +15,7 @@ public class AchievementManager
         preWeapon = GameManager.Instance.currentWeapon.Value;
     }
 
-    public async void CheckAchivement(ConditionType cType, long value)
+    public async void CheckAchievement(ConditionType cType, long value)
     {
         Debug.Log($"CheckAchievement Run: {cType}, Value: {value}");
         if (GameManager.Instance.AchieveByCondition.TryGetValue(cType, out List<Achievement> targetList))
@@ -23,7 +23,9 @@ public class AchievementManager
             foreach (Achievement a in targetList)
             {
                 if (GameManager.Instance.currentData.myAchievementRefs.Contains(a.AchivementID))
+                {
                     continue;
+                }
 
                 if (a.ConditionValue <= value)
                 {
@@ -45,16 +47,19 @@ public class AchievementManager
         {
             case RewardType.Gold:
                 GameManager.Instance.userDataManager.GetGold((long)value);
-                GameManager.Instance.uiManager.UIFactory.ShowToast($"업적 보상 : {value} 골드");
+                GameManager.Instance.ShowToast($"업적 보상 : {value} 골드");
                 break;
             case RewardType.Weapon:
                 GameManager.Instance.userDataManager.GetWeapon((int)value);
                 Weapon newWeapon = GameManager.Instance.allOfWeaponDictionary[(int)value];
-                GameManager.Instance.uiManager.UIFactory.ShowToast($"업적 보상 : {newWeapon.name}");
+                GameManager.Instance.ShowToast($"업적 보상 : {newWeapon.name}");
                 break;
             case RewardType.ProbabilityBonus:
                 GameManager.Instance.currentData.chanceBonus += value;
-                GameManager.Instance.uiManager.UIFactory.ShowToast($"업적 보상 : {value}%p 강화 확률 상승");
+                GameManager.Instance.ShowToast($"업적 보상 : {value}%p 강화 확률 상승");
+                break;
+            case RewardType.UnlockFeature:
+                GameManager.Instance.SetFeautureCode((int)value);
                 break;
             default:
                 Debug.LogError("예외가 발생했습니다.");
@@ -66,6 +71,6 @@ public class AchievementManager
     public async UniTask GameStartAchieved()
     {
         await UniTask.WaitForSeconds(2.0f);
-        GameManager.Instance.achievementManager.CheckAchivement(ConditionType.GameStart, 0);
+        GameManager.Instance.achievementManager.CheckAchievement(ConditionType.GameStart, 0);
     }
 }

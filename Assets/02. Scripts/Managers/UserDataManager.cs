@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 
 /// <summary>
@@ -5,6 +8,8 @@ using UnityEngine;
 /// </summary>
 public class UserDataManager
 {
+    public ReactiveProperty<int> featureCode = new ReactiveProperty<int>(0);
+
     public void GetGold(long value)
     {
         string message = StrUtiity.ToWonFormat(value);
@@ -22,7 +27,7 @@ public class UserDataManager
         GameManager.Instance.uiManager.UIFactory.ShowToast(message);
 
         // 업적 체크
-        GameManager.Instance.achievementManager.CheckAchivement(ConditionType.TotalGold, GameManager.Instance.currentData.totalGold);
+        GameManager.Instance.achievementManager.CheckAchievement(ConditionType.TotalGold, GameManager.Instance.currentData.totalGold);
     }
 
     public void GetGold(string value)
@@ -55,6 +60,12 @@ public class UserDataManager
             Debug.LogWarning("❌ GetWeapon 과정 중 변환 실패");
 
         GetWeapon(ID);
+    }
+
+    private void ProbabilityUpEnhance()
+    {
+        GameObject button = GameObject.FindWithTag("ProUpEnhance");
+        button.SetActive(true);
     }
 
     public void GetItem(int ID)

@@ -42,7 +42,7 @@ public class UserData
     public List<int> myWeaponRefs;
 
     // Achievement
-    public HashSet<String> myAchievementRefs;
+    public List<String> myAchievementRefs;
 
     // Material
     public List<MaterialItem> materials;
