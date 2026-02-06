@@ -28,7 +28,10 @@ public class InputActions : MonoBehaviour
 
     private void OnEnhance(InputAction.CallbackContext context)
     {
-        enhanceSword.RunEnhancing().Forget();
+        if (!enhanceSword.isEnhancing)
+            enhanceSword.RunEnhancing().Forget();
+        else
+            Debug.Log("❌ 현재 강화중입니다.");
     }
 
     private void OnSell(InputAction.CallbackContext context)

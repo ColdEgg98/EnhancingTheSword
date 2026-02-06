@@ -18,7 +18,7 @@ public class EnhanceSword : MonoBehaviour
     private int _flashID;
 
     // flag
-    private bool isEnhancing;
+    public bool isEnhancing;
 
     private void Awake()
     {
@@ -85,9 +85,6 @@ public class EnhanceSword : MonoBehaviour
 
         // 저장
         GameManager.Instance.saveDataManager.StartSave();
-
-        // Flag Off
-        isEnhancing = false;
     }
 
     private bool IsValid(Weapon weapon)
@@ -146,6 +143,9 @@ public class EnhanceSword : MonoBehaviour
         // Sound
         GameManager.Instance.soundManager.PlaySFX("WellDone");
 
+        // SetFlag
+        isEnhancing = false;
+
         // 5. 애니메이션
         _materialInstance.DOKill();
         await _materialInstance.DOFloat(0f, _flashID, 4f).AsyncWaitForCompletion();
@@ -167,6 +167,9 @@ public class EnhanceSword : MonoBehaviour
 
         // UI 갱신 & 0번에서 깨지고, 인벤에서 0번 누르면 반응할 수 있도록
         GameManager.Instance.selectWeaponIndex.Value = -1;
+
+        // SetFlag
+        isEnhancing = false;
 
         // 효과음
         GameManager.Instance.soundManager.PlaySFX("Break");

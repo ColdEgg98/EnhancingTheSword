@@ -20,7 +20,7 @@ MonoBehaviour:
   - soundName: HighLevelDemon
     type: 0
     clip: {fileID: 8300000, guid: c810f3d11fadac446b2ff9e34f6d60f7, type: 3}
-    volume: 0.5
+    volume: 0.3
   - soundName: Peaceful Stroll
     type: 0
     clip: {fileID: 8300000, guid: 791b54958a3ab204094b07919756e136, type: 3}
