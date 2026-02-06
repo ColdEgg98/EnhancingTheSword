@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -49,7 +48,20 @@ public class SoundManager : MonoBehaviour
     public void PlaySFX(string name)
     {
         if (TryGetClip(name, SoundType.SFX, out SoundData data))
+        {
+            // 1. 기본 피치(1.0)에서 설정된 변동폭만큼 랜덤하게 더하거나 뺌
+            // 예: variance가 0.1이면 -> 0.9 ~ 1.1 사이의 값 생성
+            float randomPitch = 1f + Random.Range(-data.pitchVariance, data.pitchVariance);
+
+            // 2. 오디오 소스의 피치를 일시적으로 변경
+            sfxPlayer.pitch = randomPitch;
+
+            // 3. 재생 (변경된 피치로 발사됨)
             sfxPlayer.PlayOneShot(data.clip, data.volume);
+
+            // 4. [중요] 다음 효과음을 위해 피치를 다시 정상(1.0)으로 복구
+            sfxPlayer.pitch = 1f;
+        }
     }
 
     public void PlayBGM(string name)

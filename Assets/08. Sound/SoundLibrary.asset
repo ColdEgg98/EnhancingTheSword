@@ -17,47 +17,59 @@ MonoBehaviour:
     type: 0
     clip: {fileID: 8300000, guid: e44b8cb727d3ed24abcf44bb92586ae8, type: 3}
     volume: 0.25
+    pitchVariance: 0
   - soundName: HighLevelDemon
     type: 0
     clip: {fileID: 8300000, guid: c810f3d11fadac446b2ff9e34f6d60f7, type: 3}
     volume: 0.3
+    pitchVariance: 0
   - soundName: Peaceful Stroll
     type: 0
     clip: {fileID: 8300000, guid: 791b54958a3ab204094b07919756e136, type: 3}
     volume: 1
+    pitchVariance: 0
   - soundName: TechnoBeat
     type: 0
     clip: {fileID: 8300000, guid: e6cf152bf0476704994586d607bd0e47, type: 3}
-    volume: 0.6
+    volume: 0.4
+    pitchVariance: 0
   - soundName: AnvilHit
     type: 1
-    clip: {fileID: 8300000, guid: b00402881aab5b24ab03c139e253b015, type: 3}
+    clip: {fileID: 8300000, guid: fa8ea85994bf1dd44b23e959ded79578, type: 3}
     volume: 1
+    pitchVariance: 0.1
   - soundName: AnvilHit2
     type: 1
     clip: {fileID: 8300000, guid: e8bfb717ceab8104eaa0a98b5817b33c, type: 3}
     volume: 1
+    pitchVariance: 0
   - soundName: Break
     type: 1
     clip: {fileID: 8300000, guid: 68b5abc19cdb89a468189f1957e78b13, type: 3}
     volume: 0.8
+    pitchVariance: 0
   - soundName: Click
     type: 1
     clip: {fileID: 8300000, guid: e1c04a47bef58074eab3b1989b432547, type: 3}
     volume: 1
+    pitchVariance: 0
   - soundName: HitHard
     type: 1
     clip: {fileID: 8300000, guid: a05aef93ee6fe3b479269536197b169b, type: 3}
     volume: 1
+    pitchVariance: 0
   - soundName: OpenBag
     type: 1
     clip: {fileID: 8300000, guid: b64119b5725103242a6f4af2ae443593, type: 3}
     volume: 1
+    pitchVariance: 0
   - soundName: Success
     type: 1
     clip: {fileID: 8300000, guid: e4ed9a8d6f7fde844a63215c1a5e9b95, type: 3}
     volume: 1
+    pitchVariance: 0
   - soundName: WellDone
     type: 1
     clip: {fileID: 8300000, guid: f67386b9a7ad85b418e8487677e59a28, type: 3}
     volume: 1
+    pitchVariance: 0

@@ -1,4 +1,3 @@
-using System;
 using UniRx;
 using UnityEngine;
 
@@ -40,14 +39,14 @@ public class BGMHandler : MonoBehaviour
 
         if (level >= levelThreshold)
         {
-            int randomIndex = UnityEngine.Random.Range(0, highLevelBgms.Length);
+            int randomIndex = Random.Range(0, highLevelBgms.Length);
             bgmName = highLevelBgms[randomIndex];
         }
         else
         {
             if (IsPlayingNormalBGM()) return;
 
-            int randomIndex = UnityEngine.Random.Range(0, normalBgms.Length);
+            int randomIndex = Random.Range(0, normalBgms.Length);
             bgmName = normalBgms[randomIndex];
         }
 
