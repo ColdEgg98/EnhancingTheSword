@@ -32,9 +32,11 @@ public class SceneHandler : MonoBehaviour
         GameManager.Instance.uiManager.TipTextAppend("강화 하기 (Space)");
         GameManager.Instance.uiManager.TipTextAppend("가방 열기 (E)");
         GameManager.Instance.uiManager.TipTextAppend("판매 (S)");
-        #if UNITY_EDITOR
+
+        GameManager.Instance.soundManager.PlayBGM("578910__imania414__retro-80-s");
+#if UNITY_EDITOR
         TesterButton.SetActive(true);
-        #endif
+#endif
     }
 
     private void SetSubscribe()
@@ -49,6 +51,8 @@ public class SceneHandler : MonoBehaviour
                 else
                 {
                     GameObjectsSetActive(true);
+
+                    LevelBGM(weapon.index);
 
                     weaponNameText.text = weapon.name;
                     LoadSprite(weapon.addressID);
@@ -95,6 +99,39 @@ public class SceneHandler : MonoBehaviour
         probabilityText.gameObject.SetActive(v);
     }
 
+    private void LevelBGM(int weaponLevel)
+    {
+        if (weaponLevel < 13)
+        {
+            if (GameManager.Instance.GetCurrentBGMName() == "715708__prodbyrey__retro-game-music-loop")
+                GameManager.Instance.StopBGM();
+
+            string bgmName = string.Empty;
+            int num = UnityEngine.Random.Range(0, 3);
+            switch (num)
+            {
+                case 0:
+                    bgmName = "578910__imania414__retro-80-s";
+                    break;
+                case 1:
+                    bgmName = "685934__timouse__techno-beat-cargo";
+                    break;
+                case 2:
+                    bgmName = "721948__audiocoffee__creative-background-loop-ver";
+                    break;
+            }
+            GameManager.Instance.PlayBGM(bgmName);
+        }
+        else if (weaponLevel >= 13)
+        {
+            if (GameManager.Instance.GetCurrentBGMName() != "715708__prodbyrey__retro-game-music-loop")
+                GameManager.Instance.StopBGM();
+
+            GameManager.Instance.StopBGM();
+            GameManager.Instance.PlayBGM("715708__prodbyrey__retro-game-music-loop");
+        }
+    }
+
     public async void LoadSprite(string id)
     {
         if (string.IsNullOrEmpty(id)) return;
@@ -138,7 +175,7 @@ public class SceneHandler : MonoBehaviour
 
         probabilityText.text = $"강화 확률 : <color=#FF0000>{weapon.probability}%</color>";
         if (Bonus != 0f)
-        probabilityText.text += $" + <color=#FFD700>({Bonus}%)</color>";
+            probabilityText.text += $" + <color=#FFD700>({Bonus}%)</color>";
 
         string tempFormat = $"무기 강화 금액\n\t{StrUtiity.ToWonFormat(weapon.enhancingPrice)}\n" +
                             $"필요 아이템\n\t{ListToString(weapon.needItems)}\n" +

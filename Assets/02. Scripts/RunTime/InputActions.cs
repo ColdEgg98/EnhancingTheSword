@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -27,7 +28,7 @@ public class InputActions : MonoBehaviour
 
     private void OnEnhance(InputAction.CallbackContext context)
     {
-        enhanceSword.RunEnhancing();
+        enhanceSword.RunEnhancing().Forget();
     }
 
     private void OnSell(InputAction.CallbackContext context)

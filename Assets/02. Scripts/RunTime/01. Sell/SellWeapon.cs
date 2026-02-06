@@ -45,6 +45,10 @@ public class SellWeapon : MonoBehaviour
         sellingWeaponsTxt.text = (isDictHasData) ? GetSalesString() : currentWeaponName;
         PriceTxt.text = StrUtiity.ToWonFormat(price);
 
+        // 효과음
+        GameManager.Instance.soundManager.PlaySFX("Click");
+
+        // 패널 등장
         Panel.SetActive(true);
     }
 
@@ -89,9 +93,17 @@ public class SellWeapon : MonoBehaviour
 
     private void YesBtnBehavior()
     {
+        // 효과음
+        GameManager.Instance.soundManager.PlaySFX("Click");
+
+        // 패널 끄기
         Panel.SetActive(false);
+
+        // 인벤 정리
         EliminateProcess();
         inventoryData.OnClickXButton();
+
+        // 골드 지급
         GameManager.Instance.userDataManager.GetGold(price);
 
         if (weaponsForSell != null) weaponsForSell.Clear();

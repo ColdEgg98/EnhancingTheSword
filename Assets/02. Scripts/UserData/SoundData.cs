@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class SoundData : ScriptableObject {
+public class SoundData {
     public string soundName;
     public SoundType type;
     public AudioClip clip;
@@ -12,5 +12,5 @@ public enum SoundType
 {
     BGM,
     SFX,
-    Environment
+    ENV
 }

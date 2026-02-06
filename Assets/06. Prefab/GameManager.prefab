@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2127278575584811810}
   - component: {fileID: 8796186538169641324}
   - component: {fileID: 343305454755021891}
+  - component: {fileID: 6610648692418292176}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -47,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDontDestroy: 1
   uiManager: {fileID: 0}
+  soundManager: {fileID: 0}
   activeSaveSlotNum: 0
   currentData:
     previewData:
@@ -80,3 +82,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UIFactory: {fileID: 0}
+--- !u!114 &6610648692418292176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2068091087545888485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97e44fd902f7e46ef9234249184a6eb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundList: {fileID: 11400000, guid: a239e0488f453724cb199ef9a3f747b0, type: 2}
+  bgmPlayer: {fileID: 0}
+  sfxPlayer: {fileID: 0}
+  envPlayer: {fileID: 0}

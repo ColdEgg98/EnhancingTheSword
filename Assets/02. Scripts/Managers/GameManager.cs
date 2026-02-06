@@ -4,20 +4,25 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
+    // Managers
     public SaveDataManager saveDataManager;
     public UserDataManager userDataManager;
     public UIManager uiManager;
     public AchievementManager achievementManager;
     public RedSquareManager redSquareManager;
+    public SoundManager soundManager;
 
+    // Dictionaries
     public Dictionary<int, Weapon> allOfWeaponDictionary;
     public Dictionary<string, Achievement> allOfAchivementDictionary;
     public Dictionary<ConditionType, List<Achievement>> AchieveByCondition;
 
+    // Current Datas
     public int activeSaveSlotNum;
     public UserData currentData;
     public ReactiveProperty<long> gold;
 
+    // Current Weapon
     public ReactiveProperty<Weapon> currentWeapon;
     public ReactiveProperty<int> selectWeaponIndex;
 
@@ -26,6 +31,7 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
 
         uiManager = GetComponent<UIManager>();
+        soundManager = GetComponent<SoundManager>();
         saveDataManager = new();
         userDataManager = new();
         achievementManager = new();
@@ -42,6 +48,27 @@ public class GameManager : Singleton<GameManager>
     void Start()
     {
         Debug.Log("✅ [GameManager] : Start");
-        saveDataManager.Init();
     }
+
+    #region 핫키
+    public void ShowToast(string str)
+    {
+        uiManager.UIFactory.ShowToast(str);
+    }
+
+    public void StopBGM()
+    {
+        soundManager.StopBGM();
+    }
+
+    public string GetCurrentBGMName()
+    {
+        return soundManager.GetCurrentBGMName();
+    }
+
+    public void PlayBGM(string name)
+    {
+        soundManager.PlayBGM(name);
+    }
+    #endregion
 }

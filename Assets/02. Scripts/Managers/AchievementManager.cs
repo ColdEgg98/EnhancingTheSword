@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -62,9 +63,9 @@ public class AchievementManager
     }
 
     // SaveSlot에서 호출
-    public async Awaitable GameStartAchieved()
+    public async UniTask GameStartAchieved()
     {
-        await Awaitable.WaitForSecondsAsync(2.0f);
+        await UniTask.WaitForSeconds(2.0f);
         GameManager.Instance.achievementManager.CheckAchivement(ConditionType.GameStart, 0);
     }
 }

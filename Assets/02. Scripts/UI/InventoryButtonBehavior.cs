@@ -82,6 +82,9 @@ public class InventoryButtonBehavior : MonoBehaviour
         // 3. 여기까지 오면 모든 이미지가 100% 로딩 완료된 상태임
         Debug.Log("모든 무기 이미지 로딩 완료");
 
+        // 4. 효과음 재생
+        GameManager.Instance.soundManager.PlaySFX("OpenBag");
+
         inventory.SetActive(true);
 
         // 팁 변경
@@ -150,6 +153,7 @@ public class InventoryButtonBehavior : MonoBehaviour
         GameManager.Instance.redSquareManager.RedSquareAllRemover();
         weaponsForSell.Clear();
         inventory.SetActive(false);
+        GameManager.Instance.soundManager.PlaySFX("OpenBag");
         
         // 팁 변경
         GameManager.Instance.uiManager.TipTextAppend("가방 열기 (E)");

@@ -3,11 +3,11 @@ using UnityEngine.UI;
 using System.Diagnostics;
 using System.Collections.Generic;
 using Debug = UnityEngine.Debug;
-using System.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 using System;
 using Newtonsoft.Json;
+using Cysharp.Threading.Tasks;
 
 public class LoadingHandler : MonoBehaviour
 {
@@ -33,26 +33,30 @@ public class LoadingHandler : MonoBehaviour
         completedTasks = 0;
     }
 
-    async Awaitable Start()
+    void Start()
     {
-        await SaveEssentialDictionarys();
+        // Init
+        GameManager.Instance.saveDataManager.Init();
+        GameManager.Instance.soundManager.Init();
+
+        SaveEssentialDictionarys().Forget();
     }
 
-    public async Awaitable SaveEssentialDictionarys()
+    public async UniTask SaveEssentialDictionarys()
     {
         // 시간 측정 시작
         Stopwatch sw = Stopwatch.StartNew();
 
         totalTasks = 2;
 
-        // 1. 데이터들 병렬로 로드
-        List<Task> tasks = new List<Task>
+        // 1. 데이터들 로드
+        List<UniTask> tasks = new List<UniTask>
         {
             ProcessTasks($"Data/{weaponXlsxFileName}", LoadWeapons),
             ProcessTasks($"Data/{achivementXlsxFileName}", LoadAchievements)
         };
 
-        await Task.WhenAll(tasks.ToArray());
+        await UniTask.WhenAll(tasks.ToArray());
 
         // 2. GameaManager 인스턴스에 복사
         SetGameManagerDatas();
@@ -65,14 +69,14 @@ public class LoadingHandler : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
-    private async Task ProcessTasks(string path, Action<string> parseAction)
+    private UniTask ProcessTasks(string path, Action<string> parseAction)
     {
         // Resources에서 텍스트 파일 로드
         TextAsset jsonFile = Resources.Load<TextAsset>(path);
         if (!jsonFile)
         {
             Debug.LogError($"❌ [LoadingHandler] : 파일을 찾을 수 없습니다 → {path}");
-            return;
+            return UniTask.CompletedTask;
         }
 
         // 파싱
@@ -83,9 +87,17 @@ public class LoadingHandler : MonoBehaviour
         float progress = (float)completedTasks / totalTasks;
 
         // 슬라이더 애니메이션
-        _ = slider.DOValue(progress, 0.2f);
+        SliderAnimation(progress).Forget();
 
         Debug.Log($"🔨 작업 완료 : ({completedTasks}/{totalTasks})");
+        return UniTask.CompletedTask;
+    }
+
+    private async UniTask SliderAnimation(float progress)
+    {
+        Sequence seq = DOTween.Sequence();
+        seq.Append(slider.DOValue(progress, 0.05f));
+        await seq.AsyncWaitForCompletion();
     }
 
     private void LoadWeapons(string json)

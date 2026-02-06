@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UniRx;
 using UnityEngine;
@@ -16,6 +17,9 @@ public class EnhanceSword : MonoBehaviour
     private Material _materialInstance;
     private int _flashID;
 
+    // flag
+    private bool isEnhancing;
+
     private void Awake()
     {
         currentWeaponIndex = GameManager.Instance.selectWeaponIndex.Value;
@@ -24,13 +28,21 @@ public class EnhanceSword : MonoBehaviour
         _flashID = Shader.PropertyToID("_FlashAmount");
 
         _materialInstance = targetImage.material;
+
+        isEnhancing = false;
     }
 
     void Start()
     {
         // 버튼 이벤트 설정
         if (enhanceButton == null) enhanceButton = GetComponentInChildren<Button>();
-        enhanceButton.onClick.AddListener(RunEnhancing);
+        enhanceButton.onClick.AddListener(() =>
+        {
+            if (!isEnhancing)
+                RunEnhancing().Forget();
+            else
+                Debug.Log("❌ 현재 강화중입니다.");
+        });
 
         // 무기 정보 구독
         GameManager.Instance.selectWeaponIndex
@@ -38,8 +50,14 @@ public class EnhanceSword : MonoBehaviour
             .AddTo(this);
     }
 
-    public async void RunEnhancing()
+    public async UniTask RunEnhancing()
     {
+        // Flag On
+        isEnhancing = true;
+
+        // Sound
+        GameManager.Instance.soundManager.PlaySFX("AnvilHit");
+
         Weapon currentWeapon = GameManager.Instance.currentWeapon.Value;
 
         // 강화 유효 판단
@@ -61,12 +79,15 @@ public class EnhanceSword : MonoBehaviour
 
         // 강화 결과 처리
         if (result)
-            _ = EnhancingSuccessed(currentWeapon);
+            EnhancingSuccessed(currentWeapon).Forget();
         else
             EnhancingFailed(currentWeapon);
 
         // 저장
         GameManager.Instance.saveDataManager.StartSave();
+
+        // Flag Off
+        isEnhancing = false;
     }
 
     private bool IsValid(Weapon weapon)
@@ -100,7 +121,7 @@ public class EnhanceSword : MonoBehaviour
         return Random.value * 100 <= percent;
     }
 
-    private async Awaitable EnhanceAnimation()
+    private async UniTask EnhanceAnimation()
     {
         _materialInstance.DOKill();
         _materialInstance.SetFloat(_flashID, 0);
@@ -108,7 +129,7 @@ public class EnhanceSword : MonoBehaviour
         await _materialInstance.DOFloat(1f, _flashID, 0.75f).AsyncWaitForCompletion();
     }
 
-    private async Awaitable EnhancingSuccessed(Weapon currentWeapon)
+    private async UniTask EnhancingSuccessed(Weapon currentWeapon)
     {
         // 1. 다음 단계 무기 데이터 가져오기
         int nextIndex = currentWeapon.index + 1;
@@ -122,7 +143,10 @@ public class EnhanceSword : MonoBehaviour
         // 3. 무기 표시 변경
         GameManager.Instance.currentWeapon.Value = newWeapon;
 
-        // 4. 애니메이션
+        // Sound
+        GameManager.Instance.soundManager.PlaySFX("WellDone");
+
+        // 5. 애니메이션
         _materialInstance.DOKill();
         await _materialInstance.DOFloat(0f, _flashID, 4f).AsyncWaitForCompletion();
 
@@ -143,6 +167,9 @@ public class EnhanceSword : MonoBehaviour
 
         // UI 갱신 & 0번에서 깨지고, 인벤에서 0번 누르면 반응할 수 있도록
         GameManager.Instance.selectWeaponIndex.Value = -1;
+
+        // 효과음
+        GameManager.Instance.soundManager.PlaySFX("Break");
 
         // 업적 체크
         GameManager.Instance.currentData.failCount++;
