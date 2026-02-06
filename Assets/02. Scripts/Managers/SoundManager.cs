@@ -1,8 +1,10 @@
+using DG.Tweening;
+using System;
 using System.Collections.Generic;
-using UnityEditor.Build.Pipeline;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour {
+public class SoundManager : MonoBehaviour
+{
     [Header("등록 목록")]
     [SerializeField] private SoundLibrary soundList; // 인스펙터에서 등록
 
@@ -12,6 +14,14 @@ public class SoundManager : MonoBehaviour {
     [SerializeField] private AudioSource bgmPlayer;
     [SerializeField] private AudioSource sfxPlayer;
     [SerializeField] private AudioSource envPlayer;
+
+    // Fade
+    private float fadeTime;
+
+    private void Awake()
+    {
+        fadeTime = 1f;
+    }
 
     public void Init()
     {
@@ -46,12 +56,43 @@ public class SoundManager : MonoBehaviour {
     {
         if (TryGetClip(name, SoundType.BGM, out SoundData data))
         {
-            if (bgmPlayer.isPlaying && bgmPlayer.clip == data.clip) return;
+            // 같은 곡이 재생 중이면 무시
+            if (bgmPlayer.clip == data.clip && bgmPlayer.isPlaying)
+            {
+                // 방어 코드
+                bgmPlayer.DOFade(data.volume, fadeTime);
+                return;
+            }
 
-            bgmPlayer.clip = data.clip;
-            bgmPlayer.volume = data.volume;
-            bgmPlayer.Play();
+            // 페이드 중이었다면 없애기
+            bgmPlayer.DOKill();
+
+            // 음악 전환
+            if (bgmPlayer.isPlaying && bgmPlayer.volume > 0)
+            {
+                // 음악 페이드 아웃
+                bgmPlayer.DOFade(0f, fadeTime * .5f).OnComplete(() =>
+                {
+                    StartNewBGM(data, fadeTime * .5f);
+                });
+            }
+            // 진행 중 음악이 없으면 바로 시작
+            else
+            {
+                bgmPlayer.volume = 0f;
+                StartNewBGM(data, fadeTime);
+            }
+
+            Debug.Log($"[PlayBGM] 제목 : {bgmPlayer.clip.name}, 볼륨 :{bgmPlayer.volume}");
         }
+    }
+
+    private void StartNewBGM(SoundData data, float fati)
+    {
+        bgmPlayer.clip = data.clip;
+        bgmPlayer.Play();
+
+        bgmPlayer.DOFade(data.volume, fati).SetEase(Ease.Linear);
     }
 
     public string GetCurrentBGMName()
@@ -88,11 +129,18 @@ public class SoundManager : MonoBehaviour {
         return false;
     }
 
-    public void StopBGM() => bgmPlayer.Stop();
+    public void StopBGM()
+    {
+        bgmPlayer.DOKill();
+        bgmPlayer.DOFade(0f, fadeTime * 2f).OnComplete(() =>
+        {
+            bgmPlayer.Stop();
+        });
+    }
     public void StopENV() => envPlayer.Stop();
     public void StopAllSound()
     {
-        bgmPlayer.Stop();
+        StopBGM();
         envPlayer.Stop();
         sfxPlayer.Stop();
     }

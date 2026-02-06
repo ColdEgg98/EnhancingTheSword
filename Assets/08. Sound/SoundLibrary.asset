@@ -13,22 +13,22 @@ MonoBehaviour:
   m_Name: SoundLibrary
   m_EditorClassIdentifier: 
   soundList:
-  - soundName: 578910__imania414__retro-80-s
+  - soundName: Creative
+    type: 0
+    clip: {fileID: 8300000, guid: e44b8cb727d3ed24abcf44bb92586ae8, type: 3}
+    volume: 0.25
+  - soundName: HighLevelDemon
+    type: 0
+    clip: {fileID: 8300000, guid: c810f3d11fadac446b2ff9e34f6d60f7, type: 3}
+    volume: 0.5
+  - soundName: Peaceful Stroll
     type: 0
     clip: {fileID: 8300000, guid: 791b54958a3ab204094b07919756e136, type: 3}
     volume: 1
-  - soundName: 685934__timouse__techno-beat-cargo
+  - soundName: TechnoBeat
     type: 0
     clip: {fileID: 8300000, guid: e6cf152bf0476704994586d607bd0e47, type: 3}
-    volume: 1
-  - soundName: 715708__prodbyrey__retro-game-music-loop
-    type: 0
-    clip: {fileID: 8300000, guid: c810f3d11fadac446b2ff9e34f6d60f7, type: 3}
-    volume: 0.52
-  - soundName: 721948__audiocoffee__creative-background-loop-ver
-    type: 0
-    clip: {fileID: 8300000, guid: e44b8cb727d3ed24abcf44bb92586ae8, type: 3}
-    volume: 0.244
+    volume: 0.6
   - soundName: AnvilHit
     type: 1
     clip: {fileID: 8300000, guid: b00402881aab5b24ab03c139e253b015, type: 3}

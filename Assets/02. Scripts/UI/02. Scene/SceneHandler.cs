@@ -52,8 +52,6 @@ public class SceneHandler : MonoBehaviour
                 {
                     GameObjectsSetActive(true);
 
-                    LevelBGM(weapon.index);
-
                     weaponNameText.text = weapon.name;
                     LoadSprite(weapon.addressID);
                 }
@@ -98,40 +96,6 @@ public class SceneHandler : MonoBehaviour
         InfoText.gameObject.SetActive(v);
         probabilityText.gameObject.SetActive(v);
     }
-
-    private void LevelBGM(int weaponLevel)
-    {
-        if (weaponLevel < 13)
-        {
-            if (GameManager.Instance.GetCurrentBGMName() == "715708__prodbyrey__retro-game-music-loop")
-                GameManager.Instance.StopBGM();
-
-            string bgmName = string.Empty;
-            int num = UnityEngine.Random.Range(0, 3);
-            switch (num)
-            {
-                case 0:
-                    bgmName = "578910__imania414__retro-80-s";
-                    break;
-                case 1:
-                    bgmName = "685934__timouse__techno-beat-cargo";
-                    break;
-                case 2:
-                    bgmName = "721948__audiocoffee__creative-background-loop-ver";
-                    break;
-            }
-            GameManager.Instance.PlayBGM(bgmName);
-        }
-        else if (weaponLevel >= 13)
-        {
-            if (GameManager.Instance.GetCurrentBGMName() != "715708__prodbyrey__retro-game-music-loop")
-                GameManager.Instance.StopBGM();
-
-            GameManager.Instance.StopBGM();
-            GameManager.Instance.PlayBGM("715708__prodbyrey__retro-game-music-loop");
-        }
-    }
-
     public async void LoadSprite(string id)
     {
         if (string.IsNullOrEmpty(id)) return;

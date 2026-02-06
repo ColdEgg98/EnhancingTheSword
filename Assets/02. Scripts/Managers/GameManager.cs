@@ -63,6 +63,7 @@ public class GameManager : Singleton<GameManager>
 
     public string GetCurrentBGMName()
     {
+        Debug.Log($"[GetCurrentBGMName] : {soundManager.GetCurrentBGMName()}");
         return soundManager.GetCurrentBGMName();
     }
 
