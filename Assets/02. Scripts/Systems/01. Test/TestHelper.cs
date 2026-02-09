@@ -25,7 +25,8 @@ public class TestHelper : MonoBehaviour
     [SerializeField] private TMP_InputField goldAmountInput;
     [SerializeField] private TMP_InputField weaponIndexInput;
     [SerializeField] private TMP_InputField toastInput;
-    [SerializeField] private TMP_InputField NoticeInput;
+    [SerializeField] private TMP_InputField noticeInput;
+    [SerializeField] private TMP_InputField itemInput;
 
     [Header("Toggle")]
     [SerializeField] private Toggle colorToggle;
@@ -87,7 +88,8 @@ public class TestHelper : MonoBehaviour
         goldAmountInput.onSubmit.AddListener(OnSubmitGoldInput);
         weaponIndexInput.onSubmit.AddListener(OnSubmitWeaponIndexInput);
         toastInput.onSubmit.AddListener(OnSubmitToastMesage);
-        NoticeInput.onSubmit.AddListener(OnSubmitNoticeMesage);
+        noticeInput.onSubmit.AddListener(OnSubmitNoticeMesage);
+        itemInput.onSubmit.AddListener(OnSubmitItemID);
 
         colorToggle.onValueChanged.AddListener(colorChange);
     }
@@ -111,17 +113,24 @@ public class TestHelper : MonoBehaviour
         XButton();
     }
 
-    public void OnSubmitToastMesage(string mesage)
+    public void OnSubmitToastMesage(string message)
     {
-        GameManager.Instance.uiManager.UIFactory.ShowToast(mesage);
+        GameManager.Instance.uiManager.UIFactory.ShowToast(message);
         toastInput.text = string.Empty;
         XButton();
     }
 
-    public void OnSubmitNoticeMesage(string mesage)
+    public void OnSubmitNoticeMesage(string message)
     {
-        GameManager.Instance.uiManager.UIFactory.ShowNotice(mesage, c);
-        NoticeInput.text = string.Empty;
+        GameManager.Instance.uiManager.UIFactory.ShowNotice(message, c);
+        noticeInput.text = string.Empty;
+        XButton();
+    }
+
+    public void OnSubmitItemID(string message)
+    {
+        GameManager.Instance.userDataManager.GetItem(message);
+        noticeInput.text = string.Empty;
         XButton();
     }
 

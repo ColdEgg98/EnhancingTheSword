@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
@@ -13,14 +11,26 @@ public class UserDataManager
     public void GetGold(long value)
     {
         string message = StrUtiity.ToWonFormat(value);
-
+        float Bonus;
         if (value > 0)
         {
-            GameManager.Instance.currentData.totalGold += value;
+            message += "를 획득했습니다.";
+
+            // 추가 골드 계산 + 출력 메세지 수정
+            if (GameManager.Instance.currentData.addtionalGold > 0)
+            {
+                Bonus = value / GameManager.Instance.currentData.addtionalGold;
+                message += $"\n추가 골드 ({StrUtiity.ToWonFormat((long)Bonus)})";
+                value += (long)Bonus;
+            }
         }
 
-        message += value > 0 ? "를 획득했습니다." : "를 사용했습니다.";
+        else if (value < 0)
+        {
+            message += "를 사용했습니다.";
+        }
 
+        // 골드 획득
         GameManager.Instance.gold.Value += value;
 
         // UI 표시
@@ -28,6 +38,7 @@ public class UserDataManager
 
         // 업적 체크
         GameManager.Instance.achievementManager.CheckAchievement(ConditionType.TotalGold, GameManager.Instance.currentData.totalGold);
+        if (value > 0) GameManager.Instance.currentData.totalGold += value;
     }
 
     public void GetGold(string value)
@@ -50,8 +61,8 @@ public class UserDataManager
 
         Weapon newWeapon = GameManager.Instance.allOfWeaponDictionary[ID];
         GameManager.Instance.currentData.myWeapons.Add(newWeapon);
-        GameManager.Instance.uiManager.UIFactory.ShowToast($"{UIManager.AttachJoSa(newWeapon.name)} 획득했습니다.");
-        Debug.Log($"✅ 무기 추가됨 : {newWeapon.addressID}");
+        GameManager.Instance.ShowToast($"{StrUtiity.AttachJoSa(newWeapon.WeaponName)} 획득했습니다.");
+        Debug.Log($"✅ 무기 추가됨 : {newWeapon.AddressID}");
     }
 
     public void GetWeapon(string strID)
@@ -62,15 +73,17 @@ public class UserDataManager
         GetWeapon(ID);
     }
 
-    private void ProbabilityUpEnhance()
+    public void GetItem(string id)
     {
-        GameObject button = GameObject.FindWithTag("ProUpEnhance");
-        button.SetActive(true);
-    }
+        if (!GameManager.Instance.allOfItemsDictionary.ContainsKey(id))
+        {
+            Debug.LogError($"❌ 확인되지 않은 아이템 ID : {id}");
+            return;
+        }
 
-    public void GetItem(int ID)
-    {
-        // 아이템 딕셔너리 검색
-        // Toast를 UIManager에서 출력
+        MaterialItem newItem = GameManager.Instance.allOfItemsDictionary[id];
+        GameManager.Instance.currentData.materials.Add(newItem);
+        GameManager.Instance.ShowToast($"{StrUtiity.AttachJoSa(newItem.ItemName)} 획득했습니다.");
+        Debug.Log($"✅ 아이템 추가됨 : {newItem.AddressID}");
     }
 }

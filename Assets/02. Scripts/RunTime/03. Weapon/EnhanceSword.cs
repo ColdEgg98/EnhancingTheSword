@@ -61,8 +61,8 @@ public class EnhanceSword : MonoBehaviour
         Weapon currentWeapon = GameManager.Instance.currentWeapon.Value;
 
         // 소모 재화 계산
-        long price = currentWeapon.enhancingPrice;
-        if (GameManager.Instance.isFocusOn.Value) price += (long)(currentWeapon.enhancingPrice * 0.1f);
+        long price = currentWeapon.EnhancingPrice;
+        if (GameManager.Instance.isFocusOn.Value) price += (long)(currentWeapon.EnhancingPrice * 0.1f);
 
         // 강화 유효 판단
         if (IsValid(currentWeapon, price) == false)
@@ -73,7 +73,7 @@ public class EnhanceSword : MonoBehaviour
         Debug.Log($"{StrUtiity.ToWonFormat(price)} 만큼 재화 소모");
 
         // 강화 시도
-        bool result = CheckSuccess(currentWeapon.probability);
+        bool result = CheckSuccess(currentWeapon.Probability);
 
         // 업적 체크
         GameManager.Instance.currentData.enhanceCount++;
@@ -101,7 +101,7 @@ public class EnhanceSword : MonoBehaviour
         }
 
         // 레벨 상한 체크
-        if (weapon.index >= 20)
+        if (weapon.Index >= 20)
         {
             GameManager.Instance.uiManager.UIFactory.ShowNotice("이미 최대 레벨에 도달했습니다", Color.white);
             return false;
@@ -138,7 +138,7 @@ public class EnhanceSword : MonoBehaviour
     private async UniTask EnhancingSuccessed(Weapon currentWeapon)
     {
         // 1. 다음 단계 무기 데이터 가져오기
-        int nextIndex = currentWeapon.index + 1;
+        int nextIndex = currentWeapon.Index + 1;
         if (!GameManager.Instance.allOfWeaponDictionary.ContainsKey(nextIndex)) return;
 
         Weapon newWeapon = GameManager.Instance.allOfWeaponDictionary[nextIndex];
@@ -156,19 +156,19 @@ public class EnhanceSword : MonoBehaviour
         isEnhancing = false;
 
         // 10 레벨 업적 확인
-        if (newWeapon.index == 10)
+        if (newWeapon.Index == 10)
             GameManager.Instance.achievementManager.CheckAchievement(ConditionType.WeaponLevel, 10);
 
         // 5. 애니메이션
         _materialInstance.DOKill();
         await _materialInstance.DOFloat(0f, _flashID, 4f).AsyncWaitForCompletion();
 
-        Debug.Log($"강화 성공: {newWeapon.name}");
+        Debug.Log($"강화 성공: {newWeapon.WeaponName}");
     }
 
     private void EnhancingFailed(Weapon currentWeapon)
     {
-        Debug.Log($"{currentWeapon.name} 파괴됨.");
+        Debug.Log($"{currentWeapon.WeaponName} 파괴됨.");
 
         _materialInstance.SetFloat( _flashID, 0);      
 

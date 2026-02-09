@@ -32,4 +32,31 @@ public class StrUtiity
         return sb.ToString();
     }
 
+    public static string ColorText(string message, string colorCode = "<color=#FF0000>")
+    {
+        return $"{colorCode}{message}</color>";
+    }
+
+    public static string AttachJoSa(string name)
+    {
+        if (string.IsNullOrEmpty(name))
+        {
+            Debug.LogError($"{name}값이 적절하지 않습니다.");
+            return string.Empty;
+        }
+
+        // 유니코드 한글 범위: '가'(0xAC00) ~ '힣'(0xD7A3)
+        char lastChar = name[name.Length - 1];
+        if (lastChar >= 0xAC00 && lastChar <= 0xD7A3)
+        {
+            int code = lastChar - 0xAC00;
+            int jong = code % 28; // 종성(받침) 여부
+            return jong == 0 ? name + "를" : name + "을";
+        }
+        else
+        {
+            // 한글이 아닐 경우 기본적으로 '를' 붙이기
+            return name + "를";
+        }
+    }
 }

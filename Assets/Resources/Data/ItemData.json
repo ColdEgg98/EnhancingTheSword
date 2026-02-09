@@ -1,0 +1,48 @@
+{
+  "items": [
+    {
+      "ItemName": "하급 강화 파괴 방지 물약",
+      "Description": "레벨 8 이하의 무기에 사용할 수 있다.",
+      "IsConsumable": true,
+      "AddressID": "LowGrade AD",
+      "ItemPrice": 500000,
+      "ActionString": "LowGradeAntiDestruction",
+      "AddressableKey": "LowGrade AD",
+      "IViewableName": "하급 강화 파괴 방지 물약",
+      "IViewablePrice": 500000
+    },
+    {
+      "ItemName": "중급 강화 파괴 방지 물약",
+      "Description": "레벨 15 이하의 무기에 사용할 수 있다.",
+      "IsConsumable": true,
+      "AddressID": "MidGrade AD",
+      "ItemPrice": 10000000,
+      "ActionString": "MiddleAntiDestruction",
+      "AddressableKey": "MidGrade AD",
+      "IViewableName": "중급 강화 파괴 방지 물약",
+      "IViewablePrice": 10000000
+    },
+    {
+      "ItemName": "상급 강화 파괴 방지 물약",
+      "Description": "레벨 20 이하의 무기에 사용할 수 있다.",
+      "IsConsumable": true,
+      "AddressID": "HighGrade AD",
+      "ItemPrice": 500000000,
+      "ActionString": "HighGradeAntiDestruction",
+      "AddressableKey": "HighGrade AD",
+      "IViewableName": "상급 강화 파괴 방지 물약",
+      "IViewablePrice": 500000000
+    },
+    {
+      "ItemName": "강화 확률 증가",
+      "Description": "5%p 강화 확률이 증가한다",
+      "IsConsumable": true,
+      "AddressID": "ProUp",
+      "ItemPrice": 300000000,
+      "ActionString": "ProbabilityUp",
+      "AddressableKey": "ProUp",
+      "IViewableName": "강화 확률 증가",
+      "IViewablePrice": 300000000
+    }
+  ]
+}

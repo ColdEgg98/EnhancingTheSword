@@ -8,6 +8,7 @@ public class ExcelBaker
 {
     public static readonly string weaponFileName = "WeaponsData";
     public static readonly string achieveFileName = "AchivementsData";
+    public static readonly string itemFileName = "ItemData";
 
     [MenuItem("Tools/🍪 Excel to JSON Bake")]
     public static void Bake()
@@ -22,6 +23,7 @@ public class ExcelBaker
         string excelFolderPath = Path.Combine(Application.dataPath, "04. Bakery Factory");
         string weaponXlsxPath = Path.Combine(excelFolderPath, $"{weaponFileName}.xlsx");
         string achieveXlsxPath = Path.Combine(excelFolderPath, $"{achieveFileName}.xlsx");
+        string itemXlsxPath = Path.Combine(excelFolderPath, $"{itemFileName}.xlsx");
 
         if (!File.Exists(weaponXlsxPath) || !File.Exists(achieveXlsxPath))
         {
@@ -29,9 +31,10 @@ public class ExcelBaker
             return;
         }
 
-        // 변환 실행부
+        // 변환 실행부 <T>도 변경할것
         BakeFile<Weapon>(weaponXlsxPath, Path.Combine(savePath, $"{weaponFileName}.json"));
         BakeFile<Achievement>(achieveXlsxPath, Path.Combine(savePath, $"{achieveFileName}.json"));
+        BakeFile<MaterialItem>(itemXlsxPath, Path.Combine(savePath, $"{itemFileName}.json"));
 
         // 파일 만들었으니 유니티 새로 고침
         AssetDatabase.Refresh();

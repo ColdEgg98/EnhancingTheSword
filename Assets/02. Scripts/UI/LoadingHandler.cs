@@ -16,10 +16,12 @@ public class LoadingHandler : MonoBehaviour
 
     public Dictionary<int, Weapon> allOfWeaponDictionary = new();
     public Dictionary<string, Achievement> allOfAchivementDictionary = new();
+    public Dictionary<string, MaterialItem> allOfItemsDictionary = new();
     public Dictionary<ConditionType, List<Achievement>> AchieveByCondition = new();
 
     private string weaponXlsxFileName;
     private string achivementXlsxFileName;
+    private string itemXlsxFileName;
 
     private int totalTasks;
     private int completedTasks;
@@ -28,6 +30,7 @@ public class LoadingHandler : MonoBehaviour
     {
         weaponXlsxFileName = "WeaponsData";
         achivementXlsxFileName = "AchivementsData";
+        itemXlsxFileName = "ItemData";
         slider.value = 0;
         totalTasks = 0;
         completedTasks = 0;
@@ -47,13 +50,15 @@ public class LoadingHandler : MonoBehaviour
         // 시간 측정 시작
         Stopwatch sw = Stopwatch.StartNew();
 
-        totalTasks = 2;
+        // 추가시 변경 해줄것
+        totalTasks = 3;
 
         // 1. 데이터들 로드
         List<UniTask> tasks = new List<UniTask>
         {
             ProcessTasks($"Data/{weaponXlsxFileName}", LoadWeapons),
-            ProcessTasks($"Data/{achivementXlsxFileName}", LoadAchievements)
+            ProcessTasks($"Data/{achivementXlsxFileName}", LoadAchievements),
+            ProcessTasks($"Data/{itemXlsxFileName}", Loaditems)
         };
 
         await UniTask.WhenAll(tasks.ToArray());
@@ -106,8 +111,8 @@ public class LoadingHandler : MonoBehaviour
         var wrapper = JsonConvert.DeserializeObject<DataWrapper<Weapon>>(json);
         foreach (var w in wrapper.items)
         {
-            if (!allOfWeaponDictionary.ContainsKey(w.index))
-                allOfWeaponDictionary.Add(w.index, w);
+            if (!allOfWeaponDictionary.ContainsKey(w.Index))
+                allOfWeaponDictionary.Add(w.Index, w);
         }
         Debug.Log($"⚔️ 무기 로드 완료: {wrapper.items.Count}개");
     }
@@ -127,12 +132,22 @@ public class LoadingHandler : MonoBehaviour
         }
         Debug.Log($"🏆 업적 로드 완료: {wrapper.items.Count}개");
     }
+    private void Loaditems(string json)
+    {
+        var wrapper = JsonConvert.DeserializeObject<DataWrapper<MaterialItem>>(json);
+        foreach (var item in wrapper.items)
+        {
+            allOfItemsDictionary.Add(item.AddressID, item);
+        }
+        Debug.Log($"🎁 아이템 로드 완료: {wrapper.items.Count}개");
+    }
 
     private void SetGameManagerDatas()
     {
         GameManager.Instance.allOfAchivementDictionary = allOfAchivementDictionary;
         GameManager.Instance.allOfWeaponDictionary = allOfWeaponDictionary;
         GameManager.Instance.AchieveByCondition = AchieveByCondition;
+        GameManager.Instance.allOfItemsDictionary = allOfItemsDictionary;
     }
 }
 

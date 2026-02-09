@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UniRx;
+using UniRx.Triggers;
+using System;
 
 public class BuyWoodSword : MonoBehaviour
 {
@@ -9,14 +12,36 @@ public class BuyWoodSword : MonoBehaviour
     {
         _btn = GetComponent<Button>();
         _btn.onClick.AddListener(BuySword);
+
+        _btn.OnPointerDownAsObservable()
+            .Delay(System.TimeSpan.FromSeconds(.5f))
+            .SelectMany(_ =>
+
+                Observable.Interval(TimeSpan.FromSeconds(.1f))
+                .TakeUntil(_btn.OnPointerUpAsObservable())
+            )
+            .Subscribe(_ =>
+            {
+                BuySword();
+            })
+            .AddTo(this);
+            
     }
 
     private void BuySword()
     {
         if (GameManager.Instance.currentData.myWeapons.Count < 20)
         {
-            GameManager.Instance.userDataManager.GetGold(-10000);
-            GameManager.Instance.userDataManager.GetWeapon(1);
+            long swordPrice = 10000;
+            if (GameManager.Instance.gold.Value < swordPrice)
+            {
+                GameManager.Instance.uiManager.UIFactory.ShowNotice("골드가 부족합니다.", Color.white);
+                return;
+            }
+
+            GameManager.Instance.gold.Value -= swordPrice;
+            GameManager.Instance.currentData.myWeapons.Add(GameManager.Instance.allOfWeaponDictionary[1]);
+            GameManager.Instance.ShowToast($"목검을 구매했습니다.\n{StrUtiity.ToWonFormat(swordPrice)}를 사용했습니다.");
         }
         else
         {

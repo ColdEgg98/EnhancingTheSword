@@ -40,6 +40,7 @@ public enum RewardType
     Item,
     ProbabilityBonus,
     UnlockFeature,
+    AdditionalGold,
     End
 }
 

@@ -28,7 +28,7 @@ public class BGMHandler : MonoBehaviour
             .Subscribe(weapon =>
             {
                 if (weapon != null)
-                    LevelBGM(weapon.index);
+                    LevelBGM(weapon.Index);
             })
             .AddTo(this);
     }

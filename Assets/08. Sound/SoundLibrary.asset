@@ -36,7 +36,7 @@ MonoBehaviour:
   - soundName: AnvilHit
     type: 1
     clip: {fileID: 8300000, guid: fa8ea85994bf1dd44b23e959ded79578, type: 3}
-    volume: 1
+    volume: 0.79
     pitchVariance: 0.1
   - soundName: AnvilHit2
     type: 1

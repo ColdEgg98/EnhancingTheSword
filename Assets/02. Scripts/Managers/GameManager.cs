@@ -11,11 +11,13 @@ public class GameManager : Singleton<GameManager>
     public AchievementManager achievementManager;
     public RedSquareManager redSquareManager;
     public SoundManager soundManager;
+    public AAResourceManager aAResourceManager;
 
     // Dictionaries
     public Dictionary<int, Weapon> allOfWeaponDictionary;
     public Dictionary<string, Achievement> allOfAchivementDictionary;
     public Dictionary<ConditionType, List<Achievement>> AchieveByCondition;
+    public Dictionary<string, MaterialItem> allOfItemsDictionary;
 
     // Current Datas
     public int activeSaveSlotNum;
@@ -37,10 +39,12 @@ public class GameManager : Singleton<GameManager>
         userDataManager = new();
         achievementManager = new();
         redSquareManager = new();
+        aAResourceManager = new();
 
         allOfWeaponDictionary = new();
         allOfAchivementDictionary = new();
         AchieveByCondition = new();
+        allOfItemsDictionary = new();
 
         selectWeaponIndex.Value = 0;
         currentWeapon = new();
@@ -52,10 +56,18 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("✅ [GameManager] : Start");
     }
 
-    #region 핫키
+
+
+    // 여기서부터 핫키 모음
+    #region HotKeys
     public void ShowToast(string str)
     {
         uiManager.UIFactory.ShowToast(str);
+    }
+
+    public void ShowNotice(string str)
+    {
+        uiManager.UIFactory.ShowNotice(str, Color.white);
     }
 
     public void StopBGM()

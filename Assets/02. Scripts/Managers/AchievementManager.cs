@@ -27,12 +27,16 @@ public class AchievementManager
                     continue;
                 }
 
-                if (a.ConditionValue <= value)
+                if (a.ConditionValue <= value && a.RewardType != RewardType.UnlockFeature)
                 {
                     ProcessReward(a);
                     GameManager.Instance.currentData.myAchievementRefs.Add(a.AchivementID);
                     await GameManager.Instance.uiManager.UIFactory
                         .ShowAchievement(a.GetTextData(), EUIRole.MainImage, a.AchivementID);
+                }
+                else if (a.RewardType == RewardType.UnlockFeature)
+                {
+                    GameManager.Instance.SetFeautureCode((int)value);
                 }
             }
         }
@@ -47,19 +51,20 @@ public class AchievementManager
         {
             case RewardType.Gold:
                 GameManager.Instance.userDataManager.GetGold((long)value);
-                GameManager.Instance.ShowToast($"업적 보상 : {value} 골드");
+                GameManager.Instance.ShowToast($"업적 보상 : {StrUtiity.ToWonFormat((long)value)}");
                 break;
             case RewardType.Weapon:
                 GameManager.Instance.userDataManager.GetWeapon((int)value);
                 Weapon newWeapon = GameManager.Instance.allOfWeaponDictionary[(int)value];
-                GameManager.Instance.ShowToast($"업적 보상 : {newWeapon.name}");
+                GameManager.Instance.ShowToast($"업적 보상 : {StrUtiity.ColorText(newWeapon.WeaponName, "<color=#FFD700>")}");
                 break;
             case RewardType.ProbabilityBonus:
                 GameManager.Instance.currentData.chanceBonus += value;
-                GameManager.Instance.ShowToast($"업적 보상 : {value}%p 강화 확률 상승");
+                GameManager.Instance.ShowToast($"업적 보상 : 강화 확률 {StrUtiity.ColorText(value.ToString() + "%p")} 상승");
                 break;
-            case RewardType.UnlockFeature:
-                GameManager.Instance.SetFeautureCode((int)value);
+            case RewardType.AdditionalGold:
+                GameManager.Instance.currentData.addtionalGold += value;
+                GameManager.Instance.ShowToast($"업적 보상 : 골드 획득량 {StrUtiity.ColorText(value.ToString() + "%")} 증가");
                 break;
             default:
                 Debug.LogError("예외가 발생했습니다.");

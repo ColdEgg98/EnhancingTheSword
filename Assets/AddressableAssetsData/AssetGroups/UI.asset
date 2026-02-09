@@ -20,6 +20,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3db8fcc576b6af5498f5ea82ac2a9fd8
+    m_Address: SwitchMaterial
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6a8a2e42a7427ca4bacfdc986a4f9231
+    m_Address: SwitchWeapon
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: af4fcea2cda90a641a12198a10d5c39d
     m_Address: Assets/05. Image/UI/Anvil 1.png
     m_ReadOnly: 0

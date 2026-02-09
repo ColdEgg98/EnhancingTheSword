@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class SellWeapon : MonoBehaviour
 {
-    public IDictionary <int, Weapon> weaponsForSell;
+    public IDictionary <int, IViewable> IViewableForSell;
     [SerializeField] private Button quickSellBtn;
     [SerializeField] private Button yesBtn;
     [SerializeField] private Button noBtn;
@@ -16,8 +16,8 @@ public class SellWeapon : MonoBehaviour
     [SerializeField] private GameObject Panel;
     public InventoryButtonBehavior inventoryData;
     
-    List<int> indexList;
     List<Weapon> myWeapons;
+    List<MaterialItem> myMaterials;
     private string currentWeaponName;
     private long price;
     private bool isDictHasData;
@@ -27,12 +27,12 @@ public class SellWeapon : MonoBehaviour
         inventoryData = FindAnyObjectByType<InventoryButtonBehavior>();
 
         quickSellBtn.onClick.AddListener(() => SetPanel());
-        inventoryData.multiSellButton.onClick.AddListener(() => SetPanel(inventoryData.weaponsForSell));
+        inventoryData.multiSellButton.onClick.AddListener(() => SetPanel(inventoryData.IViewableForSell));
         yesBtn.onClick.AddListener(YesBtnBehavior);
         noBtn.onClick.AddListener(() => Panel.SetActive(false));
     }
 
-    public void SetPanel(IDictionary<int, Weapon> pairs = null)
+    public void SetPanel(IDictionary<int, IViewable> pairs = null)
     {
         // 변수 세팅
         Setting(pairs);
@@ -52,26 +52,26 @@ public class SellWeapon : MonoBehaviour
         Panel.SetActive(true);
     }
 
-    private void Setting(IDictionary<int, Weapon> pairs = null)
+    private void Setting(IDictionary<int, IViewable> pairs = null)
     {
         if (GameManager.Instance.currentWeapon.Value != null)
-            currentWeaponName = GameManager.Instance.currentWeapon.Value.name;
+            currentWeaponName = GameManager.Instance.currentWeapon.Value.WeaponName;
         myWeapons = GameManager.Instance.currentData.myWeapons;
-        weaponsForSell = pairs;
+        myMaterials = GameManager.Instance.currentData.materials;
+        IViewableForSell = pairs;
         isDictHasData = pairs != null && pairs.Count > 0;
-        indexList = new();
-        price = (isDictHasData) ? 0 : GameManager.Instance.currentWeapon.Value.price;
+        price = (isDictHasData) ? 0 : GameManager.Instance.currentWeapon.Value.WeaponPrice;
     }
 
     private bool IsValid()
     {
-        if (GameManager.Instance.selectWeaponIndex.Value <= -1 && isDictHasData == false)
+        if (GameManager.Instance.selectWeaponIndex.Value == -1 && isDictHasData == false)
         {
             GameManager.Instance.uiManager.UIFactory.ShowNotice("판매할 무기가 없습니다", Color.white);
             return false;
         }
 
-        if (isDictHasData && (weaponsForSell == null || weaponsForSell.Count == 0))
+        if (isDictHasData && (IViewableForSell == null || IViewableForSell.Count == 0))
         {
             GameManager.Instance.uiManager.UIFactory.ShowNotice("판매할 무기를 선택해주세요", Color.white);
             return false;
@@ -83,10 +83,10 @@ public class SellWeapon : MonoBehaviour
     {
         StringBuilder sb = new();
         sb.Append("판매 목록 : ");
-        sb.AppendJoin(", ", weaponsForSell.Values.Select(w => w.name));
-        foreach (var w in weaponsForSell)
+        sb.AppendJoin(", ", IViewableForSell.Values.Select(w => w.IViewableName));
+        foreach (var w in IViewableForSell)
         {
-            price += w.Value.price;
+            price += w.Value.IViewablePrice;
         }
         return sb.ToString();
     }
@@ -106,7 +106,7 @@ public class SellWeapon : MonoBehaviour
         // 골드 지급
         GameManager.Instance.userDataManager.GetGold(price);
 
-        if (weaponsForSell != null) weaponsForSell.Clear();
+        if (IViewableForSell != null) IViewableForSell.Clear();
     }
 
     private void EliminateProcess()
@@ -114,10 +114,22 @@ public class SellWeapon : MonoBehaviour
         if (isDictHasData)
         {
             // 내림차순 정렬
-            List<int> DeathNote = weaponsForSell.Keys.OrderByDescending(k => k).ToList();
+            List<int> DeathNote = IViewableForSell.Keys.OrderByDescending(k => k).ToList();
 
-            foreach (int index in DeathNote) {
-                myWeapons.RemoveAt(index);
+            if (inventoryData.isWeaponCategory)
+            {
+                foreach (int index in DeathNote)
+                {
+                    myWeapons.RemoveAt(index);
+                }
+            }
+
+            else
+            {
+                foreach (int index in DeathNote)
+                {
+                    myMaterials.RemoveAt(index);
+                }
             }
         }
         else

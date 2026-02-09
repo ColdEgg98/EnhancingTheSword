@@ -1,5 +1,6 @@
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -12,22 +13,31 @@ public class InventoryButtonBehavior : MonoBehaviour
     // myWeapon.count만큼 인벤토리 보이게 투명도 255 + 무기 사진 로드
     // 그리고 인벤토리 UI 활성화
 
-    [SerializeField]
-    private Image[] weaponContents;
-    public GameObject inventory;
-    [SerializeField] private Button XButton;
+    [Header("UIElements")]
+    public GameObject InventoryPanel;
+    [SerializeField] private Image[] Contents;
     [SerializeField] private TextMeshProUGUI SellText;
+
+    [Header("Buttons")]
+    [SerializeField] private Button XButton;
     public Button multiSellButton;
-    private List<Weapon> myWeapons;
-    public ReactiveDictionary<int, Weapon> weaponsForSell;
+
+    [Header("Switch")]
+    [SerializeField] private Button SwitchCategoryButton;
+    [SerializeField] private TextMeshProUGUI SwitchText;
+    [SerializeField] private Image SwitchImage;
+
+    public List<IViewable> myIViewables;
+    public bool isWeaponCategory = true;
+    public ReactiveDictionary<int, IViewable> IViewableForSell;
 
     private void Awake()
     {
-        XButton.onClick.AddListener(OnClickXButton);
-        myWeapons = GameManager.Instance.currentData.myWeapons;
-        weaponsForSell = new();
+        XButton.onClick.AddListener(() => OnClickXButton(false));
+        myIViewables = GameManager.Instance.currentData.myWeapons.OfType<IViewable>().ToList();
+        IViewableForSell = new();
 
-        weaponsForSell
+        IViewableForSell
             .ObserveCountChanged()
             .Subscribe(count =>
             {
@@ -52,22 +62,52 @@ public class InventoryButtonBehavior : MonoBehaviour
                     
             })
             .AddTo(this);
+
+        SwitchCategoryButton.onClick.AddListener(() => SwitchCategory().Forget());
     }
 
-    public async void OnClickButton()
+    // 카테고리 전환 + UI 변경
+    public async UniTask SwitchCategory()
     {
-        if (!inventory.activeSelf)
-            await ButtonBehavior();
+        Debug.Log("✅ SwitchCategory is Run");
+        isWeaponCategory = !isWeaponCategory;
+        string AAstring = isWeaponCategory ? "SwitchMaterial" : "SwitchWeapon";
+        SwitchText.text = isWeaponCategory ? "재료 보기" : "무기 보기";
+        await GameManager.Instance.aAResourceManager.SetSpriteAsync(AAstring, SwitchImage);
+        OnClickXButton(true);
+        await OnClickButton();
+    }
+
+    // 인스펙터 할당용. OnClickButton이 UniTask이기 때문에 유니티 이벤트 반환 타입과 안 맞음
+    public void OnClickButton_Inspector()
+    {
+        OnClickButton().Forget();
+    }
+
+    public async UniTask OnClickButton()
+    {
+        if (!InventoryPanel.activeSelf)
+        {
+            if (isWeaponCategory)
+                myIViewables = GameManager.Instance.currentData.myWeapons.OfType<IViewable>().ToList();
+            else
+                myIViewables = GameManager.Instance.currentData.materials.OfType<IViewable>().ToList();
+
+            await ButtonBehavior(myIViewables);
+        }
         else
             OnClickXButton();
     }
 
-    public async Task ButtonBehavior()
+    public async UniTask ButtonBehavior(List<IViewable> viewAbles)
     {
-        int count = myWeapons.Count;
+        // 4. 효과음 재생
+        GameManager.Instance.soundManager.PlaySFX("OpenBag");
+
+        int count = viewAbles.Count;
 
         // 1. 모든 작업을 리스트에 담음
-        List<Task> loadingTasks = new List<Task>();
+        List<UniTask> loadingTasks = new List<UniTask>();
 
         for (int i = 0; i < count; i++)
         {
@@ -77,15 +117,12 @@ public class InventoryButtonBehavior : MonoBehaviour
         }
 
         // 2. 모든 작업이 끝날 때까지 여기서 대기
-        await Task.WhenAll(loadingTasks);
+        await UniTask.WhenAll(loadingTasks);
 
         // 3. 여기까지 오면 모든 이미지가 100% 로딩 완료된 상태임
         Debug.Log("모든 무기 이미지 로딩 완료");
 
-        // 4. 효과음 재생
-        GameManager.Instance.soundManager.PlaySFX("OpenBag");
-
-        inventory.SetActive(true);
+        InventoryPanel.SetActive(true);
 
         // 팁 변경
         GameManager.Instance.uiManager.TipTextAppend("가방 닫기 (E)");
@@ -94,20 +131,27 @@ public class InventoryButtonBehavior : MonoBehaviour
         GameManager.Instance.uiManager.TipTextSub("가방 열기 (E)");
     }
 
-    public async Task ImageChange(int index)
+    public async UniTask ImageChange(int index)
     {
-        await myWeapons[index].ApplySpriteToImage(weaponContents[index]);
-        weaponContents[index].color = Color.white;
-        weaponContents[index].raycastTarget = true;
+        if (index >= 20)
+            return;
+
+        await GameManager.Instance.aAResourceManager.SetSpriteAsync(myIViewables[index], Contents[index]);
+        Contents[index].color = Color.white;
+        Contents[index].raycastTarget = true;
+        Contents[index].preserveAspect = !isWeaponCategory;
 
         // Button 연결
         Button tempBtn;
-        tempBtn = weaponContents[index].GetComponent<Button>();
+        tempBtn = Contents[index].GetComponent<Button>();
         tempBtn.onClick.RemoveAllListeners();
-        tempBtn.onClick.AddListener(() => WeaponContentButtonBehavior(index));
+        if (isWeaponCategory)
+            tempBtn.onClick.AddListener(() => ContentButtonBehavior(index));
+        else
+            tempBtn.onClick.AddListener(() => ItemBehavior(index));
     }
 
-    public void WeaponContentButtonBehavior(int index)
+    public void ContentButtonBehavior(int index)
     {
         if (Keyboard.current.shiftKey.isPressed)
         {
@@ -123,42 +167,71 @@ public class InventoryButtonBehavior : MonoBehaviour
 
     private void ShiftClickEvent(int index)
     {
-        RectTransform rect = weaponContents[index].gameObject.GetComponent<RectTransform>();
-        if (!weaponsForSell.ContainsKey(index))
+        RectTransform rect = Contents[index].gameObject.GetComponent<RectTransform>();
+        if (!IViewableForSell.ContainsKey(index))
         {
-            weaponsForSell.Add(index, myWeapons[index]);
+            IViewableForSell.Add(index, myIViewables[index]);
             GameManager.Instance.redSquareManager.RedSquareGenerater(rect);
         }
         else
         {
-            weaponsForSell.Remove(index);
+            IViewableForSell.Remove(index);
             GameManager.Instance.redSquareManager.RedSquareRemover(rect);
         }
-        Debug.Log($"acitveRedSquare Count : {weaponsForSell.Count}");
+        Debug.Log($"acitveRedSquare Count : {IViewableForSell.Count}");
     }
 
-    public void OnClickXButton()
+    private void ItemBehavior(int index)
     {
-        int index;
-        // 인벤 내부 정보 리셋
-        for (int i = 0; i < weaponContents.Length; i++)
+        if (Keyboard.current.shiftKey.isPressed)
         {
-            index = i;
-            if (weaponContents == null)
-                continue;
-            Color c = weaponContents[index].color;
-            weaponContents[index].color = Color.clear;
-            weaponContents[index].raycastTarget = false;
+            ShiftClickEvent(index);
+            return;
         }
-        GameManager.Instance.redSquareManager.RedSquareAllRemover();
-        weaponsForSell.Clear();
-        inventory.SetActive(false);
-        GameManager.Instance.soundManager.PlaySFX("OpenBag");
+
+        MaterialItem item = GameManager.Instance.currentData.materials[index];
+        item.action.Excute(item);
+        GameManager.Instance.currentData.materials.RemoveAt(index);
+        OnClickXButton();
+    }
+
+    public void OnClickXButton(bool isSwitching = false)
+    {
+        // 인벤 내부 정보 리셋
+        for (int i = 0; i < Contents.Length; i++)
+        {
+            int index = i;
+            if (Contents == null)
+                continue;
+            Color c = Contents[index].color;
+            Contents[index].color = Color.clear;
+            Contents[index].raycastTarget = false;
+        }
+        // RedSquare가 있다면 해제
+        RemoveRedSquares();
+
+        IViewableForSell.Clear();
+        myIViewables.Clear();
+        GameManager.Instance.aAResourceManager.ReleseAllAssets();
+        InventoryPanel.SetActive(false);
+        if (!isSwitching) GameManager.Instance.soundManager.PlaySFX("OpenBag");
         
         // 팁 변경
         GameManager.Instance.uiManager.TipTextAppend("가방 열기 (E)");
         GameManager.Instance.uiManager.TipTextSub("현재 무기 변경 (무기 이미지 클릭)");
         GameManager.Instance.uiManager.TipTextSub("다중 선택 (Shift + 클릭)");
         GameManager.Instance.uiManager.TipTextSub("가방 닫기 (E)");
+    }
+
+    private void RemoveRedSquares()
+    {
+        RedSquare[] reds = InventoryPanel.GetComponentsInChildren<RedSquare>();
+        if (reds.Length == 0) return;
+
+        foreach (RedSquare red in reds)
+        {
+            RectTransform rect = red.gameObject.GetComponent<RectTransform>();
+            GameManager.Instance.redSquareManager.RedSquareRemover(rect);
+        }
     }
 }

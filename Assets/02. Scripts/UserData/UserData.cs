@@ -1,10 +1,6 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.UI;
 
 [Serializable]
 public class UserData
@@ -32,7 +28,6 @@ public class UserData
 
     // Stat
     public PreviewData previewData;
-    public float chanceBonus;
     public long totalGold;
     public int enhanceCount;
     public int failCount;
@@ -42,11 +37,13 @@ public class UserData
     public List<int> myWeaponRefs;
 
     // Achievement
-    public List<String> myAchievementRefs;
+    public List<string> myAchievementRefs;
+    public float chanceBonus;
+    public float addtionalGold;
 
     // Material
     public List<MaterialItem> materials;
-    public List<int> materialRefs;
+    public List<string> materialRefs;
 }
 
 [Serializable]
@@ -66,39 +63,63 @@ public class WrapperForPreviewData
 }
 
 [Serializable]
-public class Weapon
+public class Weapon : IViewable
 {
-    public int index { get; set; }
-    public string name { get; set; }
-    public long price { get; set; }
-    public float probability { get; set; }
-    public long enhancingPrice { get; set; }
-    public string addressID { get; set; }
-    public List<int> needItems { get; set; }
-    private Sprite sprite;
+    public int Index { get; set; }
+    public string WeaponName { get; set; }
+    public long WeaponPrice { get; set; }
+    public float Probability { get; set; }
+    public long EnhancingPrice { get; set; }
+    public string AddressID { get; set; }
+    public List<int> NeedItems { get; set; }
 
-    public async Awaitable<Sprite> GetWeaponSpriteAsync()
-    {
-        AsyncOperationHandle<Sprite> handle = Addressables.LoadAssetAsync<Sprite>(addressID);
-        sprite = await handle.Task;
-        return sprite;
-    }
-    public async Task ApplySpriteToImage(Image targetImage)
-    {
-        // 내부에서 await로 풀어서 처리
-        Sprite sprite = await GetWeaponSpriteAsync();
+    private bool _isAntiDestruction;
 
-        if (targetImage != null)
-        {
-            targetImage.sprite = sprite;
-        }
+    public bool IsAntiDestruction
+    {
+        get { return _isAntiDestruction; }
+        set { _isAntiDestruction = value; }
     }
+
+    public string AddressableKey => AddressID;
+
+    public string IViewableName => WeaponName;
+
+    public long IViewablePrice => WeaponPrice;
 }
 
-public class MaterialItem
+public class MaterialItem : IViewable
 {
-    public int index { get; set; }
-    public string name { get; set; }
-    public string description { get; set; }
-    // 이미지 추가?
+    public string ItemName { get; set; }
+    public string Description { get; set; }
+    public bool IsConsumable { get; set; }
+    [JsonIgnore] public IItemAction action;
+    public string AddressID { get; set; }
+    public long ItemPrice { get; set; }
+    private string _actionString;
+    public string ActionString
+    {
+        get
+        {
+            return _actionString;
+        }
+        set
+        {
+            _actionString = value;
+            action = ItemActionFactory.ItemFactory(value);
+        }
+    }
+
+    public string AddressableKey => AddressID;
+
+    public string IViewableName => ItemName;
+
+    public long IViewablePrice => ItemPrice;
+}
+
+public interface IViewable
+{
+    string AddressableKey { get; }
+    string IViewableName { get; }
+    long IViewablePrice { get; }
 }
