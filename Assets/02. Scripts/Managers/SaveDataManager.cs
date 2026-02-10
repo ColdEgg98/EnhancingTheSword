@@ -156,10 +156,10 @@ public class SaveDataManager
         List<MaterialItem> list = new();
         foreach (string item in tempData.materialRefs)
         {
-            if (!GameManager.Instance.allOfItemsDictionary.ContainsKey(item))
+            if (!GameManager.Instance.allOfItemsDictionary.Contains(item))
                 Debug.LogError($"로딩중 확인되지 않는 레퍼런스 : {item}");
             else
-                list.Add(GameManager.Instance.allOfItemsDictionary[item]);
+                list.Add((MaterialItem)GameManager.Instance.allOfItemsDictionary[item]);
         }
         return list;
     }

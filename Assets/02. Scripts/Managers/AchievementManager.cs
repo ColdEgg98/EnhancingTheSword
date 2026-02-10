@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // 업적 체크 및 보상 프로세스 가동
@@ -65,6 +66,10 @@ public class AchievementManager
             case RewardType.AdditionalGold:
                 GameManager.Instance.currentData.addtionalGold += value;
                 GameManager.Instance.ShowToast($"업적 보상 : 골드 획득량 {StrUtiity.ColorText(value.ToString() + "%")} 증가");
+                break;
+            case RewardType.Item:
+                // 임시 : 중급 파괴 방지 물약만 받음
+                GameManager.Instance.userDataManager.GetItem("MidGrade AD");
                 break;
             default:
                 Debug.LogError("예외가 발생했습니다.");

@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using System;
 using Newtonsoft.Json;
 using Cysharp.Threading.Tasks;
+using System.Collections.Specialized;
 
 public class LoadingHandler : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class LoadingHandler : MonoBehaviour
 
     public Dictionary<int, Weapon> allOfWeaponDictionary = new();
     public Dictionary<string, Achievement> allOfAchivementDictionary = new();
-    public Dictionary<string, MaterialItem> allOfItemsDictionary = new();
+    public OrderedDictionary allOfItemsDictionary = new();
     public Dictionary<ConditionType, List<Achievement>> AchieveByCondition = new();
 
     private string weaponXlsxFileName;

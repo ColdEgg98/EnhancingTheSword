@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using UniRx;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ public class GameManager : Singleton<GameManager>
     public Dictionary<int, Weapon> allOfWeaponDictionary;
     public Dictionary<string, Achievement> allOfAchivementDictionary;
     public Dictionary<ConditionType, List<Achievement>> AchieveByCondition;
-    public Dictionary<string, MaterialItem> allOfItemsDictionary;
+    public OrderedDictionary allOfItemsDictionary;
 
     // Current Datas
     public int activeSaveSlotNum;

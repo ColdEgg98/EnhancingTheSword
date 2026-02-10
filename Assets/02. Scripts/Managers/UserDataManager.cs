@@ -75,13 +75,27 @@ public class UserDataManager
 
     public void GetItem(string id)
     {
-        if (!GameManager.Instance.allOfItemsDictionary.ContainsKey(id))
+        if (!GameManager.Instance.allOfItemsDictionary.Contains(id))
         {
             Debug.LogError($"❌ 확인되지 않은 아이템 ID : {id}");
             return;
         }
 
-        MaterialItem newItem = GameManager.Instance.allOfItemsDictionary[id];
+        MaterialItem newItem = (MaterialItem)GameManager.Instance.allOfItemsDictionary[id];
+        GameManager.Instance.currentData.materials.Add(newItem);
+        GameManager.Instance.ShowToast($"{StrUtiity.AttachJoSa(newItem.ItemName)} 획득했습니다.");
+        Debug.Log($"✅ 아이템 추가됨 : {newItem.AddressID}");
+    }
+
+    public void GetItem(float id)
+    {
+        if (GameManager.Instance.allOfItemsDictionary[id] == null)
+        {
+            Debug.LogError($"❌ 확인되지 않은 아이템 ID : {id}");
+            return;
+        }
+
+        MaterialItem newItem = (MaterialItem)GameManager.Instance.allOfItemsDictionary[id];
         GameManager.Instance.currentData.materials.Add(newItem);
         GameManager.Instance.ShowToast($"{StrUtiity.AttachJoSa(newItem.ItemName)} 획득했습니다.");
         Debug.Log($"✅ 아이템 추가됨 : {newItem.AddressID}");
@@ -89,13 +103,13 @@ public class UserDataManager
 
     public void BuyItem(string id, long price)
     {
-        if (!GameManager.Instance.allOfItemsDictionary.ContainsKey(id))
+        if (!GameManager.Instance.allOfItemsDictionary.Contains(id))
         {
             Debug.LogError($"❌ 확인되지 않은 아이템 ID : {id}");
             return;
         }
 
-        MaterialItem newItem = GameManager.Instance.allOfItemsDictionary[id];
+        MaterialItem newItem = (MaterialItem)GameManager.Instance.allOfItemsDictionary[id];
         GameManager.Instance.currentData.materials.Add(newItem);
         GameManager.Instance.gold.Value -= price;
         GameManager.Instance.ShowToast($"{StrUtiity.ToWonFormat(price)}를 지불하고,\n{StrUtiity.AttachJoSa(newItem.ItemName)} 획득했습니다.");

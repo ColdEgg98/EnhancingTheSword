@@ -174,6 +174,8 @@ public class EnhanceSword : MonoBehaviour
             currentWeapon.IsAntiDestruction = false;
             GameManager.Instance.soundManager.PlaySFX("Success");
             GameManager.Instance.ShowNotice("파괴 방지 물약으로 인해\n무기가 파괴되지 않았습니다.");
+            isEnhancing = false;
+            return;
         }
 
         Debug.Log($"{currentWeapon.WeaponName} 파괴됨.");
