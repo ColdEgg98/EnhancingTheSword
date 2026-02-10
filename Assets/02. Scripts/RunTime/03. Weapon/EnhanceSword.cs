@@ -168,6 +168,14 @@ public class EnhanceSword : MonoBehaviour
 
     private void EnhancingFailed(Weapon currentWeapon)
     {
+        if (currentWeapon.IsAntiDestruction)
+        {
+            _materialInstance.SetFloat(_flashID, 0);
+            currentWeapon.IsAntiDestruction = false;
+            GameManager.Instance.soundManager.PlaySFX("Success");
+            GameManager.Instance.ShowNotice("파괴 방지 물약으로 인해\n무기가 파괴되지 않았습니다.");
+        }
+
         Debug.Log($"{currentWeapon.WeaponName} 파괴됨.");
 
         _materialInstance.SetFloat( _flashID, 0);      

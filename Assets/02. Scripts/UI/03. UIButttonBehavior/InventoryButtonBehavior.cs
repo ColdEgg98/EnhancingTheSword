@@ -190,9 +190,12 @@ public class InventoryButtonBehavior : MonoBehaviour
         }
 
         MaterialItem item = GameManager.Instance.currentData.materials[index];
-        item.action.Excute(item);
-        GameManager.Instance.currentData.materials.RemoveAt(index);
-        OnClickXButton();
+        if (item.action.IsValid(item))
+        {
+            item.action.Excute(item);
+            GameManager.Instance.currentData.materials.RemoveAt(index);
+            OnClickXButton();
+        }
     }
 
     public void OnClickXButton(bool isSwitching = false)
