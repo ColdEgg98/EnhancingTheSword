@@ -13,6 +13,14 @@ public class UIManager : MonoBehaviour
             UIFactory = FindAnyObjectByType<UIFactory>();
     }
 
+    public void ModifyTipText(string s)
+    {
+        if (!tipList.Contains(s))
+            tipList.Add(s);
+        else
+            tipList.Remove(s);
+    }
+
     public void TipTextAppend(string s)
     {
         if (!tipList.Contains(s))

@@ -118,6 +118,15 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BuyItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""1ab12f30-776f-40f4-9018-dc46ec305277"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -153,6 +162,17 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""345d7d80-f454-488d-959d-b866399f79ee"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BuyItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +184,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         m_Player_Enhance = m_Player.FindAction("Enhance", throwIfNotFound: true);
         m_Player_Sell = m_Player.FindAction("Sell", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
+        m_Player_BuyItem = m_Player.FindAction("BuyItem", throwIfNotFound: true);
     }
 
     ~@GameControls()
@@ -247,6 +268,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Enhance;
     private readonly InputAction m_Player_Sell;
     private readonly InputAction m_Player_Inventory;
+    private readonly InputAction m_Player_BuyItem;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -270,6 +292,10 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Inventory".
         /// </summary>
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/BuyItem".
+        /// </summary>
+        public InputAction @BuyItem => m_Wrapper.m_Player_BuyItem;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -305,6 +331,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @Inventory.started += instance.OnInventory;
             @Inventory.performed += instance.OnInventory;
             @Inventory.canceled += instance.OnInventory;
+            @BuyItem.started += instance.OnBuyItem;
+            @BuyItem.performed += instance.OnBuyItem;
+            @BuyItem.canceled += instance.OnBuyItem;
         }
 
         /// <summary>
@@ -325,6 +354,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @Inventory.started -= instance.OnInventory;
             @Inventory.performed -= instance.OnInventory;
             @Inventory.canceled -= instance.OnInventory;
+            @BuyItem.started -= instance.OnBuyItem;
+            @BuyItem.performed -= instance.OnBuyItem;
+            @BuyItem.canceled -= instance.OnBuyItem;
         }
 
         /// <summary>
@@ -386,5 +418,12 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInventory(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "BuyItem" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnBuyItem(InputAction.CallbackContext context);
     }
 }

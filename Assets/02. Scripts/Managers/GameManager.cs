@@ -91,5 +91,15 @@ public class GameManager : Singleton<GameManager>
     {
         userDataManager.featureCode.Value = code;
     }
+
+    public void ModifyTipText(string s)
+    {
+        uiManager.ModifyTipText(s);
+    }
+
+    public void TipTextAppend(string s)
+    {
+        uiManager.TipTextAppend(s);
+    }
     #endregion
 }

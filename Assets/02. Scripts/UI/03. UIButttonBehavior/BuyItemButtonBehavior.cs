@@ -20,12 +20,18 @@ public class BuyItemButtonBehavior : MonoBehaviour
 
     private void Awake()
     {
+        // 아이템 구매 버튼
         thisButton = GetComponent<Button>();
         thisButton.onClick.AddListener(OpenPanel);
 
+        // 상점 UI 버튼 세팅
         SetItemButtons();
 
+        // X버튼 바인딩
         X.onClick.AddListener(XButton);
+
+        // TipText설정
+        GameManager.Instance.TipTextAppend("아이템 상점 (I)");
     }
 
     private void SetItemButtons()
@@ -44,11 +50,17 @@ public class BuyItemButtonBehavior : MonoBehaviour
 
     public void OpenPanel()
     {
+        GameManager.Instance.ModifyTipText("아이템 상점 (I)");
+        GameManager.Instance.ModifyTipText("상점 닫기 (I)");
+
         BuyItemPanel.SetActive(!BuyItemPanel.activeSelf);
     }
 
     public void XButton()
     {
+        GameManager.Instance.ModifyTipText("아이템 상점 (I)");
+        GameManager.Instance.ModifyTipText("상점 닫기 (I)");
+
         BuyItemPanel.SetActive(false);
     }
 }

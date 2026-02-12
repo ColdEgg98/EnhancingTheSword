@@ -5273,6 +5273,7 @@ MonoBehaviour:
   PriceTxt: {fileID: 1917410683}
   Panel: {fileID: 1435980248}
   inventoryData: {fileID: 0}
+  isDictHasData: 0
 --- !u!1 &561497742
 GameObject:
   m_ObjectHideFlags: 0
@@ -10153,7 +10154,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 1258291199
-  m_fontColor: {r: 1, g: 1, b: 1, a: 0.2901961}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0.5882353}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -11643,11 +11644,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 237941a9c35a01d46894e9064a7b41ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pricetexts:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   BuyItemPanel: {fileID: 1947277735}
   GridTransform: {fileID: 1999054136}
   ItemBtn: {fileID: 1497410250762695325, guid: 29dd80a9dfd474a0daea2c1a15fe20cb, type: 3}

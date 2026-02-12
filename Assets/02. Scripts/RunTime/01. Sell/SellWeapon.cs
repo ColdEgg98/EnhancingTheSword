@@ -20,7 +20,7 @@ public class SellWeapon : MonoBehaviour
     List<MaterialItem> myMaterials;
     private string currentWeaponName;
     private long price;
-    private bool isDictHasData;
+    public bool isDictHasData;
 
     void Awake()
     {

@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +9,7 @@ public class InputActions : MonoBehaviour
     private EnhanceSword enhanceSword;
     private SellWeapon sellWeapon;
     private InventoryButtonBehavior inventoryButtonBehavior;
+    private BuyItemButtonBehavior buyItemButtonBehavior;
 
     void Awake()
     {
@@ -15,6 +17,7 @@ public class InputActions : MonoBehaviour
         enhanceSword = FindAnyObjectByType<EnhanceSword>();
         sellWeapon = FindAnyObjectByType<SellWeapon>();
         inventoryButtonBehavior = FindAnyObjectByType<InventoryButtonBehavior>();
+        buyItemButtonBehavior = FindAnyObjectByType<BuyItemButtonBehavior>();
     }
 
     void OnEnable()
@@ -24,6 +27,7 @@ public class InputActions : MonoBehaviour
         actions.Player.Enhance.performed += OnEnhance;
         actions.Player.Sell.performed += OnSell;
         actions.Player.Inventory.performed += OnInventory;
+        actions.Player.BuyItem.performed += OnBuyItem;
     }
 
     private void OnEnhance(InputAction.CallbackContext context)
@@ -36,8 +40,8 @@ public class InputActions : MonoBehaviour
 
     private void OnSell(InputAction.CallbackContext context)
     {
-        if (sellWeapon.IViewableForSell != null && sellWeapon.IViewableForSell.Count > 0)
-            sellWeapon.SetPanel(sellWeapon.IViewableForSell);
+        if (sellWeapon.isDictHasData)
+            sellWeapon.SetPanel(sellWeapon.inventoryData.IViewableForSell);
         else
             sellWeapon.SetPanel();
     }
@@ -45,7 +49,14 @@ public class InputActions : MonoBehaviour
     private void OnInventory(InputAction.CallbackContext context)
     {
         inventoryButtonBehavior.OnClickButton().Forget();
+
     }
+
+    private void OnBuyItem(InputAction.CallbackContext context)
+    {
+        buyItemButtonBehavior.OpenPanel();
+    }
+
 
     private void OnDisable()
     {
