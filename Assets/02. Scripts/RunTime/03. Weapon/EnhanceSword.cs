@@ -180,6 +180,9 @@ public class EnhanceSword : MonoBehaviour
 
         Debug.Log($"{currentWeapon.WeaponName} 파괴됨.");
 
+        // 진동
+        Handheld.Vibrate();
+
         _materialInstance.SetFloat( _flashID, 0);      
 
         // 실제 데이터(GameManager)에서 삭제

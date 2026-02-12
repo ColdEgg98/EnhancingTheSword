@@ -14,10 +14,8 @@ public class BuyWoodSword : MonoBehaviour
         _btn.onClick.AddListener(BuySword);
 
         _btn.OnPointerDownAsObservable()
-            .Delay(System.TimeSpan.FromSeconds(.5f))
             .SelectMany(_ =>
-
-                Observable.Interval(TimeSpan.FromSeconds(.1f))
+                Observable.Timer(TimeSpan.FromSeconds(.5f), TimeSpan.FromSeconds(0.1f))
                 .TakeUntil(_btn.OnPointerUpAsObservable())
             )
             .Subscribe(_ =>
@@ -25,7 +23,6 @@ public class BuyWoodSword : MonoBehaviour
                 BuySword();
             })
             .AddTo(this);
-            
     }
 
     private void BuySword()
@@ -38,6 +35,8 @@ public class BuyWoodSword : MonoBehaviour
                 GameManager.Instance.uiManager.UIFactory.ShowNotice("골드가 부족합니다.", Color.white);
                 return;
             }
+            // 진동 피드백
+            Handheld.Vibrate();
 
             GameManager.Instance.gold.Value -= swordPrice;
             GameManager.Instance.currentData.myWeapons.Add(GameManager.Instance.allOfWeaponDictionary[1]);
