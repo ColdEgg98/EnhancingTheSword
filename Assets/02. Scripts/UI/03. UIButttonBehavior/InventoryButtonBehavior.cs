@@ -1,9 +1,12 @@
 using Cysharp.Threading.Tasks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -31,12 +34,19 @@ public class InventoryButtonBehavior : MonoBehaviour
     public bool isWeaponCategory = true;
     public ReactiveDictionary<int, IViewable> IViewableForSell;
 
+    private int switchItemValue;
+
     private void Awake()
     {
         XButton.onClick.AddListener(() => OnClickXButton(false));
         myIViewables = GameManager.Instance.currentData.myWeapons.OfType<IViewable>().ToList();
         IViewableForSell = new();
+        switchItemValue = -1;
+    }
 
+    private void Start()
+    {
+        // 다중 판매 팁 텍스트
         IViewableForSell
             .ObserveCountChanged()
             .Subscribe(count =>
@@ -59,11 +69,49 @@ public class InventoryButtonBehavior : MonoBehaviour
                     GameManager.Instance.uiManager.TipTextSub("선택 목록 판매 (S)");
                     GameManager.Instance.uiManager.TipTextAppend("판매 (S)");
                 }
-                    
+
             })
             .AddTo(this);
 
         SwitchCategoryButton.onClick.AddListener(() => SwitchCategory().Forget());
+
+        // 우클릭 이벤트는 유니티 기본 버튼에서 지원안하므로 UniRx 사용
+        RightDragAndDropSub();
+    }
+
+    private void RightDragAndDropSub()
+    {
+        int count = 0;
+        foreach (var image in Contents)
+        {
+            int currentIndex = count;
+
+            image.OnBeginDragAsObservable()
+                .Where(pointEvent => pointEvent.button == PointerEventData.InputButton.Right)
+                .Subscribe(_ =>
+                {
+
+                })
+                .AddTo(this);
+
+            image.OnDragAsObservable()
+                .Where(pointEvent => pointEvent.button == PointerEventData.InputButton.Right)
+                .Subscribe(_ =>
+                {
+
+                })
+                .AddTo(this);
+
+            image.OnEndDragAsObservable()
+                .Where(pointEvent => pointEvent.button == PointerEventData.InputButton.Right)
+                .Subscribe(_ =>
+                {
+                    RightClickRelease(currentIndex);
+                })
+                .AddTo(this);
+
+            count++;
+        }
     }
 
     // 카테고리 전환 + UI 변경
@@ -181,6 +229,27 @@ public class InventoryButtonBehavior : MonoBehaviour
         Debug.Log($"acitveRedSquare Count : {IViewableForSell.Count}");
     }
 
+    private void RightClickEvent(int index)
+    {
+        switchItemValue = index;
+        Debug.Log($"switchItemValue : {switchItemValue}");
+    }
+
+    private void RightClickRelease(int index)
+    {
+        PointerEventData pointerEventData = new PointerEventData(EventSystem.current)
+        {
+            position = Mouse.current.position.ReadValue()
+        };
+        List<RaycastResult> results = new();
+        EventSystem.current.RaycastAll(pointerEventData, results);
+        if (results.Count > 0)
+        {
+            RaycastResult result = results[0];
+            Debug.Log($"Releassed Object : {result.gameObject.name}");
+        }
+    }
+
     private void ItemBehavior(int index)
     {
         if (Keyboard.current.shiftKey.isPressed)
@@ -218,7 +287,7 @@ public class InventoryButtonBehavior : MonoBehaviour
         GameManager.Instance.aAResourceManager.ReleseAllAssets();
         InventoryPanel.SetActive(false);
         if (!isSwitching) GameManager.Instance.soundManager.PlaySFX("OpenBag");
-        
+
         // 팁 변경
         GameManager.Instance.uiManager.TipTextAppend("가방 열기 (E)");
         GameManager.Instance.uiManager.TipTextSub("현재 무기 변경 (무기 이미지 클릭)");
