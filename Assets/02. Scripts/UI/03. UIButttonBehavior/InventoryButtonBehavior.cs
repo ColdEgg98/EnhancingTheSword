@@ -1,5 +1,4 @@
 using Cysharp.Threading.Tasks;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -34,14 +33,19 @@ public class InventoryButtonBehavior : MonoBehaviour
     public bool isWeaponCategory = true;
     public ReactiveDictionary<int, IViewable> IViewableForSell;
 
-    private int switchItemValue;
+    [Header("Drag And Drop")]
+    [SerializeField] private Image ghostSprite;
+    private int onClickItemIndex;
 
     private void Awake()
     {
         XButton.onClick.AddListener(() => OnClickXButton(false));
         myIViewables = GameManager.Instance.currentData.myWeapons.OfType<IViewable>().ToList();
         IViewableForSell = new();
-        switchItemValue = -1;
+        onClickItemIndex = -1;
+        ghostSprite.color = new Color(1, 1, 1, 0.75f);
+        ghostSprite.raycastTarget = false;
+        ghostSprite.enabled = false;
     }
 
     private void Start()
@@ -81,16 +85,14 @@ public class InventoryButtonBehavior : MonoBehaviour
 
     private void RightDragAndDropSub()
     {
-        int count = 0;
         foreach (var image in Contents)
         {
-            int currentIndex = count;
-
             image.OnBeginDragAsObservable()
                 .Where(pointEvent => pointEvent.button == PointerEventData.InputButton.Right)
                 .Subscribe(_ =>
                 {
-
+                    // 선택한 이미지 UI에 따라 switchItemValue를 설정
+                    RightClickPress();
                 })
                 .AddTo(this);
 
@@ -98,7 +100,7 @@ public class InventoryButtonBehavior : MonoBehaviour
                 .Where(pointEvent => pointEvent.button == PointerEventData.InputButton.Right)
                 .Subscribe(_ =>
                 {
-
+                    GhostChaseMouse();
                 })
                 .AddTo(this);
 
@@ -106,11 +108,9 @@ public class InventoryButtonBehavior : MonoBehaviour
                 .Where(pointEvent => pointEvent.button == PointerEventData.InputButton.Right)
                 .Subscribe(_ =>
                 {
-                    RightClickRelease(currentIndex);
+                    RightClickRelease();
                 })
                 .AddTo(this);
-
-            count++;
         }
     }
 
@@ -161,7 +161,7 @@ public class InventoryButtonBehavior : MonoBehaviour
         {
             int index = i;
             // 모든 로딩을 동시에 시작시키고, 그 '작업(Task)' 자체를 리스트에 저장
-            loadingTasks.Add(ImageChange(index));
+            loadingTasks.Add(ImageChange(index, viewAbles));
         }
 
         // 2. 모든 작업이 끝날 때까지 여기서 대기
@@ -179,12 +179,12 @@ public class InventoryButtonBehavior : MonoBehaviour
         GameManager.Instance.uiManager.TipTextSub("가방 열기 (E)");
     }
 
-    public async UniTask ImageChange(int index)
+    public async UniTask ImageChange(int index, List<IViewable> IViewables)
     {
         if (index >= 20)
             return;
 
-        await GameManager.Instance.aAResourceManager.SetSpriteAsync(myIViewables[index], Contents[index]);
+        await GameManager.Instance.aAResourceManager.SetSpriteAsync(IViewables[index], Contents[index]);
         Contents[index].color = Color.white;
         Contents[index].raycastTarget = true;
         Contents[index].preserveAspect = !isWeaponCategory;
@@ -229,14 +229,69 @@ public class InventoryButtonBehavior : MonoBehaviour
         Debug.Log($"acitveRedSquare Count : {IViewableForSell.Count}");
     }
 
-    private void RightClickEvent(int index)
+    // Drag And Drop
+    private void RightClickPress()
     {
-        switchItemValue = index;
-        Debug.Log($"switchItemValue : {switchItemValue}");
+        // 고스트 이미지 띄우기
+        // 클릭된 오브젝트의 스프라이트 받기
+        GameObject AAsprite = GetMouseRayObject();
+        ghostSprite.sprite = AAsprite.GetComponent<Image>().sprite;
+        if (ghostSprite.sprite == null) Debug.LogWarning("ghostSprite.sprite is null");
+        Vector2 mousePos = Mouse.current.position.ReadValue();
+
+        onClickItemIndex = int.Parse(AAsprite.gameObject.name);
+        ghostSprite.enabled = true;
     }
 
-    private void RightClickRelease(int index)
+    private void GhostChaseMouse()
     {
+        Vector2 mousePos = Mouse.current.position.ReadValue();
+        ghostSprite.transform.position = mousePos;
+    }
+
+    private void RightClickRelease()
+    {
+        // 위치와 인덱스 변경
+        // ❗ 현재 구조는 이름을 인덱스로 쓰고있기 때문에, 다른 UI오브젝트 이름이 그냥 숫자면 위험
+        GameObject mouseObject = GetMouseRayObject();
+        if (int.TryParse(mouseObject.name, out int targetIndex))
+        {
+            List<Weapon> myWeapons = GameManager.Instance.GetMyWeapons();
+
+            // 만약 빈칸에서 Release 됐을 때 처리
+            if (targetIndex > myWeapons.Count)
+            {
+                onClickItemIndex = -1;
+                ghostSprite.enabled = false;
+                return;
+            }
+
+            Weapon tempWeapon = myWeapons[targetIndex];
+            myWeapons[targetIndex] = myWeapons[onClickItemIndex];
+            myWeapons[onClickItemIndex] = tempWeapon;
+
+            // 복사 방지
+            if (onClickItemIndex == GameManager.Instance.selectWeaponIndex.Value)
+            {
+                GameManager.Instance.selectWeaponIndex.Value = targetIndex;
+            }
+            else if (targetIndex == GameManager.Instance.selectWeaponIndex.Value)
+            {
+                GameManager.Instance.selectWeaponIndex.Value = onClickItemIndex;
+            }
+
+            ButtonBehavior(GameManager.Instance.currentData.myWeapons.OfType<IViewable>().ToList()).Forget();
+        }
+        else Debug.LogWarning($"index change failed : {mouseObject.name}");
+
+        onClickItemIndex = -1;
+        ghostSprite.enabled = false;
+    }
+
+    // 마우스 포지션과 겹친 첫번째(제일 위에 표시되는) 오브젝트 반환
+    private GameObject GetMouseRayObject()
+    {
+        GameObject temp = null;
         PointerEventData pointerEventData = new PointerEventData(EventSystem.current)
         {
             position = Mouse.current.position.ReadValue()
@@ -246,8 +301,9 @@ public class InventoryButtonBehavior : MonoBehaviour
         if (results.Count > 0)
         {
             RaycastResult result = results[0];
-            Debug.Log($"Releassed Object : {result.gameObject.name}");
+            temp = result.gameObject;
         }
+        return temp;
     }
 
     private void ItemBehavior(int index)

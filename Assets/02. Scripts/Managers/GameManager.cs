@@ -57,10 +57,13 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("✅ [GameManager] : Start");
     }
 
-
-
     // 여기서부터 핫키 모음
     #region HotKeys
+    public List<Weapon> GetMyWeapons()
+    {
+        return currentData.myWeapons;
+    }
+
     public void ShowToast(string str)
     {
         uiManager.UIFactory.ShowToast(str);
