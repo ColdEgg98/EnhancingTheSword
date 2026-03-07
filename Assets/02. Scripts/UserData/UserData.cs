@@ -12,8 +12,8 @@ public class UserData
 
     public UserData(PreviewData data)
     {
-        previewData = data;
         SetNew();
+        previewData = data;
     }
 
     private void SetNew()
