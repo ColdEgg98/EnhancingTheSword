@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 481e23fde8e02490b9addb84ea80d913
+guid: 31568261ebae3c144bc859a73b636e74
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3914733622545817579
-    second: Gemini_Generated_Image_c1osf2c1osf2c1os_0
+      213: 644935044907405540
+    second: RoundedSquare_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -97,19 +97,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: iOS
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -152,23 +139,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Gemini_Generated_Image_c1osf2c1osf2c1os_0
+      name: RoundedSquare_0
       rect:
         serializedVersion: 2
-        x: 152
-        y: 141
-        width: 1334
-        height: 1359
+        x: 0
+        y: 0
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 220, y: 220, z: 220, w: 220}
+      border: {x: 150, y: 150, z: 150, w: 150}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 510e0ede2821ca9c0800000000000000
-      internalID: -3914733622545817579
+      spriteID: 4e018ee910543f800800000000000000
+      internalID: 644935044907405540
       vertices: []
       indices: 
       edges: []
@@ -177,7 +164,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: c759cb696af5296438323fe991b1c739
+    spriteID: 682ff287c5f72e046980c310d03ad424
     internalID: 0
     vertices: []
     indices: 
@@ -187,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Gemini_Generated_Image_c1osf2c1osf2c1os_0: -3914733622545817579
+      RoundedSquare_0: 644935044907405540
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

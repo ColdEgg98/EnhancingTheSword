@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 481e23fde8e02490b9addb84ea80d913
+guid: 50cf8aa93656e0842bc008bbae6b942b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3914733622545817579
-    second: Gemini_Generated_Image_c1osf2c1osf2c1os_0
+      213: -6828571611642473850
+    second: Transfer Gate_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -97,19 +97,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: iOS
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -152,23 +139,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Gemini_Generated_Image_c1osf2c1osf2c1os_0
+      name: Transfer Gate_0
       rect:
         serializedVersion: 2
-        x: 152
-        y: 141
-        width: 1334
-        height: 1359
+        x: 0
+        y: 0
+        width: 2816
+        height: 1536
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 220, y: 220, z: 220, w: 220}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 510e0ede2821ca9c0800000000000000
-      internalID: -3914733622545817579
+      spriteID: 682dbbc6c4a0c31a0800000000000000
+      internalID: -6828571611642473850
       vertices: []
       indices: 
       edges: []
@@ -177,7 +164,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: c759cb696af5296438323fe991b1c739
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -187,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Gemini_Generated_Image_c1osf2c1osf2c1os_0: -3914733622545817579
+      Transfer Gate_0: -6828571611642473850
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

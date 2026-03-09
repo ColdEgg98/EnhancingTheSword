@@ -44,6 +44,9 @@ public class UserData
     // Material
     public List<MaterialItem> materials;
     public List<string> materialRefs;
+
+    // War
+    public int shippingSlot;
 }
 
 [Serializable]
@@ -71,7 +74,11 @@ public class Weapon : IViewable
     public float Probability { get; set; }
     public long EnhancingPrice { get; set; }
     public string AddressID { get; set; }
+    public float WarInfluence { get; set; }
+    public float InfluenceDuration { get; set; }
+    public float DeliveryTime { get; set; }
     public List<int> NeedItems { get; set; }
+
 
     private bool _isAntiDestruction;
 
