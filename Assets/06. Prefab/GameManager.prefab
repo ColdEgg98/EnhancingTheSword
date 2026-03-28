@@ -49,6 +49,7 @@ MonoBehaviour:
   isDontDestroy: 1
   uiManager: {fileID: 0}
   soundManager: {fileID: 0}
+  warManager: {fileID: 0}
   activeSaveSlotNum: 0
   currentData:
     previewData:
@@ -57,17 +58,22 @@ MonoBehaviour:
       achivementCount: 0
       time: 
       goldRef: 0
-    chanceBonus: 0
     totalGold: 0
     enhanceCount: 0
     failCount: 0
     myWeapons: []
     myWeaponRefs: 
-    materialRefs: 
+    myAchievementRefs: []
+    chanceBonus: 0
+    addtionalGold: 0
+    materialRefs: []
+    shippingSlot: 0
   gold:
     value: 0
   currentWeapon: {}
   selectWeaponIndex:
+    value: 0
+  isFocusOn:
     value: 0
 --- !u!114 &343305454755021891
 MonoBehaviour:

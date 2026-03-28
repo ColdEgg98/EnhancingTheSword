@@ -13,6 +13,7 @@ public class GameManager : Singleton<GameManager>
     public RedSquareManager redSquareManager;
     public SoundManager soundManager;
     public AAResourceManager aAResourceManager;
+    public WarManager warManager;
 
     // Dictionaries
     public Dictionary<int, Weapon> allOfWeaponDictionary;
@@ -52,6 +53,11 @@ public class GameManager : Singleton<GameManager>
         isFocusOn.Value = false;
     }
 
+    public void InitGameManager()
+    {
+        warManager = GetComponent<WarManager>();
+    }
+
     void Start()
     {
         Debug.Log("✅ [GameManager] : Start");
@@ -59,6 +65,10 @@ public class GameManager : Singleton<GameManager>
 
     // 여기서부터 핫키 모음
     #region HotKeys
+    public bool TryDeliverWeapon(int weaponIndex)
+    {
+        return warManager.TryDeliverWeapon(weaponIndex);
+    }
     public List<Weapon> GetMyWeapons()
     {
         return currentData.myWeapons;

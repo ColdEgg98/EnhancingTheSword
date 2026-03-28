@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -30,6 +31,8 @@ public class SaveSlot : MonoBehaviour
             {
                 GameManager.Instance.uiManager.Init();
                 GameManager.Instance.achievementManager.Init();
+                GameManager.Instance.AddComponent<WarManager>();
+                GameManager.Instance.InitGameManager();
             }
         };
 

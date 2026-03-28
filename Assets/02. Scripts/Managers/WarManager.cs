@@ -7,8 +7,8 @@ public class WarManager : MonoBehaviour
     // ───────────────────────────────────────
     // 전황 수치
     // ───────────────────────────────────────
-    private readonly ReactiveProperty<float> _warGauge = new ReactiveProperty<float>(50f);
-    public IReadOnlyReactiveProperty<float> WarGauge => _warGauge;
+    [SerializeField] private FloatReactiveProperty _warGauge = new FloatReactiveProperty(50f);
+    public IReadOnlyReactiveProperty<float> WarGaugeFloat => _warGauge;
 
     private const float MAX_GAUGE = 100f;
     private const float MIN_GAUGE = 0f;
@@ -16,7 +16,7 @@ public class WarManager : MonoBehaviour
     // ───────────────────────────────────────
     // 스테이지
     // ───────────────────────────────────────
-    private readonly ReactiveProperty<int> _currentStage = new ReactiveProperty<int>(1);
+    [SerializeField] private IntReactiveProperty _currentStage = new IntReactiveProperty(1);
     public IReadOnlyReactiveProperty<int> CurrentStage => _currentStage;
 
     private readonly Dictionary<int, float> _decayRatePerStage = new Dictionary<int, float>
