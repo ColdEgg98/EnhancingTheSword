@@ -160,7 +160,7 @@ public class InventoryButtonBehavior : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             int index = i;
-            // 모든 로딩을 동시에 시작시키고, 그 '작업(Task)' 자체를 리스트에 저장
+            // 모든 로딩 순차적 시작, 그 작업들을 리스트에 저장
             loadingTasks.Add(ImageChange(index, viewAbles));
         }
 
@@ -340,7 +340,7 @@ public class InventoryButtonBehavior : MonoBehaviour
 
         IViewableForSell.Clear();
         myIViewables.Clear();
-        GameManager.Instance.aAResourceManager.ReleseAllAssets();
+        GameManager.Instance.aAResourceManager.ReleaseAllAssets();
         InventoryPanel.SetActive(false);
         if (!isSwitching) GameManager.Instance.soundManager.PlaySFX("OpenBag");
 

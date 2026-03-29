@@ -69,6 +69,7 @@ public class GameManager : Singleton<GameManager>
     {
         return warManager.TryDeliverWeapon(weaponIndex);
     }
+    
     public List<Weapon> GetMyWeapons()
     {
         return currentData.myWeapons;

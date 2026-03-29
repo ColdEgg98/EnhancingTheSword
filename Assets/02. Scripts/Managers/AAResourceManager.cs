@@ -53,7 +53,7 @@ public class AAResourceManager
         await SetSpriteAsync(viewableInstance, targetImage);
     }
 
-    public void ReleseAllAssets()
+    public void ReleaseAllAssets()
     {
         HashSet<string> keys = new();
 
