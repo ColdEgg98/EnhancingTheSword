@@ -68,7 +68,7 @@ public class SaveDataManager
             myWeaponRefs = GameManager.Instance.currentData.myWeaponRefs,
             myAchievementRefs = GameManager.Instance.currentData.myAchievementRefs,
             materialRefs = GameManager.Instance.currentData.materialRefs,
-            shippingSlotRef = GameManager.Instance.currentData.shippingSlot.Value
+            shippingSlotRef = GameManager.Instance.shippingSlot.Value
         };
         data.previewData.goldRef = GameManager.Instance.gold.Value;
         data.previewData.time = DateTime.Now.ToString("yyyy.MM.dd\ntt hh시 mm분");
@@ -144,7 +144,7 @@ public class SaveDataManager
             UserData tempData = JsonUtility.FromJson<UserData>(data);
             tempData.myWeapons = ResolveWeaponReferences(tempData);
             tempData.materials = ResloveMaterialReferences(tempData);
-            tempData.shippingSlot.Value = tempData.shippingSlotRef;
+            GameManager.Instance.shippingSlot.Value = tempData.shippingSlotRef;
             return tempData;
         }
         else if (File.Exists(indexPath))

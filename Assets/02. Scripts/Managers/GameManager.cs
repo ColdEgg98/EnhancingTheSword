@@ -25,6 +25,7 @@ public class GameManager : Singleton<GameManager>
     public int activeSaveSlotNum;
     public UserData currentData;
     public ReactiveProperty<long> gold;
+    public IntReactiveProperty shippingSlot;
 
     // Current Weapon
     public ReactiveProperty<Weapon> currentWeapon;

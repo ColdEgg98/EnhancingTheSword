@@ -48,7 +48,6 @@ public class UserData
 
     // War
     public int shippingSlotRef; // 저장 & 불러오기에만 호출
-    public IntReactiveProperty shippingSlot; // 실제 사용
 }
 
 [Serializable]

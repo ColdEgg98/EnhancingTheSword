@@ -11,7 +11,7 @@ public class InventoryPresenter : MonoBehaviour
     void Start()
     {
         _slots = FindObjectsByType<WeaponSupplySlotButton>(FindObjectsSortMode.None).ToReactiveCollection();
-        Debug.Log($"출하 가능 slot 갯수 : {_slots.Count}");
+        Debug.Log($"출하 가능 slot 갯수 : {GameManager.Instance.shippingSlot.Value}");
         ForeachSlots();
         Sub();
     }

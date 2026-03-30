@@ -21822,7 +21822,7 @@ MonoBehaviour:
   - {fileID: 1172940777}
   - {fileID: 1006533780}
   - {fileID: 1016052825}
-  - {fileID: 255518851}
+  - {fileID: 1190321624}
   activeSetter: []
   goldAmountInput: {fileID: 231321708}
   weaponIndexInput: {fileID: 627375878}

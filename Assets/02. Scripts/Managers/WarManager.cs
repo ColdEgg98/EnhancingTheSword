@@ -23,9 +23,9 @@ public class WarManager : MonoBehaviour
 
     private readonly Dictionary<int, float> _decayRatePerStage = new Dictionary<int, float>
     {
-        { 1, 0.3f },
-        { 2, 1.0f },
-        { 3, 1.5f },
+        { 1, 0.1f },
+        { 2, 0.3f },
+        { 3, 0.7f },
     };
 
     private const float NEXT_STAGE_THRESHOLD = 95f;
@@ -52,7 +52,7 @@ public class WarManager : MonoBehaviour
     private void Sub()
     {
         // 사용자의 출하 슬롯 갯수가 변경될때마다 maxSlot 변경
-        GameManager.Instance.currentData.shippingSlot
+        GameManager.Instance.shippingSlot
             .Subscribe(value => _maxSlot = value)
             .AddTo(this);
     }

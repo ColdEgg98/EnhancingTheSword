@@ -9,8 +9,8 @@ public class TestAddSlot : MonoBehaviour
         btn = GetComponent<Button>();
         btn.onClick.AddListener(() =>
         {
-            GameManager.Instance.currentData.shippingSlot.Value++;
-            Debug.Log($"슬롯 증가 : {GameManager.Instance.currentData.shippingSlot}(+{1})");
+            GameManager.Instance.shippingSlot.Value++;
+            Debug.Log($"슬롯 증가 : {GameManager.Instance.shippingSlot}(+{1})");
         });
     }
 }
