@@ -21,14 +21,14 @@ public class InventoryView : MonoBehaviour
 
     public async UniTask DrawStart()
     {
-        //if (isLoading) return;
+        if (isLoading) return;
 
         if (!gameObject.activeSelf)
         {
-            //isLoading = true;
+            isLoading = true;
             myWeapons = GameManager.Instance.currentData.myWeapons.OfType<IViewable>().ToList();
             await LoadContents(myWeapons);
-            //isLoading = false;
+            isLoading = false;
         }
         else
             CloseTheInventory();

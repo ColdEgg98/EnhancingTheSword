@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using UniRx;
 
 [Serializable]
 public class UserData
@@ -12,8 +13,8 @@ public class UserData
 
     public UserData(PreviewData data)
     {
-        previewData = data;
         SetNew();
+        previewData = data;
     }
 
     private void SetNew()
@@ -46,7 +47,8 @@ public class UserData
     public List<string> materialRefs;
 
     // War
-    public int shippingSlot;
+    public int shippingSlotRef; // 저장 & 불러오기에만 호출
+    public IntReactiveProperty shippingSlot; // 실제 사용
 }
 
 [Serializable]

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class WarManager : MonoBehaviour
     // ───────────────────────────────────────
     // 전황 수치
     // ───────────────────────────────────────
+
     [SerializeField] private FloatReactiveProperty _warGauge = new FloatReactiveProperty(50f);
     public IReadOnlyReactiveProperty<float> WarGaugeFloat => _warGauge;
 
@@ -33,11 +35,27 @@ public class WarManager : MonoBehaviour
     // ───────────────────────────────────────
     // 출하 슬롯
     // ───────────────────────────────────────
-    private int _maxSlot = GameManager.Instance.currentData.shippingSlot;
+    private int _maxSlot;
     private readonly List<DeliverySlot> _slots = new List<DeliverySlot>();
 
     // 외부에서 출하 중인 무기 인덱스 확인용
     public IReadOnlyList<DeliverySlot> Slots => _slots;
+
+    // ───────────────────────────────────────
+    // Awake
+    // ───────────────────────────────────────
+    void Awake()
+    {
+        Sub();
+    }
+
+    private void Sub()
+    {
+        // 사용자의 출하 슬롯 갯수가 변경될때마다 maxSlot 변경
+        GameManager.Instance.currentData.shippingSlot
+            .Subscribe(value => _maxSlot = value)
+            .AddTo(this);
+    }
 
     // ───────────────────────────────────────
     // Update

@@ -7,6 +7,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 
+/// <summary>
+/// Runtime Test용 클래스
+/// </summary>
+// 추가 방법
+// ButtonsTarget 아래에 기존 버튼 하나 복사 'Save'
+// 하위 UI 기존 버튼 복사하고 인스펙터에서 등록 'Save UI'
+// 하위 UI에 스크립트 구현
+// InputFiled일 경우 인스펙터에 등록 + InputFieldsInit에서 AddListener
+
 public class TestHelper : MonoBehaviour
 {
     [Header("테스터 버튼")]
@@ -61,13 +70,13 @@ public class TestHelper : MonoBehaviour
 
     private void SetGameObjectsActive()
     {
-        Debug.Log("SetGameObjectsActive 실행");
+        Debug.Log("[TestHelper] : SetGameObjectsActive 실행");
         int index = 0;
         StringBuilder sb = new();
         foreach (Button b in activeSetter)
         {
             int currentIndex = index;
-            sb.Append($"현재 index에 저장된 오브젝트 : {currentIndex}번 : {gameObjects[currentIndex].name}");
+            sb.Append($"현재 index에 저장된 오브젝트 : {currentIndex}번 : {gameObjects[currentIndex].name}\n");
             b.onClick.RemoveAllListeners();
             b.onClick.AddListener(() =>
             {
