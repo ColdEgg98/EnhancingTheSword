@@ -36,7 +36,7 @@ public class InventoryView : MonoBehaviour
 
     public async UniTask LoadContents(List<IViewable> viewAbles)
     {
-        // 4. 효과음 재생
+        // 0. 효과음 재생
         GameManager.Instance.soundManager.PlaySFX("OpenBag");
 
         int count = viewAbles.Count;

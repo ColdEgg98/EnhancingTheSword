@@ -69,6 +69,7 @@ public class SaveSlot : MonoBehaviour
             GameManager.Instance.currentData.myWeapons = new();
             Weapon woodSword = GameManager.Instance.allOfWeaponDictionary[1];
             GameManager.Instance.currentData.myWeapons.Add(woodSword); // 목검
+            GameManager.Instance.shippingSlot.Value = 1;
             GameManager.Instance.saveDataManager.StartSave(num);
 
             // 게임 실행 업적

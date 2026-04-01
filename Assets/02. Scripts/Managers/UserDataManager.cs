@@ -115,4 +115,9 @@ public class UserDataManager
         GameManager.Instance.ShowToast($"{StrUtiity.ToWonFormat(price)}를 지불하고,\n{StrUtiity.AttachJoSa(newItem.ItemName)} 획득했습니다.");
         Debug.Log($"✅ 아이템 추가됨 : {newItem.AddressID}");
     }
+
+    public void IncShippingSlot()
+    {
+        GameManager.Instance.shippingSlot.Value++;
+    }
 }

@@ -66,6 +66,11 @@ public class GameManager : Singleton<GameManager>
 
     // 여기서부터 핫키 모음
     #region HotKeys
+    public void IncShippingSlot()
+    {
+        userDataManager.IncShippingSlot();
+    }
+
     public bool TryDeliverWeapon(int weaponIndex)
     {
         return warManager.TryDeliverWeapon(weaponIndex);
