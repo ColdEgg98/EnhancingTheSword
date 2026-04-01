@@ -11,6 +11,7 @@ public class SupplyItemButton : MonoBehaviour
 {
     private Button button;
     private int slotNum;
+    private InventoryView view;
 
     // event
     private Subject<(int slotNumber, int weaponIndex)> _onClickSlot = new();
@@ -20,18 +21,24 @@ public class SupplyItemButton : MonoBehaviour
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(ButtonBehaviour);
+        view = FindAnyObjectByType<InventoryView>();
     }
 
     private void ButtonBehaviour()
     {
+        // 0. 슬롯 UI에 띄우기 요청
         slotNum = GetComponentInParent<OpenSlotNum>().currentNum;
         if (!int.TryParse(gameObject.name, out int index))
         {
             Debug.LogError($"[SupplyItemButton] : gameObject의 이름 변경할 수 없음 '{gameObject.name}'");
         }
         _onClickSlot.OnNext((slotNumber : slotNum, weaponIndex : index)); // UI에 띄우기 요청
-        
+
+        // 1. 무기 출하 시작
         GameManager.Instance.TryDeliverWeapon(int.Parse(gameObject.name));
+        
+        // 2. 인벤토리 최신화
+        view.RefreshInventory();
     }
 
     void OnDestroy()

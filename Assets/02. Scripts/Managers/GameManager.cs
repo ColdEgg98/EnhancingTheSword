@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 using UniRx;
 using UnityEngine;
 
@@ -74,6 +75,11 @@ public class GameManager : Singleton<GameManager>
     public bool TryDeliverWeapon(int weaponIndex)
     {
         return warManager.TryDeliverWeapon(weaponIndex);
+    }
+
+    public List<IViewable> GetViewableMyWeapons()
+    {
+        return GetMyWeapons().OfType<IViewable>().ToList();
     }
     
     public List<Weapon> GetMyWeapons()

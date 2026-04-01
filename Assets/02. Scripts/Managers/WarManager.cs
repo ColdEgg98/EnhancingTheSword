@@ -123,29 +123,33 @@ public class WarManager : MonoBehaviour
     {
         if (_slots.Count >= _maxSlot)
         {
-            Debug.LogWarning("출하 슬롯이 가득 찼습니다.");
+            GameManager.Instance.ShowNotice("출하 슬롯이 가득 찼습니다.");
             return false;
         }
 
         // 이미 출하 중인 무기인지 체크
         if (_slots.Exists(s => s.WeaponIndex == weaponIndex))
         {
-            Debug.LogWarning("이미 출하 중인 무기입니다.");
+            GameManager.Instance.ShowNotice("이미 출하 중인 무기입니다.");
             return false;
         }
 
         List<Weapon> myWeapons = GameManager.Instance.GetMyWeapons();
         if (weaponIndex < 0 || weaponIndex >= myWeapons.Count)
         {
-            Debug.LogWarning("유효하지 않은 무기 인덱스입니다.");
+            GameManager.Instance.ShowNotice("유효하지 않은 무기 인덱스입니다.");
             return false;
         }
 
         Weapon weapon = myWeapons[weaponIndex];
         _slots.Add(new DeliverySlot(weaponIndex, weapon));
         Debug.Log($"{weapon.WeaponName} 출하 시작 / 출하 시간: {weapon.DeliveryTime}s / 영향력: {weapon.WarInfluence} / 유지: {weapon.InfluenceDuration}s");
+        UsedWeaponRemove(weaponIndex);
         return true;
     }
+
+    // 출하된 무기 삭제
+    private void UsedWeaponRemove(int index) => GameManager.Instance.currentData.myWeapons.RemoveAt(index);
 
     // 출하 중인지 여부 확인 (인벤토리 UI 잠금용)
     public bool IsDelivering(int weaponIndex)

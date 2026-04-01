@@ -7,7 +7,7 @@ public class SlotGridView : MonoBehaviour
 {
     public int slotIndex;
     public ReactiveCollection<WeaponSupplySlotButton> slots;
-    [SerializeField] private List<WeaponSupplySlotButton> slotbacks;
+    [SerializeField] private List<GameObject> slotbacks;
 
     void Awake()
     {
@@ -26,7 +26,7 @@ public class SlotGridView : MonoBehaviour
         for (int i = 0; i < slotcount; i++)
         {
             slots[i].gameObject.SetActive(true);
-            slotbacks[i].gameObject.SetActive(true);
+            slotbacks[i].SetActive(true);
         }
     }
 

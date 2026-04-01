@@ -26,7 +26,7 @@ public class InventoryView : MonoBehaviour
         if (!gameObject.activeSelf)
         {
             isLoading = true;
-            myWeapons = GameManager.Instance.currentData.myWeapons.OfType<IViewable>().ToList();
+            myWeapons = GameManager.Instance.GetViewableMyWeapons();
             await LoadContents(myWeapons);
             isLoading = false;
         }
@@ -70,7 +70,23 @@ public class InventoryView : MonoBehaviour
         Contents[index].raycastTarget = true;
     }
 
+    public void RefreshInventory()
+    {
+        ClearInventory();
+        LoadContents(GameManager.Instance.GetViewableMyWeapons()).Forget();
+    }
+
     public void CloseTheInventory()
+    {
+        ClearInventory();
+
+        myWeapons.Clear();
+        GameManager.Instance.aAResourceManager.ReleaseAllAssets();
+        gameObject.SetActive(false);
+        GameManager.Instance.soundManager.PlaySFX("OpenBag");
+    }
+
+    private void ClearInventory()
     {
         // 인벤 내부 정보 리셋
         for (int i = 0; i < Contents.Length; i++)
@@ -81,10 +97,5 @@ public class InventoryView : MonoBehaviour
             Contents[index].color = Color.clear;
             Contents[index].raycastTarget = false;
         }
-
-        myWeapons.Clear();
-        GameManager.Instance.aAResourceManager.ReleaseAllAssets();
-        gameObject.SetActive(false);
-        GameManager.Instance.soundManager.PlaySFX("OpenBag");
     }
 }
