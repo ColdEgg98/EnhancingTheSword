@@ -32,13 +32,13 @@ public class SupplyItemButton : MonoBehaviour
         {
             Debug.LogError($"[SupplyItemButton] : gameObject의 이름 변경할 수 없음 '{gameObject.name}'");
         }
-        _onClickSlot.OnNext((slotNumber : slotNum, weaponIndex : index)); // UI에 띄우기 요청
+        _onClickSlot.OnNext((slotNumber : slotNum, weaponIndex : index));
 
         // 1. 무기 출하 시작
         GameManager.Instance.TryDeliverWeapon(int.Parse(gameObject.name));
         
         // 2. 인벤토리 최신화
-        view.RefreshInventory();
+        view.RefreshInventory(index);
     }
 
     void OnDestroy()
