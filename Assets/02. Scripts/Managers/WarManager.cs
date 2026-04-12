@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UniRx;
 using UnityEngine;
 
@@ -35,10 +36,10 @@ public class WarManager : MonoBehaviour
     // 출하 슬롯
     // ───────────────────────────────────────
     private int _maxSlot;
-    private readonly List<DeliverySlot> _slots = new List<DeliverySlot>();
+    private readonly ReactiveCollection<DeliverySlot> _slots = new ();
 
     // 외부에서 출하 중인 무기 인덱스 확인용
-    public IReadOnlyList<DeliverySlot> Slots => _slots;
+    public IReadOnlyReactiveCollection<DeliverySlot> Slots => _slots;
 
     // ───────────────────────────────────────
     // Awake
@@ -99,10 +100,10 @@ public class WarManager : MonoBehaviour
                 continue;
             }
 
-            // 2단계: 도착 후 영향력 적용 (B타입: 유지 시간 내내 부드럽게 누적)
+            // 2단계: 도착 후 영향력 적용 (유지 시간 내내 누적)
             if (slot.InfluenceTimeRemaining > 0f)
             {
-                float contribution = (slot.TotalInfluence / slot.TotalDuration) * delta;
+                float contribution = slot.TotalInfluence * delta;
                 _warGauge.Value = Mathf.Clamp(_warGauge.Value + contribution, MIN_GAUGE, MAX_GAUGE);
                 slot.InfluenceTimeRemaining -= delta;
             }
@@ -127,7 +128,7 @@ public class WarManager : MonoBehaviour
         }
 
         // 이미 출하 중인 무기인지 체크
-        if (_slots.Exists(s => s.WeaponIndex == weaponIndex))
+        if (_slots.Any(s => s.WeaponIndex == weaponIndex))
         {
             GameManager.Instance.ShowNotice("이미 출하 중인 무기입니다.");
             return false;
@@ -153,7 +154,7 @@ public class WarManager : MonoBehaviour
     // 출하 중인지 여부 확인 (인벤토리 UI 잠금용)
     public bool IsDelivering(int weaponIndex)
     {
-        return _slots.Exists(s => s.WeaponIndex == weaponIndex);
+        return _slots.Any(s => s.WeaponIndex == weaponIndex);
     }
 
     // ───────────────────────────────────────
