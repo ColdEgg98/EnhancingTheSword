@@ -22,13 +22,13 @@ public class WarManager : MonoBehaviour
 
     private readonly Dictionary<int, float> _decayRatePerStage = new Dictionary<int, float>
     {
-        { 1, 0.1f },
-        { 2, 0.3f },
-        { 3, 0.7f },
+        { 1, 0.03f },
+        { 2, 0.07f },
+        { 3, 0.1f },
     };
 
     private const float NEXT_STAGE_THRESHOLD = 95f;
-    private const float NEXT_STAGE_HOLD_TIME = 30f;
+    private const float NEXT_STAGE_HOLD_TIME = 10f;
     private float _aboveThresholdTimer = 0f;
 
     // ───────────────────────────────────────
@@ -161,6 +161,7 @@ public class WarManager : MonoBehaviour
     // ───────────────────────────────────────
     private void CheckStageClear(float delta)
     {
+        // 전황 수치 95이상으로 5초 유지시
         if (_warGauge.Value >= NEXT_STAGE_THRESHOLD)
         {
             _aboveThresholdTimer += delta;
@@ -184,8 +185,11 @@ public class WarManager : MonoBehaviour
 
     private void GoNextStage()
     {
+        // TODO: 게임 클리어 처리
+
         _currentStage.Value++;
         ResetGauge();
+        GameManager.Instance.ShowNotice($"전투 승리!\n{_currentStage}스테이지로 진입합니다.");
         Debug.Log($"다음 스테이지 진입: {_currentStage.Value}");
     }
 
@@ -199,13 +203,13 @@ public class WarManager : MonoBehaviour
         }
         _currentStage.Value--;
         ResetGauge();
+        GameManager.Instance.ShowNotice($"전투에서 패배했습니다..\n{_currentStage}스테이지로 후퇴합니다.");
         Debug.Log($"이전 스테이지로 밀려남: {_currentStage.Value}");
     }
 
     private void ResetGauge()
     {
         _warGauge.Value = 50f;
-        _slots.Clear();
     }
 
     // ───────────────────────────────────────

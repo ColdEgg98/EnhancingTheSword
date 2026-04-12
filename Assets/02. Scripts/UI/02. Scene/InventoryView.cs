@@ -102,7 +102,9 @@ public class InventoryView : MonoBehaviour
         List<UniTask> updateTasks = new List<UniTask>();
 
         // 3. 삭제된 인덱스부터 슬롯의 끝까지만 반복문을 돕니다! (0 ~ deletedIndex-1 은 무시)
-        for (int i = deletedIndex; i < myWeapons.Count + 1; i++)
+        int loopLimit = Mathf.Min(myWeapons.Count + 1, Contents.Length);
+
+        for (int i = deletedIndex; i < loopLimit; i++)
         {
             if (i < myWeapons.Count)
             {
