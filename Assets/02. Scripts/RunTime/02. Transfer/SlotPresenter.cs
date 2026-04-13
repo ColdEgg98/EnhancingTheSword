@@ -39,7 +39,7 @@ public class SlotPresenter : MonoBehaviour
                 // 슬롯 이미지 세팅
                 Image image = _slots[e.slotNumber].GetComponent<Image>();
                 image.color = Color.white;
-                image.raycastTarget = true;
+                image.raycastTarget = false;
 
                 Weapon tempWeapon = GameManager.Instance.currentData.myWeapons[e.weaponIndex];
                 IViewable tempViewable = tempWeapon;
@@ -52,7 +52,7 @@ public class SlotPresenter : MonoBehaviour
                 {
                     // 시간 표시가 끝나면 이미지를 다시 비워줌
                     image.color = Color.clear;
-                    image.raycastTarget = false;
+                    image.raycastTarget = true;
                 });
             })
             .AddTo(this)

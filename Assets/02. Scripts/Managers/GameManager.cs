@@ -72,9 +72,20 @@ public class GameManager : Singleton<GameManager>
         userDataManager.IncShippingSlot();
     }
 
-    public bool TryDeliverWeapon(int weaponIndex)
+    public bool IsVaildDeliverWeapon(int weaponIndex, int slotIndex)
     {
-        return warManager.TryDeliverWeapon(weaponIndex);
+        return warManager.IsVaildDeliverWeapon(weaponIndex, slotIndex);
+    }
+
+    public void DeliverWeapon(int weaponIndex, int slotIndex)
+    {
+        warManager.DeliverWeapon(weaponIndex, slotIndex);
+    }
+
+
+    public bool TryDeliverWeapon(int weaponIndex, int slotIndex)
+    {
+        return warManager.TryDeliverWeapon(weaponIndex, slotIndex);
     }
 
     public List<IViewable> GetViewableMyWeapons()

@@ -9,7 +9,7 @@ public class WeaponSupplySlotButton : MonoBehaviour
 {
     [SerializeField] private GameObject InventoryView;
     private Button slotButton;
-    [SerializeField] private int num = 0;
+    [SerializeField] private int num;
     private OpenSlotNum slotNum;
 
     // UI
@@ -34,11 +34,12 @@ public class WeaponSupplySlotButton : MonoBehaviour
 
         if (InventoryView.activeSelf && isThis)
         {
+            // 현재 슬롯 클릭 시 가방 인벤토리 닫음
             CallView();
         }
         else if (InventoryView.activeSelf && isThis == false)
         {
-            // 꺼지고 새로 그리게끔 2회 호출
+            // 다른 슬롯 선택 시 꺼지고 새로 그리게끔 2회 호출
             CallView();
             CallView();
         }
@@ -53,6 +54,7 @@ public class WeaponSupplySlotButton : MonoBehaviour
         }
 
         slotNum.currentNum = num;
+        Debug.Log($"현재 선택된 슬롯 : {slotNum.currentNum}");
     }
 
     private void CallView()

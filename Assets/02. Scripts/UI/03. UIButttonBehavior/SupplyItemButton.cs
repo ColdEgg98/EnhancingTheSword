@@ -26,18 +26,27 @@ public class SupplyItemButton : MonoBehaviour
 
     private void ButtonBehaviour()
     {
-        // 0. 슬롯 UI에 띄우기 요청
+        // TODO : UI에 띄우기전에 해당 슬롯이 사용중인지 여부를 확인해야함.
+
+        // 슬롯 그리드를 조회해서 사용할 슬롯 인덱스를 읽어옴
         slotNum = GetComponentInParent<OpenSlotNum>().currentNum;
+
+        // 이 인벤토리 슬롯 버튼의 이름을 사용자 무기 인덱스로 사용
         if (!int.TryParse(gameObject.name, out int index))
         {
             Debug.LogError($"[SupplyItemButton] : gameObject의 이름 변경할 수 없음 '{gameObject.name}'");
         }
-        _onClickSlot.OnNext((slotNumber : slotNum, weaponIndex : index));
 
-        // 1. 무기 출하 시작
-        GameManager.Instance.TryDeliverWeapon(int.Parse(gameObject.name));
+        // 1. 무기 출하 무결성 검사
+        if (!GameManager.Instance.IsVaildDeliverWeapon(index, slotNum)) return;
+
+        // 2. 슬롯 UI에 띄우기 요청
+        _onClickSlot.OnNext((slotNumber : slotNum, weaponIndex : index));
         
-        // 2. 인벤토리 최신화
+        // 3. 무기 출하
+        GameManager.Instance.DeliverWeapon(index, slotNum);
+
+        // 4. 인벤토리 최신화
         view.RefreshInventory(index);
     }
 

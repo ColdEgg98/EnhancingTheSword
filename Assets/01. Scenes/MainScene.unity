@@ -20398,6 +20398,7 @@ GameObject:
   - component: {fileID: 1617432354}
   - component: {fileID: 1617432353}
   - component: {fileID: 1617432352}
+  - component: {fileID: 1617432355}
   m_Layer: 5
   m_Name: X Button (Temp)
   m_TagString: Untagged
@@ -20506,6 +20507,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1617432350}
   m_CullTransparentMesh: 1
+--- !u!114 &1617432355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617432350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 889e715efbf0b4901b6c0e6df4f2bbee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  view: {fileID: 1063611660}
 --- !u!1 &1623549314
 GameObject:
   m_ObjectHideFlags: 0
