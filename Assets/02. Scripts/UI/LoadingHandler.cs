@@ -102,7 +102,7 @@ public class LoadingHandler : MonoBehaviour
     private async UniTask SliderAnimation(float progress)
     {
         Sequence seq = DOTween.Sequence();
-        await seq.Append(slider.DOValue(progress, 0.05f));
+        seq.Append(slider.DOValue(progress, 0.05f));
         await seq.AsyncWaitForCompletion();
     }
 

@@ -17,7 +17,7 @@ public class GoRegion : MonoBehaviour
             if (currentCanva != targetCanva)
             {
                 targetCanva.gameObject.SetActive(true);
-                currentCanva.gameObject.SetActive(false);
+                currentCanva.nowCanvas.gameObject.SetActive(false);
                 
                 currentCanva.nowCanvas = targetCanva;
             }
