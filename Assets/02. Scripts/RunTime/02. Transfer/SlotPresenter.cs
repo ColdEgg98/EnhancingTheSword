@@ -15,9 +15,13 @@ public class SlotPresenter : MonoBehaviour
 
     void Awake()
     {
-        _slots = slotView.slots;
         supplyItemButtons = ItemContents.GetComponentsInChildren<SupplyItemButton>();
         SubForSupplyButtons();
+    }
+
+    private void Start()
+    {
+        _slots = slotView.slots;
     }
 
     private void SubForSupplyButtons()
@@ -37,17 +41,18 @@ public class SlotPresenter : MonoBehaviour
             .Subscribe(e =>
             {
                 // 슬롯 이미지 세팅
-                Image image = _slots[e.slotNumber].GetComponent<Image>();
+                int targetIndex = e.slotNumber;
+                Image image = _slots[targetIndex].GetComponent<Image>();
                 image.color = Color.white;
                 image.raycastTarget = false;
 
                 Weapon tempWeapon = GameManager.Instance.currentData.myWeapons[e.weaponIndex];
                 IViewable tempViewable = tempWeapon;
                 GameManager.Instance.aAResourceManager.
-                    SetSpriteAsync(tempViewable, _slots[e.slotNumber].slotImage).Forget();
+                    SetSpriteAsync(tempViewable, _slots[targetIndex].slotImage).Forget();
                 
                 // 슬롯 시간 세팅
-                TextMeshProUGUI timeItem = _slots[e.slotNumber].GetComponentInChildren<TextMeshProUGUI>();
+                TextMeshProUGUI timeItem = _slots[targetIndex].GetComponentInChildren<TextMeshProUGUI>();
                 TimeCountSet(timeItem, tempWeapon.DeliveryTime, tempWeapon.InfluenceDuration, () =>
                 {
                     // 시간 표시가 끝나면 이미지를 다시 비워줌

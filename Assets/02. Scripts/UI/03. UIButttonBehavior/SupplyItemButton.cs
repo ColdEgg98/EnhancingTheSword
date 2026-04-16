@@ -37,6 +37,8 @@ public class SupplyItemButton : MonoBehaviour
             Debug.LogError($"[SupplyItemButton] : gameObject의 이름 변경할 수 없음 '{gameObject.name}'");
         }
 
+        Debug.Log($"현재 클릭된 슬롯 번호: {slotNum}, 무기 인덱스: {index}");
+
         // 1. 무기 출하 무결성 검사
         if (!GameManager.Instance.IsVaildDeliverWeapon(index, slotNum)) return;
 

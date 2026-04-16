@@ -58,7 +58,7 @@ public class InventoryButtonBehavior : MonoBehaviour
                 if (count != 0)
                 {
                     multiSellButton.interactable = true;
-                    Color c = SellText.color;
+                    Color c = SellText.color; 
                     c.a = 1f;
                     SellText.color = c;
                     GameManager.Instance.uiManager.TipTextAppend("선택 목록 판매 (S)");

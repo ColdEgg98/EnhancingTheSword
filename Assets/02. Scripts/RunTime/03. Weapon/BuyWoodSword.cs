@@ -36,7 +36,9 @@ public class BuyWoodSword : MonoBehaviour
                 return;
             }
             // 진동 피드백
+#if UNITY_ANDROID || UNITY_IOS || UNITY_EDITOR
             Handheld.Vibrate();
+#endif
 
             GameManager.Instance.gold.Value -= swordPrice;
             GameManager.Instance.currentData.myWeapons.Add(GameManager.Instance.allOfWeaponDictionary[1]);

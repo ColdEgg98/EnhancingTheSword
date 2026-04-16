@@ -14,12 +14,16 @@ public class GoRegion : MonoBehaviour
         btn = GetComponent<Button>();
         btn.onClick.AddListener(() =>
         {
-            if (currentCanva != targetCanva)
+            if (currentCanva.nowCanvas != targetCanva)
             {
                 targetCanva.gameObject.SetActive(true);
                 currentCanva.nowCanvas.gameObject.SetActive(false);
                 
                 currentCanva.nowCanvas = targetCanva;
+            }
+            else if (currentCanva.nowCanvas == targetCanva)
+            {
+                Debug.LogWarning($"nowCanvas({currentCanva.nowCanvas})와 targetCanva({targetCanva})가 같습니다.");
             }
         });
     }

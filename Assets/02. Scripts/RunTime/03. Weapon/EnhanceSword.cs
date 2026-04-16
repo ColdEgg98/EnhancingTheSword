@@ -60,13 +60,12 @@ public class EnhanceSword : MonoBehaviour
 
         Weapon currentWeapon = GameManager.Instance.currentWeapon.Value;
 
-        // 소모 재화 계산
-        long price = currentWeapon.EnhancingPrice;
-        if (GameManager.Instance.isFocusOn.Value) price += (long)(currentWeapon.EnhancingPrice * 0.1f);
-
         // 강화 유효 판단
-        if (IsValid(currentWeapon, price) == false)
+        if (IsValid(currentWeapon, out long price) == false)
+        {
+            isEnhancing = false;
             return;
+        }
 
         // 재화 소모
         GameManager.Instance.gold.Value -= price;
@@ -92,8 +91,11 @@ public class EnhanceSword : MonoBehaviour
         GameManager.Instance.saveDataManager.StartSave();
     }
 
-    private bool IsValid(Weapon weapon, long price)
+    private bool IsValid(Weapon weapon, out long price)
     {
+        price = 0;
+
+        // 무기 유무 체크
         if (GameManager.Instance.currentWeapon.Value == null)
         {
             GameManager.Instance.uiManager.UIFactory.ShowNotice("선택된 무기가 없습니다", Color.white);
@@ -106,6 +108,10 @@ public class EnhanceSword : MonoBehaviour
             GameManager.Instance.uiManager.UIFactory.ShowNotice("이미 최대 레벨에 도달했습니다", Color.white);
             return false;
         }
+
+        // 소모 재화 계산
+        price = weapon.EnhancingPrice;
+        if (GameManager.Instance.isFocusOn.Value) price += (long)(weapon.EnhancingPrice * 0.1f);
 
         // 재화 및 요구 아이템 체크
         if (GameManager.Instance.gold.Value < price)
@@ -181,7 +187,9 @@ public class EnhanceSword : MonoBehaviour
         Debug.Log($"{currentWeapon.WeaponName} 파괴됨.");
 
         // 진동
+#if UNITY_ANDROID || UNITY_IOS || UNITY_EDITOR
         Handheld.Vibrate();
+#endif
 
         _materialInstance.SetFloat( _flashID, 0);      
 
