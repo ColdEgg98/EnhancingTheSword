@@ -15,11 +15,16 @@ public class SlotPresenter : MonoBehaviour
 
     void Awake()
     {
-        supplyItemButtons = ItemContents.GetComponentsInChildren<SupplyItemButton>();
+        supplyItemButtons = ItemContents.GetComponentsInChildren<SupplyItemButton>(); // 20개
         SubForSupplyButtons();
     }
 
     private void Start()
+    {
+        SetSlotBind();
+    }
+
+    public void SetSlotBind()
     {
         _slots = slotView.slots;
     }
@@ -40,40 +45,76 @@ public class SlotPresenter : MonoBehaviour
         item.onClickSlot
             .Subscribe(e =>
             {
-                // 슬롯 이미지 세팅
-                int targetIndex = e.slotNumber;
-                Image image = _slots[targetIndex].GetComponent<Image>();
-                image.color = Color.white;
-                image.raycastTarget = false;
-
-                Weapon tempWeapon = GameManager.Instance.currentData.myWeapons[e.weaponIndex];
-                IViewable tempViewable = tempWeapon;
-                GameManager.Instance.aAResourceManager.
-                    SetSpriteAsync(tempViewable, _slots[targetIndex].slotImage).Forget();
-                
-                // 슬롯 시간 세팅
-                TextMeshProUGUI timeItem = _slots[targetIndex].GetComponentInChildren<TextMeshProUGUI>();
-                TimeCountSet(timeItem, tempWeapon.DeliveryTime, tempWeapon.InfluenceDuration, () =>
-                {
-                    // 시간 표시가 끝나면 이미지를 다시 비워줌
-                    image.color = Color.clear;
-                    image.raycastTarget = true;
-                });
+                SetSlot(e);
             })
             .AddTo(this)
             .AddTo(item);
     }
 
-/// <summary>
-/// 보급 슬롯의 남은 시간 표기(출하 및 영향력 행사 시간)를 관리합니다.
-/// </summary>
-   private void TimeCountSet(TextMeshProUGUI textItem, float deliveryTime, float influenceDuration, Action onCompleted)
+    public void SetSlot((int slotNumber, int weaponIndex) e, DeliverySlot slotData = null)
     {
-        float remainingTime = deliveryTime;
-        bool isInfluencePhase = false; // 현재 영향력 단계인지 여부
+        // 슬롯 이미지 세팅
+        int targetIndex = e.slotNumber;
+        Image image = _slots[targetIndex].GetComponent<Image>();
+        image.color = Color.white;
+        image.raycastTarget = false;
+
+        Weapon tempWeapon;
+        float deliveryTime;
+        float influenceDuration;
+        bool PhaseFlag;
+
+        if (slotData != null)
+        {
+            // 세이브 데이터를 로드할 때 호출
+            tempWeapon = GameManager.Instance.allOfWeaponDictionary[slotData.WeaponLevel];
+            deliveryTime = slotData.DeliveryTimeRemaining;
+            influenceDuration = slotData.InfluenceTimeRemaining;
+            PhaseFlag = slotData.IsDelivered;
+        }
+        else
+        {
+            tempWeapon = GameManager.Instance.currentData.myWeapons[e.weaponIndex];
+            deliveryTime = tempWeapon.DeliveryTime;
+            influenceDuration = tempWeapon.InfluenceDuration;
+            PhaseFlag = false;
+        }
+
+        IViewable tempViewable = tempWeapon;
+
+        GameManager.Instance.aAResourceManager.
+            SetSpriteAsync(tempViewable, _slots[targetIndex].slotImage).Forget();
+
+        // 슬롯 시간 세팅
+        TextMeshProUGUI timeItem = _slots[targetIndex].GetComponentInChildren<TextMeshProUGUI>();
+        TimeCountSet(timeItem, deliveryTime, influenceDuration, PhaseFlag, () =>
+        {
+            // 시간 표시가 끝나면 이미지를 다시 비워줌
+            image.color = Color.clear;
+            image.raycastTarget = true;
+        });
+    }
+
+    /// <summary>
+    /// 보급 슬롯의 남은 시간 표기(출하 및 영향력 행사 시간)를 관리합니다.
+    /// </summary>
+    private void TimeCountSet(TextMeshProUGUI textItem, float deliveryTime, float influenceDuration, bool isInfluence, Action onCompleted)
+    {
+        float remainingTime;
+        bool isInfluencePhase = isInfluence; // 현재 영향력 단계인지 여부
 
         // 초기 텍스트 설정
-        textItem.SetText("출하까지 : {0}", (int)remainingTime);
+        if (isInfluencePhase == false)
+        {
+            remainingTime = deliveryTime;
+            textItem.SetText("출하까지 : {0}", (int)remainingTime);
+        }
+        else
+        {
+            // 세이브로부터 주입 받을 시
+            remainingTime = influenceDuration;
+            textItem.SetText("무기 영향력 남은 시간 : {0}", (int)remainingTime);
+        }
 
         // 1초마다 반복하는 타이머
         Observable.Interval(TimeSpan.FromSeconds(1f))

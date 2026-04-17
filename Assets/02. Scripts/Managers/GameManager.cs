@@ -57,7 +57,11 @@ public class GameManager : Singleton<GameManager>
 
     public void InitGameManager()
     {
+        // 메인 씬 넘어갈 때 호출
         warManager = GetComponent<WarManager>();
+        Instance.warManager.SetCurrentStage(currentData.stage);
+        Instance.warManager.LoadSlotData(currentData.deliverySlots);
+        Instance.uiManager.SetSlotImage(currentData.deliverySlots);
     }
 
     void Start()
@@ -67,6 +71,9 @@ public class GameManager : Singleton<GameManager>
 
     // 여기서부터 핫키 모음
     #region HotKeys
+
+    public List<DeliverySlot> GetDeliverList() => warManager.GetSlots();
+
     public void IncShippingSlot()
     {
         userDataManager.IncShippingSlot();

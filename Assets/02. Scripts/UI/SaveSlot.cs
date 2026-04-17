@@ -24,7 +24,7 @@ public class SaveSlot : MonoBehaviour
 
     void Start()
     {
-        // 씬 로드 다음에 UIManager를 Init
+        // 씬 로드 다음에 UIManager를 Init. sceneLoaded는 씬의 오브젝트들 awake 후 호출
         SceneManager.sceneLoaded += (scene, mode) =>
         {
             if (scene.buildIndex == 2)

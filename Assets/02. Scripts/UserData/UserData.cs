@@ -24,6 +24,7 @@ public class UserData
         myAchievementRefs = new();
         materials = new();
         materialRefs = new();
+        deliverySlots = new();
     }
 
     // Stat
@@ -47,6 +48,8 @@ public class UserData
 
     // War
     public int shippingSlotRef; // 저장 & 불러오기에만 호출
+    public int stage;
+    public List<DeliverySlot> deliverySlots;
 }
 
 [Serializable]

@@ -3026,13 +3026,14 @@ GameObject:
   - component: {fileID: 189513404}
   - component: {fileID: 189513403}
   - component: {fileID: 189513402}
+  - component: {fileID: 189513406}
   m_Layer: 0
   m_Name: Transfer Gate Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &189513402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3094,7 +3095,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &189513405
 RectTransform:
@@ -3120,6 +3121,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &189513406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 189513401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 342ffa2340887ce48a6c317d6d04e6ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &189884388
 GameObject:
   m_ObjectHideFlags: 0
@@ -5875,7 +5888,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 100
+  m_SortingOrder: 99
   m_TargetDisplay: 0
 --- !u!1 &402618712
 GameObject:
@@ -8554,6 +8567,83 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 575848837}
   m_CullTransparentMesh: 1
+--- !u!1 &578633384
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 578633386}
+  - component: {fileID: 578633385}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &578633385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578633384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3700dcc1373fa243b3f9ec0f37497eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDontDestroy: 1
+  uiManager: {fileID: 0}
+  soundManager: {fileID: 0}
+  warManager: {fileID: 0}
+  activeSaveSlotNum: 0
+  currentData:
+    previewData:
+      isUsed: 0
+      slotNumber: 0
+      achivementCount: 0
+      time: 
+      goldRef: 0
+    totalGold: 0
+    enhanceCount: 0
+    failCount: 0
+    myWeapons: []
+    myWeaponRefs: 
+    myAchievementRefs: []
+    chanceBonus: 0
+    addtionalGold: 0
+    materialRefs: []
+    shippingSlotRef: 0
+    stage: 0
+    deliverySlots: []
+  gold:
+    value: 0
+  shippingSlot:
+    value: 0
+  currentWeapon: {}
+  selectWeaponIndex:
+    value: 0
+  isFocusOn:
+    value: 0
+--- !u!4 &578633386
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578633384}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &587948756
 GameObject:
   m_ObjectHideFlags: 0
@@ -10030,6 +10120,7 @@ GameObject:
   - component: {fileID: 684271988}
   - component: {fileID: 684271989}
   - component: {fileID: 684271990}
+  - component: {fileID: 684271991}
   m_Layer: 0
   m_Name: SceneHandler
   m_TagString: Untagged
@@ -10121,6 +10212,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goldText: {fileID: 1661527876}
+--- !u!114 &684271991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 684271984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 978c064884d2c1d46a153a74b0c19059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  warGaguePlus: {fileID: 739216201}
 --- !u!1 &689630760
 GameObject:
   m_ObjectHideFlags: 0
@@ -29244,7 +29348,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!1 &2116818790
 GameObject:
@@ -29622,3 +29726,4 @@ SceneRoots:
   - {fileID: 684271986}
   - {fileID: 1728439411}
   - {fileID: 1914756065}
+  - {fileID: 578633386}

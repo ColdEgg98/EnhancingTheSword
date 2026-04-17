@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UniRx;
@@ -20,6 +21,10 @@ public class WarManager : MonoBehaviour
     // ───────────────────────────────────────
     [SerializeField] private IntReactiveProperty _currentStage = new IntReactiveProperty(1);
     public IReadOnlyReactiveProperty<int> CurrentStage => _currentStage;
+    public void SetCurrentStage(int setValue)
+    {
+        _currentStage.Value = setValue;
+    }
 
     private readonly Dictionary<int, float> _decayRatePerStage = new Dictionary<int, float>
     {
@@ -43,10 +48,23 @@ public class WarManager : MonoBehaviour
     // 출하 슬롯
     // ───────────────────────────────────────
     private int _maxSlot;
-    private readonly ReactiveCollection<DeliverySlot> _slots = new ();
+    private ReactiveCollection<DeliverySlot> _slots = new ();
 
     // 사용중인 슬롯의 인덱스 기록
     private readonly List<int> _activatedSlotIds = new();
+    
+    public List<DeliverySlot> GetSlots()
+    {
+        return _slots.ToList();
+    }
+
+    public void LoadSlotData(List<DeliverySlot> slots)
+    {
+        foreach (var slot in slots)
+        {
+            _slots.Add(slot);
+        }
+    }
 
     // 외부에서 출하 중인 무기 인덱스 확인용
     public IReadOnlyReactiveCollection<DeliverySlot> Slots => _slots;
@@ -181,7 +199,22 @@ public class WarManager : MonoBehaviour
     }
 
     // 출하된 무기 삭제
-    private void UsedWeaponRemove(int index) => GameManager.Instance.currentData.myWeapons.RemoveAt(index);
+    private void UsedWeaponRemove(int index)
+    {
+        // 현재 사용중인 무기를 전송했을 때 처리
+        List<Weapon> myWeapons = GameManager.Instance.GetMyWeapons();
+        Weapon tempWeapon = myWeapons[index];
+        Weapon currentWeapon = GameManager.Instance.currentWeapon.Value;
+
+        // 현재 사용중인 무기를 전송했을 때, 삭제 전 기준으로 내 무기가 2개 이상이면 0번 인덱스로 표시
+        if (tempWeapon == currentWeapon)
+        {
+            if (GameManager.Instance.currentData.myWeapons.Count > 2) GameManager.Instance.selectWeaponIndex.Value = 0;
+            else GameManager.Instance.selectWeaponIndex.Value = -1;
+        }
+
+        myWeapons.RemoveAt(index);
+    }
 
     // 출하 중인지 여부 확인 (인벤토리 UI 잠금용)
     public bool IsDelivering(int weaponIndex)
@@ -258,11 +291,13 @@ public class WarManager : MonoBehaviour
 // ───────────────────────────────────────
 // 출하 슬롯 데이터
 // ───────────────────────────────────────
+[Serializable]
 public class DeliverySlot
 {
-    public int WeaponIndex;
+    public int WeaponIndex; // 인벤토리 몇 번 째였는지 기록
     public int SlotIndex;
     public string WeaponName;
+    public int WeaponLevel;
 
     public float DeliveryTimeRemaining;  // 출하 대기 시간
     public bool IsDelivered;            // 도착 완료 여부
@@ -276,6 +311,7 @@ public class DeliverySlot
         WeaponIndex = index;
         SlotIndex = slotIndex;
         WeaponName = weapon.WeaponName;
+        WeaponLevel = weapon.Index;
         DeliveryTimeRemaining = weapon.DeliveryTime;
         IsDelivered = false;
         TotalInfluence = weapon.WarInfluence;

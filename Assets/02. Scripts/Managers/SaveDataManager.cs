@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -68,8 +69,16 @@ public class SaveDataManager
             myWeaponRefs = GameManager.Instance.currentData.myWeaponRefs,
             myAchievementRefs = GameManager.Instance.currentData.myAchievementRefs,
             materialRefs = GameManager.Instance.currentData.materialRefs,
-            shippingSlotRef = GameManager.Instance.shippingSlot.Value
+            shippingSlotRef = GameManager.Instance.shippingSlot.Value,
         };
+
+        // 최초 실행 시 오류 방지 (WarManager)
+        if (GameManager.Instance.warManager != null)
+        {
+            data.deliverySlots = GameManager.Instance.GetDeliverList();
+            data.stage = GameManager.Instance.warManager.CurrentStage.Value;
+        }
+
         data.previewData.goldRef = GameManager.Instance.gold.Value;
         data.previewData.time = DateTime.Now.ToString("yyyy.MM.dd\ntt hh시 mm분");
 
@@ -99,7 +108,7 @@ public class SaveDataManager
     /// <summary>본게임에 사용되는 User의 데이터 저장</summary>
     private void UserDataSave(UserData data)
     {
-        string jsonString = JsonUtility.ToJson(data, true);
+        string jsonString = JsonConvert.SerializeObject(data, Formatting.Indented);
         File.WriteAllText(path, jsonString);
     }
     #endregion
@@ -141,10 +150,14 @@ public class SaveDataManager
         if (File.Exists(path))
         {
             string data = File.ReadAllText(path);
+
             UserData tempData = JsonUtility.FromJson<UserData>(data);
+
             tempData.myWeapons = ResolveWeaponReferences(tempData);
             tempData.materials = ResloveMaterialReferences(tempData);
+
             GameManager.Instance.shippingSlot.Value = tempData.shippingSlotRef;
+
             return tempData;
         }
         else if (File.Exists(indexPath))
