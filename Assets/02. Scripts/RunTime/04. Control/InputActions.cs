@@ -4,7 +4,8 @@ using UnityEngine.InputSystem;
 
 public class InputActions : MonoBehaviour
 {
-    private GameControls actions;
+    public GameControls Actions { get; private set; }
+
     private EnhanceSword enhanceSword;
     private SellWeapon sellWeapon;
     private InventoryButtonBehavior inventoryButtonBehavior;
@@ -12,7 +13,8 @@ public class InputActions : MonoBehaviour
 
     void Awake()
     {
-        actions = new();
+        Actions = new GameControls();
+
         enhanceSword = FindAnyObjectByType<EnhanceSword>();
         sellWeapon = FindAnyObjectByType<SellWeapon>();
         inventoryButtonBehavior = FindAnyObjectByType<InventoryButtonBehavior>();
@@ -21,13 +23,33 @@ public class InputActions : MonoBehaviour
 
     void OnEnable()
     {
-        actions.Enable();
+        // 🚨 중요: 전체를 Enable() 하지 마시고, 시작할 때 필요한 맵만 켭니다.
+        SwitchToForgeMap();
 
-        actions.Player.Enhance.performed += OnEnhance;
-        actions.Player.Sell.performed += OnSell;
-        actions.Player.Inventory.performed += OnInventory;
-        actions.Player.BuyItem.performed += OnBuyItem;
+        // Forge 액션 이벤트 구독
+        Actions.Forge.Enhance.performed += OnEnhance;
+        Actions.Forge.Sell.performed += OnSell;
+        Actions.Forge.Inventory.performed += OnInventory;
+        Actions.Forge.BuyItem.performed += OnBuyItem;
     }
+
+    // ==========================================
+    // 맵 스위칭(전환) 메서드
+    // ==========================================
+    public void SwitchToMiniGameMap()
+    {
+        Actions.Forge.Disable();    // 대장간 조작 비활성화 (미니게임 중 UI 조작 방지)
+        Actions.MiniGame.Enable();  // 미니게임 조작 활성화
+        Debug.Log("🎮 조작계 전환: MiniGame");
+    }
+
+    public void SwitchToForgeMap()
+    {
+        Actions.MiniGame.Disable(); // 미니게임 조작 비활성화
+        Actions.Forge.Enable();     // 대장간 조작 다시 활성화
+        Debug.Log("🔨 조작계 전환: Forge");
+    }
+    // ==========================================
 
     private void OnEnhance(InputAction.CallbackContext context)
     {
@@ -48,7 +70,6 @@ public class InputActions : MonoBehaviour
     private void OnInventory(InputAction.CallbackContext context)
     {
         inventoryButtonBehavior.OnClickButton().Forget();
-
     }
 
     private void OnBuyItem(InputAction.CallbackContext context)
@@ -56,13 +77,14 @@ public class InputActions : MonoBehaviour
         buyItemButtonBehavior.OpenPanel();
     }
 
-
-    private void OnDisable()
+    void OnDisable()
     {
-        actions.Player.Enhance.performed -= OnEnhance;
-        actions.Player.Sell.performed -= OnSell;
-        actions.Player.Inventory.performed -= OnInventory;
+        // 구독 해제
+        Actions.Forge.Enhance.performed -= OnEnhance;
+        Actions.Forge.Sell.performed -= OnSell;
+        Actions.Forge.Inventory.performed -= OnInventory;
+        Actions.Forge.BuyItem.performed -= OnBuyItem;
 
-        actions.Disable();
+        Actions.Disable();
     }
 }

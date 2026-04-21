@@ -3,7 +3,7 @@
     "name": "GameControls",
     "maps": [
         {
-            "name": "Player",
+            "name": "Forge",
             "id": "7e0044f4-69a7-4a0b-95a8-1d0e2b53b444",
             "actions": [
                 {
@@ -119,7 +119,7 @@
                 {
                     "name": "",
                     "id": "504cc367-cdfc-452e-b2ee-54c8031819bd",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Pointer>/press",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

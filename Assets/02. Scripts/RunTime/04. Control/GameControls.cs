@@ -89,7 +89,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
     ""name"": ""GameControls"",
     ""maps"": [
         {
-            ""name"": ""Player"",
+            ""name"": ""Forge"",
             ""id"": ""7e0044f4-69a7-4a0b-95a8-1d0e2b53b444"",
             ""actions"": [
                 {
@@ -205,7 +205,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""504cc367-cdfc-452e-b2ee-54c8031819bd"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Pointer>/press"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -218,12 +218,12 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
     ],
     ""controlSchemes"": []
 }");
-        // Player
-        m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_Enhance = m_Player.FindAction("Enhance", throwIfNotFound: true);
-        m_Player_Sell = m_Player.FindAction("Sell", throwIfNotFound: true);
-        m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
-        m_Player_BuyItem = m_Player.FindAction("BuyItem", throwIfNotFound: true);
+        // Forge
+        m_Forge = asset.FindActionMap("Forge", throwIfNotFound: true);
+        m_Forge_Enhance = m_Forge.FindAction("Enhance", throwIfNotFound: true);
+        m_Forge_Sell = m_Forge.FindAction("Sell", throwIfNotFound: true);
+        m_Forge_Inventory = m_Forge.FindAction("Inventory", throwIfNotFound: true);
+        m_Forge_BuyItem = m_Forge.FindAction("BuyItem", throwIfNotFound: true);
         // MiniGame
         m_MiniGame = asset.FindActionMap("MiniGame", throwIfNotFound: true);
         m_MiniGame_StrikePoint = m_MiniGame.FindAction("StrikePoint", throwIfNotFound: true);
@@ -231,7 +231,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
 
     ~@GameControls()
     {
-        UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, GameControls.Player.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Forge.enabled, "This will cause a leak and performance issues, GameControls.Forge.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_MiniGame.enabled, "This will cause a leak and performance issues, GameControls.MiniGame.Disable() has not been called.");
     }
 
@@ -305,44 +305,44 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Player
-    private readonly InputActionMap m_Player;
-    private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
-    private readonly InputAction m_Player_Enhance;
-    private readonly InputAction m_Player_Sell;
-    private readonly InputAction m_Player_Inventory;
-    private readonly InputAction m_Player_BuyItem;
+    // Forge
+    private readonly InputActionMap m_Forge;
+    private List<IForgeActions> m_ForgeActionsCallbackInterfaces = new List<IForgeActions>();
+    private readonly InputAction m_Forge_Enhance;
+    private readonly InputAction m_Forge_Sell;
+    private readonly InputAction m_Forge_Inventory;
+    private readonly InputAction m_Forge_BuyItem;
     /// <summary>
-    /// Provides access to input actions defined in input action map "Player".
+    /// Provides access to input actions defined in input action map "Forge".
     /// </summary>
-    public struct PlayerActions
+    public struct ForgeActions
     {
         private @GameControls m_Wrapper;
 
         /// <summary>
         /// Construct a new instance of the input action map wrapper class.
         /// </summary>
-        public PlayerActions(@GameControls wrapper) { m_Wrapper = wrapper; }
+        public ForgeActions(@GameControls wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "Player/Enhance".
+        /// Provides access to the underlying input action "Forge/Enhance".
         /// </summary>
-        public InputAction @Enhance => m_Wrapper.m_Player_Enhance;
+        public InputAction @Enhance => m_Wrapper.m_Forge_Enhance;
         /// <summary>
-        /// Provides access to the underlying input action "Player/Sell".
+        /// Provides access to the underlying input action "Forge/Sell".
         /// </summary>
-        public InputAction @Sell => m_Wrapper.m_Player_Sell;
+        public InputAction @Sell => m_Wrapper.m_Forge_Sell;
         /// <summary>
-        /// Provides access to the underlying input action "Player/Inventory".
+        /// Provides access to the underlying input action "Forge/Inventory".
         /// </summary>
-        public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
+        public InputAction @Inventory => m_Wrapper.m_Forge_Inventory;
         /// <summary>
-        /// Provides access to the underlying input action "Player/BuyItem".
+        /// Provides access to the underlying input action "Forge/BuyItem".
         /// </summary>
-        public InputAction @BuyItem => m_Wrapper.m_Player_BuyItem;
+        public InputAction @BuyItem => m_Wrapper.m_Forge_BuyItem;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
-        public InputActionMap Get() { return m_Wrapper.m_Player; }
+        public InputActionMap Get() { return m_Wrapper.m_Forge; }
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
         public void Enable() { Get().Enable(); }
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
@@ -350,9 +350,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
         public bool enabled => Get().enabled;
         /// <summary>
-        /// Implicitly converts an <see ref="PlayerActions" /> to an <see ref="InputActionMap" /> instance.
+        /// Implicitly converts an <see ref="ForgeActions" /> to an <see ref="InputActionMap" /> instance.
         /// </summary>
-        public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
+        public static implicit operator InputActionMap(ForgeActions set) { return set.Get(); }
         /// <summary>
         /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
         /// </summary>
@@ -360,11 +360,11 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         /// <remarks>
         /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
         /// </remarks>
-        /// <seealso cref="PlayerActions" />
-        public void AddCallbacks(IPlayerActions instance)
+        /// <seealso cref="ForgeActions" />
+        public void AddCallbacks(IForgeActions instance)
         {
-            if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_ForgeActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_ForgeActionsCallbackInterfaces.Add(instance);
             @Enhance.started += instance.OnEnhance;
             @Enhance.performed += instance.OnEnhance;
             @Enhance.canceled += instance.OnEnhance;
@@ -385,8 +385,8 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         /// <remarks>
         /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
         /// </remarks>
-        /// <seealso cref="PlayerActions" />
-        private void UnregisterCallbacks(IPlayerActions instance)
+        /// <seealso cref="ForgeActions" />
+        private void UnregisterCallbacks(IForgeActions instance)
         {
             @Enhance.started -= instance.OnEnhance;
             @Enhance.performed -= instance.OnEnhance;
@@ -403,12 +403,12 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         }
 
         /// <summary>
-        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="PlayerActions.UnregisterCallbacks(IPlayerActions)" />.
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="ForgeActions.UnregisterCallbacks(IForgeActions)" />.
         /// </summary>
-        /// <seealso cref="PlayerActions.UnregisterCallbacks(IPlayerActions)" />
-        public void RemoveCallbacks(IPlayerActions instance)
+        /// <seealso cref="ForgeActions.UnregisterCallbacks(IForgeActions)" />
+        public void RemoveCallbacks(IForgeActions instance)
         {
-            if (m_Wrapper.m_PlayerActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_ForgeActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
@@ -418,21 +418,21 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         /// <remarks>
         /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
         /// </remarks>
-        /// <seealso cref="PlayerActions.AddCallbacks(IPlayerActions)" />
-        /// <seealso cref="PlayerActions.RemoveCallbacks(IPlayerActions)" />
-        /// <seealso cref="PlayerActions.UnregisterCallbacks(IPlayerActions)" />
-        public void SetCallbacks(IPlayerActions instance)
+        /// <seealso cref="ForgeActions.AddCallbacks(IForgeActions)" />
+        /// <seealso cref="ForgeActions.RemoveCallbacks(IForgeActions)" />
+        /// <seealso cref="ForgeActions.UnregisterCallbacks(IForgeActions)" />
+        public void SetCallbacks(IForgeActions instance)
         {
-            foreach (var item in m_Wrapper.m_PlayerActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_ForgeActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_PlayerActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_ForgeActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
     /// <summary>
-    /// Provides a new <see cref="PlayerActions" /> instance referencing this action map.
+    /// Provides a new <see cref="ForgeActions" /> instance referencing this action map.
     /// </summary>
-    public PlayerActions @Player => new PlayerActions(this);
+    public ForgeActions @Forge => new ForgeActions(this);
 
     // MiniGame
     private readonly InputActionMap m_MiniGame;
@@ -530,11 +530,11 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
     /// </summary>
     public MiniGameActions @MiniGame => new MiniGameActions(this);
     /// <summary>
-    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Player" which allows adding and removing callbacks.
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Forge" which allows adding and removing callbacks.
     /// </summary>
-    /// <seealso cref="PlayerActions.AddCallbacks(IPlayerActions)" />
-    /// <seealso cref="PlayerActions.RemoveCallbacks(IPlayerActions)" />
-    public interface IPlayerActions
+    /// <seealso cref="ForgeActions.AddCallbacks(IForgeActions)" />
+    /// <seealso cref="ForgeActions.RemoveCallbacks(IForgeActions)" />
+    public interface IForgeActions
     {
         /// <summary>
         /// Method invoked when associated input action "Enhance" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.

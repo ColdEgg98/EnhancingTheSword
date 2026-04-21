@@ -14,9 +14,9 @@ public class MiniGameResult
 
     public float GetBonusChance() => grade switch
     {
-        MiniGameGrade.Perfect => +20f,
-        MiniGameGrade.Good => +10f,
-        MiniGameGrade.Miss => 0f,
+        MiniGameGrade.Perfect => 0.15f,
+        MiniGameGrade.Good => 0.75f,
+        MiniGameGrade.Miss => -0.05f,
         _ => 0f
     };
 }

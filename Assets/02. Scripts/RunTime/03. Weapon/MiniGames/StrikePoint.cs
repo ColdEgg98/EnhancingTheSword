@@ -1,48 +1,60 @@
 using Cysharp.Threading.Tasks;
-using System;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-/// <summary>
-/// 게이지 위에 커서가 왔다갔다하고, 중앙에 맞히면 성공
-/// </summary>
 public class StrikePoint : MonoBehaviour, IMiniGame
 {
-    [SerializeField] private StrikePointData StrikePointUI;
-    private PlayerInput playerInput;
-    private InputAction _skrikeAction;
-    private StrikePointData strikeUI;
-    private TaskCompletionSource<bool> task;
-
-    void Awake()
-    {
-        _skrikeAction = playerInput.actions["MiniGame/StrikePoint"];
-        _skrikeAction.performed += OnClickPoint;
-    }
+    [SerializeField] private StrikePointView strikePointUI;
+    [SerializeField] private InputActions inputActions;
+    private UniTaskCompletionSource<bool> tcs; // UniTask 전용으로 변경
 
     public async UniTask<MiniGameResult> Play()
     {
-        // 플레이어 액션 맵 변경
-        // UI 오픈 (strikeUI = SetActive)
-        task = new TaskCompletionSource<bool>();
+        // 플레이어 액션 맵 변경 및 액션 가져오기
+        inputActions.SwitchToMiniGameMap();
 
-        // 플레이어 입력 대기 (TaskCompletionSource)
-        await task.Task;
+        // 🚨 이벤트 구독은 액션을 가져온 뒤에 해야 합니다.
+        inputActions.Actions.MiniGame.StrikePoint.performed += OnClickPoint;
+
+        // UI 오픈
+        strikePointUI.Init();
+        strikePointUI.gameObject.SetActive(true);
+
+        // 플레이어 입력 대기
+        tcs = new UniTaskCompletionSource<bool>();
+        await tcs.Task;
+        
+        // TODO : 플레이어 입력시 파티클 및 효과음
+
+        // 입력시 값 가져옴
+        float hitPoint = strikePointUI.hitPoint;
 
         // UI 닫기
-        // 플레이어 액션 맵 원상복구
-        return EvaluateResult();
+        strikePointUI.gameObject.SetActive(false);
+
+        // 🚨 메모리 누수 및 중복 실행 방지를 위해 반드시 이벤트 구독을 해제합니다.
+        inputActions.Actions.MiniGame.StrikePoint.performed -= OnClickPoint;
+        inputActions.SwitchToForgeMap();
+
+        return EvaluateResult(hitPoint);
     }
 
-    private MiniGameResult EvaluateResult()
+    private MiniGameResult EvaluateResult(float hitPoint)
     {
-        throw new NotImplementedException();
-    }
+        MiniGameResult result = new();
 
+        (float pointX, float halfWidth) = strikePointUI.GetPointValues();
+        float leftPoint = pointX - halfWidth;
+        float rightPoint = pointX + halfWidth;
+
+        result.grade = (hitPoint > leftPoint && hitPoint < rightPoint) ? MiniGameGrade.Perfect : MiniGameGrade.Miss;
+
+        return result;
+    }
 
     private void OnClickPoint(InputAction.CallbackContext context)
     {
-        task.TrySetResult(true);
+        // 이미 완료된 Task에 중복 셋팅되는 것을 방지
+        tcs?.TrySetResult(true);
     }
 }

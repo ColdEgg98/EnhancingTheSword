@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using System.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,11 @@ public class EnhanceSword : MonoBehaviour
     [Header("UI Components")]
     [SerializeField] private Button enhanceButton;    // 강화 버튼
     [SerializeField] private Image targetImage;
+
+    [Header("Minigame")]
+    [SerializeField] private StrikePoint strikePoint;
+    [Range(0f, 100f)]
+    [SerializeField] private float miniGameChance;
 
     private int currentWeaponIndex;
 
@@ -71,8 +77,11 @@ public class EnhanceSword : MonoBehaviour
         GameManager.Instance.gold.Value -= price;
         Debug.Log($"{StrUtiity.ToWonFormat(price)} 만큼 재화 소모");
 
+        // 미니게임 발생 및 결과 저장
+        MiniGameResult miniGameResult = await TryTriggerMiniGame();
+
         // 강화 시도
-        bool result = CheckSuccess(currentWeapon.Probability);
+        bool result = CheckSuccess(currentWeapon.Probability, miniGameResult);
 
         // 업적 체크
         GameManager.Instance.currentData.enhanceCount++;
@@ -89,6 +98,16 @@ public class EnhanceSword : MonoBehaviour
 
         // 저장
         GameManager.Instance.saveDataManager.StartSave();
+    }
+
+    private async Task<MiniGameResult> TryTriggerMiniGame()
+    {
+        bool triggered = Random.value * 100f <= miniGameChance;
+
+        if (triggered && strikePoint != null)
+            return await strikePoint.Play();
+
+        return new MiniGameResult { isPlayed = false };
     }
 
     private bool IsValid(Weapon weapon, out long price)
@@ -123,11 +142,19 @@ public class EnhanceSword : MonoBehaviour
         return true;
     }
 
-    private bool CheckSuccess(float p)
+    private bool CheckSuccess(float p, MiniGameResult result)
     {
         float bonus = GameManager.Instance.currentData.chanceBonus;
+
+        // 집중 강화 확률 적용 (10% 상승)
         if (GameManager.Instance.isFocusOn.Value)
             bonus = GameManager.Instance.currentData.chanceBonus + p * 0.1f;
+
+        // 미니게임 결과 확률 (최대 15%, miss시 -5%)
+        float miniGameBonus = result.GetBonusChance();
+        Debug.Log($"미니게임 확률 적용 : {miniGameBonus}");
+        p += p * miniGameBonus;
+
         Debug.Log($"[EnhanceSword] chanceBonus : {bonus}로 적용됨.");
         float percent = p + bonus;
         return Random.value * 100 <= percent;
