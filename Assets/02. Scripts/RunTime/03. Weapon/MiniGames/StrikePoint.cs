@@ -1,12 +1,27 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UniRx;
 
 public class StrikePoint : MonoBehaviour, IMiniGame
 {
     [SerializeField] private StrikePointView strikePointUI;
     [SerializeField] private InputActions inputActions;
     private UniTaskCompletionSource<bool> tcs; // UniTask 전용으로 변경
+
+    private void Awake()
+    {
+        strikePointUI.isTimeOver
+            .Subscribe(b =>
+            {
+                if (b)
+                {
+                    tcs?.TrySetResult(true);
+                }
+            })
+            .AddTo(this)
+            .AddTo(strikePointUI);
+    }
 
     public async UniTask<MiniGameResult> Play()
     {
@@ -17,7 +32,6 @@ public class StrikePoint : MonoBehaviour, IMiniGame
         inputActions.Actions.MiniGame.StrikePoint.performed += OnClickPoint;
 
         // UI 오픈
-        strikePointUI.Init();
         strikePointUI.gameObject.SetActive(true);
 
         // 플레이어 입력 대기

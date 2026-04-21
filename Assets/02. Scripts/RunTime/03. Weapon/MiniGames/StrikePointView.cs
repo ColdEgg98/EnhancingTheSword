@@ -1,4 +1,8 @@
+using System;
+using TMPro;
+using UniRx;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class StrikePointView : MonoBehaviour
 {
@@ -9,6 +13,9 @@ public class StrikePointView : MonoBehaviour
     [Header("Cursor")]
     [SerializeField] private RectTransform cursor;
 
+    [Header("Timer")]
+    [SerializeField] private TextMeshProUGUI timerText;
+
     private float randomX;
 
     // Rect Widths
@@ -17,19 +24,40 @@ public class StrikePointView : MonoBehaviour
     private float leftWidth;
     private float rightWidth;
 
+    // Timer
+    private FloatReactiveProperty timeRemain = new FloatReactiveProperty(5f);
+    private Subject<bool> _isTimeOver = new();
+    public IObservable<bool> isTimeOver => _isTimeOver;
+
     // Speed & State
     private float speedRatio = 10f;
     private float cursorSpeed;
     private int currentDirection = 1;
 
-    public float hitPoint { get; private set; } // 외부에서는 읽기만 가능하도록 캡슐화
+    public float hitPoint { get; private set; }
 
-    public void Init()
+    private void Awake()
+    {
+        timeRemain
+            .Subscribe(t =>
+            {
+                timerText.SetText("{0:2}초", timeRemain.Value);
+
+                if (t <= 0)
+                {
+                    _isTimeOver.OnNext(true);
+                }
+            })
+            .AddTo(this);
+    }
+
+    private void OnEnable()
     {
         SetRandomPlace();
+        FloatReactiveProperty timeRemain = new FloatReactiveProperty(5f);
         // 커서 초기 위치 셋팅 (가장 왼쪽)
         hitPoint = -gaugeWidth / 2f;
-        UpdateCursorPosition();
+        UpdateUI();
     }
 
     private void SetRandomPlace()
@@ -50,10 +78,10 @@ public class StrikePointView : MonoBehaviour
 
     private void Update()
     {
-        // 값 이동
+        // 값 적용
         UpdateValue();
         // 실제 UI 반영
-        UpdateCursorPosition();
+        UpdateUI();
     }
 
     private void UpdateValue()
@@ -68,10 +96,14 @@ public class StrikePointView : MonoBehaviour
 
         // 2. 값 이동
         hitPoint += cursorSpeed * currentDirection * Time.deltaTime;
+
+        // 3. 타이머 계산
+        timeRemain.Value -= Time.deltaTime;
     }
 
-    private void UpdateCursorPosition()
+    private void UpdateUI()
     {
+        // Cursor
         cursor.anchoredPosition = new Vector2(hitPoint, cursor.anchoredPosition.y);
     }
 }

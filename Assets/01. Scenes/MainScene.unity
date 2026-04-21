@@ -5709,6 +5709,7 @@ MonoBehaviour:
   gauge: {fileID: 1612446587}
   point: {fileID: 660314050}
   cursor: {fileID: 1293670951}
+  timerText: {fileID: 1733024245}
 --- !u!1 &365449720
 GameObject:
   m_ObjectHideFlags: 0
