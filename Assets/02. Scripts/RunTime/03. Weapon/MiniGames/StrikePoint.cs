@@ -16,7 +16,7 @@ public class StrikePoint : MonoBehaviour, IMiniGame
             {
                 if (b)
                 {
-                    tcs?.TrySetResult(true);
+                    tcs?.TrySetResult(false);
                 }
             })
             .AddTo(this)
@@ -36,9 +36,10 @@ public class StrikePoint : MonoBehaviour, IMiniGame
 
         // 플레이어 입력 대기
         tcs = new UniTaskCompletionSource<bool>();
-        await tcs.Task;
-        
+        bool isClicked = await tcs.Task;
+
         // TODO : 플레이어 입력시 파티클 및 효과음
+        await UniTask.DelayFrame(3);
 
         // 입력시 값 가져옴
         float hitPoint = strikePointUI.hitPoint;
@@ -50,6 +51,10 @@ public class StrikePoint : MonoBehaviour, IMiniGame
         inputActions.Actions.MiniGame.StrikePoint.performed -= OnClickPoint;
         inputActions.SwitchToForgeMap();
 
+        // 시간 초과시 미스
+        if (!isClicked) { return new MiniGameResult() { grade = MiniGameGrade.Miss }; }
+
+        // 클릭시 이 분기로 연결
         return EvaluateResult(hitPoint);
     }
 

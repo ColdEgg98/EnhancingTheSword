@@ -54,9 +54,9 @@ public class StrikePointView : MonoBehaviour
     private void OnEnable()
     {
         SetRandomPlace();
-        FloatReactiveProperty timeRemain = new FloatReactiveProperty(5f);
         // 커서 초기 위치 셋팅 (가장 왼쪽)
         hitPoint = -gaugeWidth / 2f;
+        timeRemain.Value = 5f;
         UpdateUI();
     }
 
