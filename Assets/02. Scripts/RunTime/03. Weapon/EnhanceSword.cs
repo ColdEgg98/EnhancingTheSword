@@ -26,6 +26,8 @@ public class EnhanceSword : MonoBehaviour
     // flag
     public bool isEnhancing;
 
+    private EnhancingEffect EffectHandler;
+
     private void Awake()
     {
         currentWeaponIndex = GameManager.Instance.selectWeaponIndex.Value;
@@ -36,6 +38,8 @@ public class EnhanceSword : MonoBehaviour
         _materialInstance = targetImage.material;
 
         isEnhancing = false;
+
+        EffectHandler = GetComponent<EnhancingEffect>();
     }
 
     void Start()
@@ -165,7 +169,10 @@ public class EnhanceSword : MonoBehaviour
         _materialInstance.DOKill();
         _materialInstance.SetFloat(_flashID, 0);
 
-        await _materialInstance.DOFloat(1f, _flashID, 0.75f).AsyncWaitForCompletion();
+        // Paticle
+        EffectHandler.StartEffect();
+
+        await _materialInstance.DOFloat(1f, _flashID, 1f).AsyncWaitForCompletion();
     }
 
     private async UniTask EnhancingSuccessed(Weapon currentWeapon)
@@ -184,6 +191,9 @@ public class EnhanceSword : MonoBehaviour
 
         // Sound
         GameManager.Instance.soundManager.PlaySFX("WellDone");
+
+        // Particle
+        EffectHandler.EndEffect();
 
         // SetFlag
         isEnhancing = false;
