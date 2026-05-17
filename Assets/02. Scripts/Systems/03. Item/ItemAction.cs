@@ -4,6 +4,32 @@ public interface IItemAction
     bool IsValid(MaterialItem item);
 }
 
+public class UpgradeAnvil : IItemAction
+{
+    public void Excute(MaterialItem item)
+    {
+        GameManager.Instance.currentData.shopData.anvilLevel += 4;
+    }
+
+    public bool IsValid(MaterialItem item)
+    {
+        return true;
+    }
+}
+
+public class UpgradeHammer : IItemAction
+{
+    public void Excute(MaterialItem item)
+    {
+        GameManager.Instance.currentData.chanceBonus += 5;
+    }
+
+    public bool IsValid(MaterialItem item)
+    {
+        return true;
+    }
+}
+
 public class LowGradeAntiDestruction : IItemAction
 {
     int index;

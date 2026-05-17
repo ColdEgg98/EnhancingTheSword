@@ -151,4 +151,3 @@ public class LoadingHandler : MonoBehaviour
         GameManager.Instance.allOfItemsDictionary = allOfItemsDictionary;
     }
 }
-

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6a7245bbc7e6b6d43ac4e3d52873a1b4
+guid: 82ae164662fb0453a85863a71aa3a524
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6099607492233333654
-    second: AchivementUI_0
+      213: 7010253437958246951
+    second: EexTechUIBack_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -152,23 +152,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AchivementUI_0
+      name: EexTechUIBack_0
       rect:
         serializedVersion: 2
-        x: 251
-        y: 22
-        width: 522
-        height: 529
+        x: 223
+        y: 270
+        width: 1110
+        height: 1084
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 80, y: 80, z: 80, w: 80}
+      border: {x: 27, y: 97, z: 28, w: 25}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 69b01e372b826a450800000000000000
-      internalID: 6099607492233333654
+      spriteID: 72256f22c5c694160800000000000000
+      internalID: 7010253437958246951
       vertices: []
       indices: 
       edges: []
@@ -177,7 +177,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 26a338e2fb80f5e4dbb83320929a04e8
+    spriteID: b583792968f401946bb4755426beeffa
     internalID: 0
     vertices: []
     indices: 
@@ -187,7 +187,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      AchivementUI_0: 6099607492233333654
+      EexTechUIBack_0: 7010253437958246951
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

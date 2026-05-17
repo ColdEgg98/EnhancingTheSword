@@ -8,6 +8,8 @@ public static class ItemActionFactory
             "MiddleAntiDestruction" => new MiddleGradeAntiDestruction(),
             "HighGradeAntiDestruction" => new HighGradeAntiDestruction(),
             "ProbabilityUp" => new ProbabilityUp(),
+            "UpgradeAnvil" => new UpgradeAnvil(),
+            "UpgradeHammer" => new UpgradeHammer(),
             _ => null
         };
     }

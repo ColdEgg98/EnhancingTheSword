@@ -25,6 +25,7 @@ public class UserData
         materials = new();
         materialRefs = new();
         deliverySlots = new();
+        shopData = new();
     }
 
     // Stat
@@ -39,7 +40,7 @@ public class UserData
 
     // Achievement
     public List<string> myAchievementRefs;
-    public float chanceBonus;
+    public float chanceBonus; // %p로 적용
     public float addtionalGold;
 
     // Material
@@ -50,6 +51,9 @@ public class UserData
     public int shippingSlotRef; // 저장 & 불러오기에만 호출
     public int stage;
     public List<DeliverySlot> deliverySlots;
+
+    // Shop
+    public ShopSaveData shopData;
 }
 
 [Serializable]

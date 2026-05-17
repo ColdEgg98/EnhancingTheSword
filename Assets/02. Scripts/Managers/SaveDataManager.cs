@@ -70,6 +70,7 @@ public class SaveDataManager
             myAchievementRefs = GameManager.Instance.currentData.myAchievementRefs,
             materialRefs = GameManager.Instance.currentData.materialRefs,
             shippingSlotRef = GameManager.Instance.shippingSlot.Value,
+            shopData = GameManager.Instance.currentData.shopData
         };
 
         // 최초 실행 시 오류 방지 (WarManager)
@@ -81,6 +82,7 @@ public class SaveDataManager
 
         data.previewData.goldRef = GameManager.Instance.gold.Value;
         data.previewData.time = DateTime.Now.ToString("yyyy.MM.dd\ntt hh시 mm분");
+        data.previewData.achivementCount = GameManager.Instance.currentData.myAchievementRefs.Count;
 
         IndexDataSave();
         UserDataSave(data);

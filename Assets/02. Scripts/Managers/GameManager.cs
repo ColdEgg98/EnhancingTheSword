@@ -72,6 +72,11 @@ public class GameManager : Singleton<GameManager>
     // 여기서부터 핫키 모음
     #region HotKeys
 
+    public void GetGold(long value)
+    {
+        userDataManager.GetGold(value);
+    }
+
     public List<DeliverySlot> GetDeliverList() => warManager.GetSlots();
 
     public void IncShippingSlot()

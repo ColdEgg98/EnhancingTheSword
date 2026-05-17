@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6a7245bbc7e6b6d43ac4e3d52873a1b4
+guid: 5ddcc57fcb03f4ca2be37448af5ae87f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6099607492233333654
-    second: AchivementUI_0
+      213: 640966785496821827
+    second: EnhancecAnvil_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -110,32 +110,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WindowsStoreApps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
     buildTarget: iOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -152,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AchivementUI_0
+      name: EnhancecAnvil_0
       rect:
         serializedVersion: 2
-        x: 251
-        y: 22
-        width: 522
-        height: 529
+        x: 19
+        y: 43
+        width: 218
+        height: 170
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 80, y: 80, z: 80, w: 80}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 69b01e372b826a450800000000000000
-      internalID: 6099607492233333654
+      spriteID: 340bc5a35eb25e800800000000000000
+      internalID: 640966785496821827
       vertices: []
       indices: 
       edges: []
@@ -177,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 26a338e2fb80f5e4dbb83320929a04e8
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -187,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      AchivementUI_0: 6099607492233333654
+      EnhancecAnvil_0: 640966785496821827
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
