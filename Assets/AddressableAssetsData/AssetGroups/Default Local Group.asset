@@ -15,33 +15,13 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 70cee6e0fa9044c6baf58bf8af6eedee
   m_SerializeEntries:
-  - m_GUID: 83b6e1b7a31e4a841bed8f54fbbeb1f7
-    m_Address: ProUp
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 84f821baa987c70498eeaf2f4bcc0c6c
-    m_Address: HighGrade AD
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8697592d70e994c77978878d210b4c46
     m_Address: Assets/05. Image/Sword/katana.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9ba35c165c3f03043a780671677ffa26
-    m_Address: MidGrade AD
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a40f993d9427e49beb21a11e5238001c
     m_Address: Assets/05. Image/Sword/hwando.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ff844f798939aa04daa38719290ccc03
-    m_Address: LowGrade AD
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

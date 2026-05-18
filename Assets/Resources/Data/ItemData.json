@@ -43,6 +43,28 @@
       "AddressableKey": "ProUp",
       "IViewableName": "강화 확률 증가",
       "IViewablePrice": 300000000
+    },
+    {
+      "ItemName": "모루 강화",
+      "Description": "모루를 강화합니다.\n강화 단계 한도가 4만큼 증가하고\n무기 강화 확률이 1%p 상승합니다.",
+      "IsConsumable": false,
+      "AddressID": "EnhancecAnvil",
+      "ItemPrice": 5000000,
+      "ActionString": "UpgradeAnvil",
+      "AddressableKey": "EnhancecAnvil",
+      "IViewableName": "모루 강화",
+      "IViewablePrice": 5000000
+    },
+    {
+      "ItemName": "해머 강화",
+      "Description": "망치를 강화합니다.\n강화 성공확률이 5% 상승합니다.",
+      "IsConsumable": false,
+      "AddressID": "EnhanceHammer",
+      "ItemPrice": 7000000,
+      "ActionString": "UpgradeHammer",
+      "AddressableKey": "EnhanceHammer",
+      "IViewableName": "해머 강화",
+      "IViewablePrice": 7000000
     }
   ]
 }

@@ -9,7 +9,7 @@ public class BuyUpgrade : MonoBehaviour
     [SerializeField] private string itemID;
     private MaterialItem item;
     private Button button;
-    private long price => item.ItemPrice;
+    private long Price => item.ItemPrice;
 
     void Awake()
     {
@@ -24,14 +24,14 @@ public class BuyUpgrade : MonoBehaviour
         if (!IsVaild()) return;
 
         item.action.Excute(item);
-        GameManager.Instance.GetGold(-price);
+        GameManager.Instance.GetGold(-Price);
         GameManager.Instance.ShowNotice($"{item.ItemName}가 완료 되었습니다!");
         // 모루 강화가 완료 되었습니다!
     }
 
     private bool IsVaild()
     {
-        if (GameManager.Instance.gold.Value < price)
+        if (GameManager.Instance.gold.Value < Price)
         {
             GameManager.Instance.ShowNotice("골드가 부족합니다.");
             return false;

@@ -10,8 +10,7 @@ public class Tooltip : MonoBehaviour
     private Button shopButton;
     [SerializeField] private string itemId;
 
-    [TextArea(3, 5)]
-    public string description;
+    private string description;
 
     void Awake()
     {
