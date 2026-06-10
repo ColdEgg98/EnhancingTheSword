@@ -139,7 +139,14 @@ public class EnhanceSword : MonoBehaviour
         // 재화 및 요구 아이템 체크
         if (GameManager.Instance.gold.Value < price)
         {
-            GameManager.Instance.uiManager.UIFactory.ShowNotice("골드가 부족합니다", Color.white);
+            GameManager.Instance.ShowNotice("골드가 부족합니다");
+            return false;
+        }
+
+        // 모루 레벨 체크 (모루 렙 *4 까지)
+        if (GameManager.Instance.currentData.shopData.anvilLevel * 4 >= weapon.Index)
+        {
+            GameManager.Instance.ShowNotice("모루 레벨이 부족합니다.");
             return false;
         }
 

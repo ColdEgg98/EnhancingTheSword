@@ -8,7 +8,7 @@ public class UpgradeAnvil : IItemAction
 {
     public void Excute(MaterialItem item)
     {
-        GameManager.Instance.currentData.shopData.anvilLevel += 4;
+        GameManager.Instance.currentData.shopData.anvilLevel += 1;
     }
 
     public bool IsValid(MaterialItem item)

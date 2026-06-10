@@ -131,6 +131,14 @@ public class SceneHandler : MonoBehaviour
                             $"무기 판매 가격\n\t{StrUtiity.ToWonFormat(weapon.WeaponPrice)}";
             return;
         }
+        else if (weapon.Index > GameManager.Instance.currentData.shopData.anvilLevel * 4)
+        {
+            probabilityText.text = "모루 레벨이 부족합니다! 상점에서 모루를 강화하세요.";
+            InfoText.text = $"무기 강화 금액\n\t-\n" +
+                            $"필요 아이템\n\t-\n" +
+                            $"무기 판매 가격\n\t{StrUtiity.ToWonFormat(weapon.WeaponPrice)}";
+            return;
+        }
 
         // 집중 강화로 인한 표기 변경
         float Bonus = GameManager.Instance.currentData.chanceBonus;

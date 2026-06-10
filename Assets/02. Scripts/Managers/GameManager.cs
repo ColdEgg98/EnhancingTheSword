@@ -115,6 +115,11 @@ public class GameManager : Singleton<GameManager>
         uiManager.UIFactory.ShowToast(str);
     }
 
+    public void ShowNotice(string str, Color c)
+    {
+        uiManager.UIFactory.ShowNotice(str, c);
+    }
+
     public void ShowNotice(string str)
     {
         uiManager.UIFactory.ShowNotice(str, Color.white);
