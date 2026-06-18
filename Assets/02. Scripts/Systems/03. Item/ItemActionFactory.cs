@@ -10,6 +10,7 @@ public static class ItemActionFactory
             "ProbabilityUp" => new ProbabilityUp(),
             "UpgradeAnvil" => new UpgradeAnvil(),
             "UpgradeHammer" => new UpgradeHammer(),
+            "AdsGold" => new AdsGold(),
             _ => null
         };
     }

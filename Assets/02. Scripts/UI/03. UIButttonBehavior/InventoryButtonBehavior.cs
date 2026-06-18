@@ -317,7 +317,7 @@ public class InventoryButtonBehavior : MonoBehaviour
         MaterialItem item = GameManager.Instance.currentData.materials[index];
         if (item.action.IsValid(item))
         {
-            item.action.Excute(item);
+            item.action.Execute(item);
             GameManager.Instance.currentData.materials.RemoveAt(index);
             OnClickXButton();
         }

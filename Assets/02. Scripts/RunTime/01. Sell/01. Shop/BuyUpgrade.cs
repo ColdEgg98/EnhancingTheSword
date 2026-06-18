@@ -23,7 +23,7 @@ public class BuyUpgrade : MonoBehaviour
     {
         if (!IsVaild()) return;
 
-        item.action.Excute(item);
+        item.action.Execute(item);
         GameManager.Instance.GetGold(-Price);
         GameManager.Instance.ShowNotice($"{StrUtiity.AttachJoSa(item.ItemName)} 완료 되었습니다!");
         // 모루 강화가 완료 되었습니다!

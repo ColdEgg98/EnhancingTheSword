@@ -5,6 +5,7 @@ public class ShopSaveData
 {
     public int anvilLevel;
     public int hammerLevel;
+    public long lastAdsGoldTime;
 
     public ShopSaveData()
     {

@@ -1,12 +1,72 @@
+using System;
+using System.Collections.Generic;
+
 public interface IItemAction
 {
-    void Excute(MaterialItem item);
+    void Execute(MaterialItem item);
     bool IsValid(MaterialItem item);
+}
+
+public class AdsGold : IItemAction
+{
+    private const int CooldownMinutes = 10;
+
+    private static readonly Dictionary<int, long> RewardTable = new()
+    {
+        { 1, 70_000L },
+        { 2, 300_000L },
+        { 3, 3_500_000L },
+        { 4, 7_400_000L },
+        { 5, 12_000_000L },
+    };
+
+    private const float RandomVariance = 0.10f;
+
+    public void Execute(MaterialItem item)
+    {
+        var data = GameManager.Instance.currentData;
+
+        GameManager.Instance.GetGold(CalcReward(data));
+        data.shopData.lastAdsGoldTime = DateTime.UtcNow.Ticks;
+    }
+
+    public bool IsValid(MaterialItem item)
+    {
+        long lastTicks = GameManager.Instance.currentData.shopData.lastAdsGoldTime;
+        if (lastTicks == 0) return true;
+
+        var elapsed = DateTime.UtcNow - new DateTime(lastTicks, DateTimeKind.Utc);
+        return elapsed.TotalMinutes >= CooldownMinutes;
+    }
+
+    // ShopPresenter에서 버튼 쿨타임 UI 표시용
+    public TimeSpan GetRemainingCooldown()
+    {
+        long lastTicks = GameManager.Instance.currentData.shopData.lastAdsGoldTime;
+        if (lastTicks == 0) return TimeSpan.Zero;
+
+        var elapsed = DateTime.UtcNow - new DateTime(lastTicks, DateTimeKind.Utc);
+        var remaining = TimeSpan.FromMinutes(CooldownMinutes) - elapsed;
+        return remaining < TimeSpan.Zero ? TimeSpan.Zero : remaining;
+    }
+
+    private long CalcReward(UserData data)
+    {
+        int anvilLevel = data.shopData.anvilLevel;
+
+        if (!RewardTable.TryGetValue(anvilLevel, out long baseReward))
+            return 0L;
+
+        float variance = UnityEngine.Random.Range(-RandomVariance, RandomVariance);
+        long reward = (long)(baseReward * (1f + variance));
+
+        return reward;
+    }
 }
 
 public class UpgradeAnvil : IItemAction
 {
-    public void Excute(MaterialItem item)
+    public void Execute(MaterialItem item)
     {
         GameManager.Instance.currentData.shopData.anvilLevel += 1;
     }
@@ -19,7 +79,7 @@ public class UpgradeAnvil : IItemAction
 
 public class UpgradeHammer : IItemAction
 {
-    public void Excute(MaterialItem item)
+    public void Execute(MaterialItem item)
     {
         GameManager.Instance.currentData.chanceBonus += 5;
     }
@@ -34,7 +94,7 @@ public class LowGradeAntiDestruction : IItemAction
 {
     int index;
 
-    public void Excute(MaterialItem item)
+    public void Execute(MaterialItem item)
     {
         GameManager.Instance.currentWeapon.Value.IsAntiDestruction = true;
         GameManager.Instance.ShowNotice($"하급 강화 파괴 방지 물약을 사용했습니다.");
@@ -70,7 +130,7 @@ public class MiddleGradeAntiDestruction : IItemAction
 {
     int index;
 
-    public void Excute(MaterialItem item)
+    public void Execute(MaterialItem item)
     {
         GameManager.Instance.currentWeapon.Value.IsAntiDestruction = true;
         GameManager.Instance.ShowNotice($"중급 강화 파괴 방지 물약을 사용했습니다.");
@@ -105,7 +165,7 @@ public class HighGradeAntiDestruction : IItemAction
 {
     int index;
 
-    public void Excute(MaterialItem item)
+    public void Execute(MaterialItem item)
     {
         GameManager.Instance.currentWeapon.Value.IsAntiDestruction = true;
         GameManager.Instance.ShowNotice($"상급 강화 파괴 방지 물약을 사용했습니다.");
@@ -139,7 +199,7 @@ public class HighGradeAntiDestruction : IItemAction
 
 public class ProbabilityUp : IItemAction
 {
-    public void Excute(MaterialItem item)
+    public void Execute(MaterialItem item)
     {
         GameManager.Instance.currentData.chanceBonus += 5f;
         GameManager.Instance.ShowToast("강화 확률이 5% 상승했습니다.");

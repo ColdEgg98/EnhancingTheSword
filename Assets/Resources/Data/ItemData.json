@@ -65,6 +65,17 @@
       "AddressableKey": "EnhanceHammer",
       "IViewableName": "해머 강화",
       "IViewablePrice": 7000000
+    },
+    {
+      "ItemName": "골드",
+      "Description": "광고를 보고 골드를 획득합니다.",
+      "IsConsumable": false,
+      "AddressID": "Coin",
+      "ItemPrice": 0,
+      "ActionString": "AdsGold",
+      "AddressableKey": "Coin",
+      "IViewableName": "골드",
+      "IViewablePrice": 0
     }
   ]
 }
