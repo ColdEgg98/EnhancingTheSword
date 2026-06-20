@@ -10,6 +10,8 @@ public class UserDataManager
 
     public void GetGold(long value)
     {
+        if (value == 0) return;
+
         string message = StrUtiity.ToWonFormat(value);
         float Bonus;
         if (value > 0)

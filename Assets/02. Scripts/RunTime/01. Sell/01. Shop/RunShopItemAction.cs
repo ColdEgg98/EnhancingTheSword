@@ -2,9 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// 상점 객체에 string으로 itemID를 기술하면 그 ID기반으로 업그레이드 진행
+/// 상점 객체에 string으로 itemID를 기술하면 그 ID기반으로 아이템 액션 진행
 /// </summary>
-public class BuyUpgrade : MonoBehaviour
+public class RunShopItemAction : MonoBehaviour
 {
     [SerializeField] private string itemID;
     private MaterialItem item;
@@ -43,7 +43,7 @@ public class BuyUpgrade : MonoBehaviour
             return false;
         }
 
-        if (item.ActionString == "UpgradeHammer" && GameManager.Instance.currentData.shopData.hammerLevel == 10)
+        else if (item.ActionString == "UpgradeHammer" && GameManager.Instance.currentData.shopData.hammerLevel == 10)
         {
             GameManager.Instance.ShowNotice("이미 최대 레벨입니다.");
             return false;

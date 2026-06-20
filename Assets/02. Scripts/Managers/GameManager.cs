@@ -15,6 +15,7 @@ public class GameManager : Singleton<GameManager>
     public SoundManager soundManager;
     public AAResourceManager aAResourceManager;
     public WarManager warManager;
+    public AdManager adManager;
 
     // Dictionaries
     public Dictionary<int, Weapon> allOfWeaponDictionary;
@@ -39,6 +40,7 @@ public class GameManager : Singleton<GameManager>
 
         uiManager = GetComponent<UIManager>();
         soundManager = GetComponent<SoundManager>();
+        adManager = GetComponent<AdManager>();
         saveDataManager = new();
         userDataManager = new();
         achievementManager = new();

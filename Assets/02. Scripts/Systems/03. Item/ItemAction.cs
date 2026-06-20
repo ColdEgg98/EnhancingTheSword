@@ -9,8 +9,6 @@ public interface IItemAction
 
 public class AdsGold : IItemAction
 {
-    private const int CooldownMinutes = 10;
-
     private static readonly Dictionary<int, long> RewardTable = new()
     {
         { 1, 70_000L },
@@ -32,22 +30,12 @@ public class AdsGold : IItemAction
 
     public bool IsValid(MaterialItem item)
     {
+        float CooldownMinutes = GameManager.Instance.adManager.AdsCoinCooldownMinutes;
         long lastTicks = GameManager.Instance.currentData.shopData.lastAdsGoldTime;
         if (lastTicks == 0) return true;
 
         var elapsed = DateTime.UtcNow - new DateTime(lastTicks, DateTimeKind.Utc);
         return elapsed.TotalMinutes >= CooldownMinutes;
-    }
-
-    // ShopPresenter에서 버튼 쿨타임 UI 표시용
-    public TimeSpan GetRemainingCooldown()
-    {
-        long lastTicks = GameManager.Instance.currentData.shopData.lastAdsGoldTime;
-        if (lastTicks == 0) return TimeSpan.Zero;
-
-        var elapsed = DateTime.UtcNow - new DateTime(lastTicks, DateTimeKind.Utc);
-        var remaining = TimeSpan.FromMinutes(CooldownMinutes) - elapsed;
-        return remaining < TimeSpan.Zero ? TimeSpan.Zero : remaining;
     }
 
     private long CalcReward(UserData data)
