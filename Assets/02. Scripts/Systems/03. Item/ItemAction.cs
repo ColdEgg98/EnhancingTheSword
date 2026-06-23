@@ -22,10 +22,13 @@ public class AdsGold : IItemAction
 
     public void Execute(MaterialItem item)
     {
-        var data = GameManager.Instance.currentData;
-
-        GameManager.Instance.GetGold(CalcReward(data));
-        data.shopData.lastAdsGoldTime = DateTime.UtcNow.Ticks;
+        GameManager.Instance.adManager.ShowRewardedAd(() =>
+        {
+            // 광고 시청 완료 후 여기서 보상 지급
+            var data = GameManager.Instance.currentData;
+            GameManager.Instance.GetGold(CalcReward(data));
+            data.shopData.lastAdsGoldTime = DateTime.UtcNow.Ticks;
+        });
     }
 
     public bool IsValid(MaterialItem item)

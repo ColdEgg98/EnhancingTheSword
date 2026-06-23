@@ -17,7 +17,7 @@ public class Tooltip : MonoBehaviour
         tooltipUI = FindAnyObjectByType<TooltipUI>();
         shopButton = GetComponent<Button>();
         MaterialItem item = (MaterialItem)GameManager.Instance.allOfItemsDictionary[itemId];
-        description = item.Description;
+        if (item != null) description = item.Description;
     }
 
     void Start()

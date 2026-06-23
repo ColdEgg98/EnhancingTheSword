@@ -144,7 +144,7 @@ public class EnhanceSword : MonoBehaviour
         }
 
         // 모루 레벨 체크 (모루 렙 *4 까지)
-        if (GameManager.Instance.currentData.shopData.anvilLevel * 4 >= weapon.Index)
+        if (GameManager.Instance.currentData.shopData.anvilLevel * 4 <= weapon.Index)
         {
             GameManager.Instance.ShowNotice("모루 레벨이 부족합니다.");
             return false;

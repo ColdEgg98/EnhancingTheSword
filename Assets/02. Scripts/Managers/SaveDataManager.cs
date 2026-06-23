@@ -80,11 +80,7 @@ public class SaveDataManager
             data.stage = GameManager.Instance.warManager.CurrentStage.Value;
         }
 
-        data.previewData.goldRef = GameManager.Instance.gold.Value;
-        data.previewData.time = DateTime.Now.ToString("yyyy.MM.dd\ntt hh시 mm분");
-        data.previewData.achivementCount = GameManager.Instance.currentData.myAchievementRefs.Count;
-
-        IndexDataSave();
+        IndexDataSave(data);
         UserDataSave(data);
     }
 
@@ -99,9 +95,19 @@ public class SaveDataManager
     }
 
     /// <summary>세이브 슬롯 UI에 표시되는 데이터만 모은 인덱스 데이터를 저장</summary>
-    private void IndexDataSave()
+    private void IndexDataSave(UserData data)
     {
+        data.previewData.goldRef = GameManager.Instance.gold.Value;
+        data.previewData.time = DateTime.Now.ToString("yyyy.MM.dd\ntt hh시 mm분");
+        data.previewData.achivementCount = GameManager.Instance.currentData.myAchievementRefs.Count;
+
+        // 업적 카운트 갱신
+        GameManager.Instance.currentData.previewData.achivementCount = GameManager.Instance.currentData.myAchievementRefs.Count;
+
+        // 프리뷰 랩퍼의 맞는 슬롯에 데이터 갱신
         GameManager.Instance.saveDataManager.wrapperPreviewData.slots[GameManager.Instance.activeSaveSlotNum] = GameManager.Instance.currentData.previewData;
+
+        // json으로 저장
         string jsonStringIndex = JsonUtility.ToJson(GameManager.Instance.saveDataManager.wrapperPreviewData, true);
         File.WriteAllText(indexPath, jsonStringIndex);
         Debug.Log("PreviewData Saved");

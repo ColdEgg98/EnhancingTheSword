@@ -25,7 +25,7 @@ public class StrUtiity
         if (man > 0)
             sb.Append($"{colorCode}{man}만</color> ");
         if (AbsoluteValue > 0)
-            sb.Append($"{colorCode}{gold}</color>");
+            sb.Append($"{colorCode}{AbsoluteValue}</color>");
 
         sb.Append("골드");
 
