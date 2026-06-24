@@ -123,7 +123,7 @@
     {
       "AchivementID": "TheMasterSword",
       "Name": "마스터 소드",
-      "Description": "전쟁은 이제 끝날 것이다.",
+      "Description": "당신이 이뤄낸 것.",
       "RewardType": 4,
       "Value": 20.0,
       "ConditionType": 3,
@@ -149,16 +149,6 @@
       "ConditionType": 6,
       "ConditionValue": 100000000,
       "FeatureName": "획득 골드 증가 (5%)"
-    },
-    {
-      "AchivementID": "Three-Sword Style",
-      "Name": "삼도류",
-      "Description": "귀철을 3개 소지한다.",
-      "RewardType": 3,
-      "Value": 1.0,
-      "ConditionType": 0,
-      "ConditionValue": 0,
-      "FeatureName": null
     },
     {
       "AchivementID": "Break the mood",

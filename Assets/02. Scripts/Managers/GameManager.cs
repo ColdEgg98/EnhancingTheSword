@@ -63,7 +63,7 @@ public class GameManager : Singleton<GameManager>
         //warManager = GetComponent<WarManager>();
         //Instance.warManager.SetCurrentStage(currentData.stage);
         //Instance.warManager.LoadSlotData(currentData.deliverySlots);
-        Instance.uiManager.SetSlotImage(currentData.deliverySlots);
+        //Instance.uiManager.SetSlotImage(currentData.deliverySlots);
     }
 
     void Start()

@@ -8,13 +8,6 @@ using UnityEngine;
 
 public class AchievementManager
 {
-    private Weapon preWeapon;
-
-    public void Init()
-    {
-        preWeapon = GameManager.Instance.currentWeapon.Value;
-    }
-
     public async void CheckAchievement(ConditionType cType, long value)
     {
         Debug.Log($"CheckAchievement Run: {cType}, Value: {value}");

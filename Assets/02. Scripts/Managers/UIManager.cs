@@ -17,20 +17,20 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// 로드 시 presenter를 통해 view에게 그리도록 요청
     /// </summary>
-    public void SetSlotImage(List<DeliverySlot> deliveryItems)
-    {
-        // 세이브 데이터에 전송 이력이 없으면 리턴
-        if (deliveryItems == null) return;
+    //public void SetSlotImage(List<DeliverySlot> deliveryItems)
+    //{
+    //    // 세이브 데이터에 전송 이력이 없으면 리턴
+    //    if (deliveryItems == null) return;
 
-        SlotPresenter presenter = FindAnyObjectByType<SlotPresenter>(FindObjectsInactive.Include);
-        presenter.SetSlotBind();
+    //    SlotPresenter presenter = FindAnyObjectByType<SlotPresenter>(FindObjectsInactive.Include);
+    //    presenter.SetSlotBind();
 
 
-        foreach (DeliverySlot item in deliveryItems)
-        { 
-            presenter.SetSlot((item.SlotIndex, item.WeaponLevel), item);
-        }
-    }
+    //    foreach (DeliverySlot item in deliveryItems)
+    //    {
+    //        presenter.SetSlot((item.SlotIndex, item.WeaponLevel), item);
+    //    }
+    //}
 
     public void ModifyTipText(string s)
     {

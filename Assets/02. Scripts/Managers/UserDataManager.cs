@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class UserDataManager
 {
-    public ReactiveProperty<int> featureCode = new ReactiveProperty<int>(0);
+    public ReactiveProperty<int> featureCode = new(0);
 
     public void GetGold(long value)
     {
@@ -39,8 +39,9 @@ public class UserDataManager
         GameManager.Instance.uiManager.UIFactory.ShowToast(message);
 
         // 업적 체크
+        GameManager.Instance.currentData.totalGold += value;
         GameManager.Instance.achievementManager.CheckAchievement(ConditionType.TotalGold, GameManager.Instance.currentData.totalGold);
-        if (value > 0) GameManager.Instance.currentData.totalGold += value;
+        GameManager.Instance.achievementManager.CheckAchievement(ConditionType.GoldAmount, GameManager.Instance.gold.Value);
     }
 
     public void GetGold(string value)

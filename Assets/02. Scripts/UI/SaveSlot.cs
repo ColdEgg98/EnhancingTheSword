@@ -1,6 +1,5 @@
 using Cysharp.Threading.Tasks;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -27,12 +26,14 @@ public class SaveSlot : MonoBehaviour
         // 씬 로드 다음에 UIManager를 Init. sceneLoaded는 씬의 오브젝트들 awake 후 호출
         SceneManager.sceneLoaded += (scene, mode) =>
         {
-            if (scene.buildIndex == 2)
+            if (scene.buildIndex == 3)
             {
                 GameManager.Instance.uiManager.Init();
-                GameManager.Instance.achievementManager.Init();
                 //GameManager.Instance.AddComponent<WarManager>();
                 GameManager.Instance.InitGameManager();
+
+                // 게임 실행 업적
+                GameManager.Instance.achievementManager.GameStartAchieved().Forget();
             }
         };
 
@@ -71,9 +72,9 @@ public class SaveSlot : MonoBehaviour
             GameManager.Instance.currentData.myWeapons.Add(woodSword); // 목검
             GameManager.Instance.shippingSlot.Value = 1;
             GameManager.Instance.saveDataManager.StartSave(num);
-
-            // 게임 실행 업적
-            GameManager.Instance.achievementManager.GameStartAchieved().Forget();
+            GameManager.Instance.currentWeapon.Value = GameManager.Instance.currentData.myWeapons[0];
+            SceneManager.LoadScene(2); // OpeningScene
+            return;
         }
 
         // 화면 바뀔 때 무기 표시
@@ -82,7 +83,7 @@ public class SaveSlot : MonoBehaviour
         else if (GameManager.Instance.currentData.myWeapons.Count == 0)
             GameManager.Instance.selectWeaponIndex.Value = -2;
 
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3); // MainScene
     }
 
     /// <summary>UI에 표시되는 데이터를 변경합니다</summary>

@@ -3142,7 +3142,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 189513401}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 342ffa2340887ce48a6c317d6d04e6ea, type: 3}
   m_Name: 
@@ -3815,7 +3815,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 232230304}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7bd7efc4ae71a4b5bb55f11f2ad8ca64, type: 3}
   m_Name: 
@@ -12149,9 +12149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d94eebec48f7498087c7182edf50be9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warGauge: {fileID: 594132064}
-  stageText: {fileID: 739216201}
-  totalInfluence: 0
 --- !u!114 &684271990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12177,7 +12174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 978c064884d2c1d46a153a74b0c19059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warGaguePlus: {fileID: 739216201}
 --- !u!114 &684271992
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class FocusEnhancing : MonoBehaviour
 {
-    [SerializeField] private GameObject obj;
+    [SerializeField] private GameObject focusButtonObj;
     [SerializeField] private Button button;
     private bool isFocusing;
     private const string achievementID = "ReachLevel10";
@@ -21,7 +21,7 @@ public class FocusEnhancing : MonoBehaviour
     {
         if (GameManager.Instance.currentData.myAchievementRefs.Contains(achievementID))
         {
-            obj.gameObject.SetActive(true);
+            focusButtonObj.SetActive(true);
             return true;
         }
         return false;
@@ -40,13 +40,13 @@ public class FocusEnhancing : MonoBehaviour
 
     private void UnLockFocusEnhancing()
     {
-        obj.gameObject.SetActive(true);
+        focusButtonObj.gameObject.SetActive(true);
         GameManager.Instance.ShowToast("[해금] : 집중 강화");
     }
 
     private void FocusButtonBehavior()
     {
-        RectTransform rect = obj.gameObject.GetComponent<RectTransform>();
+        RectTransform rect = focusButtonObj.gameObject.GetComponent<RectTransform>();
         isFocusing = !isFocusing;
         GameManager.Instance.isFocusOn.Value = isFocusing;
 
