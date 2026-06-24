@@ -74,11 +74,11 @@ public class SaveDataManager
         };
 
         // 최초 실행 시 오류 방지 (WarManager)
-        if (GameManager.Instance.warManager != null)
-        {
-            data.deliverySlots = GameManager.Instance.GetDeliverList();
-            data.stage = GameManager.Instance.warManager.CurrentStage.Value;
-        }
+        //if (GameManager.Instance.warManager != null)
+        //{
+        //    data.deliverySlots = GameManager.Instance.GetDeliverList();
+        //    data.stage = GameManager.Instance.warManager.CurrentStage.Value;
+        //}
 
         IndexDataSave(data);
         UserDataSave(data);
@@ -164,7 +164,7 @@ public class SaveDataManager
             tempData.myWeapons = ResolveWeaponReferences(tempData);
             tempData.materials = ResloveMaterialReferences(tempData);
 
-            GameManager.Instance.shippingSlot.Value = tempData.shippingSlotRef;
+            //GameManager.Instance.shippingSlot.Value = tempData.shippingSlotRef;
 
             return tempData;
         }

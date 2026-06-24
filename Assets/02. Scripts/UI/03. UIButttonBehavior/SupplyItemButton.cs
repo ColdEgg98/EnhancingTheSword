@@ -40,13 +40,13 @@ public class SupplyItemButton : MonoBehaviour
         Debug.Log($"현재 클릭된 슬롯 번호: {slotNum}, 무기 인덱스: {index}");
 
         // 1. 무기 출하 무결성 검사
-        if (!GameManager.Instance.IsVaildDeliverWeapon(index, slotNum)) return;
+        //if (!GameManager.Instance.IsVaildDeliverWeapon(index, slotNum)) return;
 
         // 2. 슬롯 UI에 띄우기 요청
         _onClickSlot.OnNext((slotNumber : slotNum, weaponIndex : index));
         
         // 3. 무기 출하
-        GameManager.Instance.DeliverWeapon(index, slotNum);
+        //GameManager.Instance.DeliverWeapon(index, slotNum);
 
         // 4. 인벤토리 최신화
         view.RefreshInventory(index);

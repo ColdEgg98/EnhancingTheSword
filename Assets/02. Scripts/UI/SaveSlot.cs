@@ -31,7 +31,7 @@ public class SaveSlot : MonoBehaviour
             {
                 GameManager.Instance.uiManager.Init();
                 GameManager.Instance.achievementManager.Init();
-                GameManager.Instance.AddComponent<WarManager>();
+                //GameManager.Instance.AddComponent<WarManager>();
                 GameManager.Instance.InitGameManager();
             }
         };

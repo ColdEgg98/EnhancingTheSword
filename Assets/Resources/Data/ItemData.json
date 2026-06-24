@@ -67,14 +67,14 @@
       "IViewablePrice": 7000000
     },
     {
-      "ItemName": "골드",
+      "ItemName": "광고 시청",
       "Description": "광고를 보고 골드를 획득합니다.",
       "IsConsumable": false,
       "AddressID": "Coin",
       "ItemPrice": 0,
       "ActionString": "AdsGold",
       "AddressableKey": "Coin",
-      "IViewableName": "골드",
+      "IViewableName": "광고 시청",
       "IViewablePrice": 0
     }
   ]

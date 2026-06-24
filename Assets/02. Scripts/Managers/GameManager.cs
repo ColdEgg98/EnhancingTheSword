@@ -14,7 +14,7 @@ public class GameManager : Singleton<GameManager>
     public RedSquareManager redSquareManager;
     public SoundManager soundManager;
     public AAResourceManager aAResourceManager;
-    public WarManager warManager;
+    //public WarManager warManager;
     public AdManager adManager;
 
     // Dictionaries
@@ -60,9 +60,9 @@ public class GameManager : Singleton<GameManager>
     public void InitGameManager()
     {
         // 메인 씬 넘어갈 때 호출
-        warManager = GetComponent<WarManager>();
-        Instance.warManager.SetCurrentStage(currentData.stage);
-        Instance.warManager.LoadSlotData(currentData.deliverySlots);
+        //warManager = GetComponent<WarManager>();
+        //Instance.warManager.SetCurrentStage(currentData.stage);
+        //Instance.warManager.LoadSlotData(currentData.deliverySlots);
         Instance.uiManager.SetSlotImage(currentData.deliverySlots);
     }
 
@@ -79,28 +79,28 @@ public class GameManager : Singleton<GameManager>
         userDataManager.GetGold(value);
     }
 
-    public List<DeliverySlot> GetDeliverList() => warManager.GetSlots();
+    //public List<DeliverySlot> GetDeliverList() => warManager.GetSlots();
 
-    public void IncShippingSlot()
-    {
-        userDataManager.IncShippingSlot();
-    }
+    //public void IncShippingSlot()
+    //{
+    //    userDataManager.IncShippingSlot();
+    //}
 
-    public bool IsVaildDeliverWeapon(int weaponIndex, int slotIndex)
-    {
-        return warManager.IsVaildDeliverWeapon(weaponIndex, slotIndex);
-    }
+    //public bool IsVaildDeliverWeapon(int weaponIndex, int slotIndex)
+    //{
+    //    return warManager.IsVaildDeliverWeapon(weaponIndex, slotIndex);
+    //}
 
-    public void DeliverWeapon(int weaponIndex, int slotIndex)
-    {
-        warManager.DeliverWeapon(weaponIndex, slotIndex);
-    }
+    //public void DeliverWeapon(int weaponIndex, int slotIndex)
+    //{
+    //    warManager.DeliverWeapon(weaponIndex, slotIndex);
+    //}
 
 
-    public bool TryDeliverWeapon(int weaponIndex, int slotIndex)
-    {
-        return warManager.TryDeliverWeapon(weaponIndex, slotIndex);
-    }
+    //public bool TryDeliverWeapon(int weaponIndex, int slotIndex)
+    //{
+    //    return warManager.TryDeliverWeapon(weaponIndex, slotIndex);
+    //}
 
     public List<IViewable> GetViewableMyWeapons()
     {
