@@ -22,8 +22,8 @@ public class AchievementManager
 
                 if (a.ConditionValue <= value && a.RewardType != RewardType.UnlockFeature)
                 {
-                    ProcessReward(a);
                     GameManager.Instance.currentData.myAchievementRefs.Add(a.AchivementID);
+                    ProcessReward(a);
                     await GameManager.Instance.uiManager.UIFactory
                         .ShowAchievement(a.GetTextData(), EUIRole.MainImage, a.AchivementID);
                 }

@@ -33,7 +33,7 @@ public class SaveSlot : MonoBehaviour
                 GameManager.Instance.InitGameManager();
 
                 // 게임 실행 업적
-                GameManager.Instance.achievementManager.GameStartAchieved().Forget();
+                GameManager.Instance.achievementManager.GameStartAchieved().Forget(); // 실행시 크래시
             }
         };
 
@@ -65,8 +65,7 @@ public class SaveSlot : MonoBehaviour
         if (!GameManager.Instance.currentData.previewData.isUsed)
         {
             GameManager.Instance.currentData.previewData.isUsed = true;
-            // 기본금 + 기본 무기 지급
-            GameManager.Instance.gold.Value = 5000000;
+            // 기본 무기 지급
             GameManager.Instance.currentData.myWeapons = new();
             Weapon woodSword = GameManager.Instance.allOfWeaponDictionary[1];
             GameManager.Instance.currentData.myWeapons.Add(woodSword); // 목검
