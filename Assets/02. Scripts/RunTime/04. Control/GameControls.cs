@@ -118,15 +118,6 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""BuyItem"",
-                    ""type"": ""Button"",
-                    ""id"": ""1ab12f30-776f-40f4-9018-dc46ec305277"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -160,17 +151,6 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Inventory"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""345d7d80-f454-488d-959d-b866399f79ee"",
-                    ""path"": ""<Keyboard>/i"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""BuyItem"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -223,7 +203,6 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         m_Forge_Enhance = m_Forge.FindAction("Enhance", throwIfNotFound: true);
         m_Forge_Sell = m_Forge.FindAction("Sell", throwIfNotFound: true);
         m_Forge_Inventory = m_Forge.FindAction("Inventory", throwIfNotFound: true);
-        m_Forge_BuyItem = m_Forge.FindAction("BuyItem", throwIfNotFound: true);
         // MiniGame
         m_MiniGame = asset.FindActionMap("MiniGame", throwIfNotFound: true);
         m_MiniGame_StrikePoint = m_MiniGame.FindAction("StrikePoint", throwIfNotFound: true);
@@ -311,7 +290,6 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Forge_Enhance;
     private readonly InputAction m_Forge_Sell;
     private readonly InputAction m_Forge_Inventory;
-    private readonly InputAction m_Forge_BuyItem;
     /// <summary>
     /// Provides access to input actions defined in input action map "Forge".
     /// </summary>
@@ -335,10 +313,6 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Forge/Inventory".
         /// </summary>
         public InputAction @Inventory => m_Wrapper.m_Forge_Inventory;
-        /// <summary>
-        /// Provides access to the underlying input action "Forge/BuyItem".
-        /// </summary>
-        public InputAction @BuyItem => m_Wrapper.m_Forge_BuyItem;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -374,9 +348,6 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @Inventory.started += instance.OnInventory;
             @Inventory.performed += instance.OnInventory;
             @Inventory.canceled += instance.OnInventory;
-            @BuyItem.started += instance.OnBuyItem;
-            @BuyItem.performed += instance.OnBuyItem;
-            @BuyItem.canceled += instance.OnBuyItem;
         }
 
         /// <summary>
@@ -397,9 +368,6 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @Inventory.started -= instance.OnInventory;
             @Inventory.performed -= instance.OnInventory;
             @Inventory.canceled -= instance.OnInventory;
-            @BuyItem.started -= instance.OnBuyItem;
-            @BuyItem.performed -= instance.OnBuyItem;
-            @BuyItem.canceled -= instance.OnBuyItem;
         }
 
         /// <summary>
@@ -557,13 +525,6 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInventory(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "BuyItem" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnBuyItem(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "MiniGame" which allows adding and removing callbacks.

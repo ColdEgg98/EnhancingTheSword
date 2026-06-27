@@ -9,7 +9,6 @@ public class InputActions : MonoBehaviour
     private EnhanceSword enhanceSword;
     private SellWeapon sellWeapon;
     private InventoryButtonBehavior inventoryButtonBehavior;
-    private BuyItemButtonBehavior buyItemButtonBehavior;
 
     void Awake()
     {
@@ -18,7 +17,6 @@ public class InputActions : MonoBehaviour
         enhanceSword = FindAnyObjectByType<EnhanceSword>();
         sellWeapon = FindAnyObjectByType<SellWeapon>();
         inventoryButtonBehavior = FindAnyObjectByType<InventoryButtonBehavior>();
-        buyItemButtonBehavior = FindAnyObjectByType<BuyItemButtonBehavior>();
     }
 
     void OnEnable()
@@ -30,7 +28,6 @@ public class InputActions : MonoBehaviour
         Actions.Forge.Enhance.performed += OnEnhance;
         Actions.Forge.Sell.performed += OnSell;
         Actions.Forge.Inventory.performed += OnInventory;
-        Actions.Forge.BuyItem.performed += OnBuyItem;
     }
 
     // ==========================================
@@ -72,18 +69,12 @@ public class InputActions : MonoBehaviour
         inventoryButtonBehavior.OnClickButton().Forget();
     }
 
-    private void OnBuyItem(InputAction.CallbackContext context)
-    {
-        buyItemButtonBehavior.OpenPanel();
-    }
-
     void OnDisable()
     {
         // 구독 해제
         Actions.Forge.Enhance.performed -= OnEnhance;
         Actions.Forge.Sell.performed -= OnSell;
         Actions.Forge.Inventory.performed -= OnInventory;
-        Actions.Forge.BuyItem.performed -= OnBuyItem;
 
         Actions.Disable();
     }

@@ -60,12 +60,16 @@ public class SellWeapon : MonoBehaviour
         myMaterials = GameManager.Instance.currentData.materials;
         IViewableForSell = pairs;
         isDictHasData = pairs != null && pairs.Count > 0;
-        price = (isDictHasData) ? 0 : GameManager.Instance.currentWeapon.Value.WeaponPrice;
+        // 중복 판매에 따라 값 세팅
+        if (isDictHasData)
+            price = 0;
+        else if (GameManager.Instance.currentWeapon.Value != null)
+            price = GameManager.Instance.currentWeapon.Value.WeaponPrice;
     }
 
     private bool IsValid()
     {
-        if (GameManager.Instance.selectWeaponIndex.Value == -1 && isDictHasData == false)
+        if (GameManager.Instance.selectWeaponIndex.Value <= -1 && isDictHasData == false)
         {
             GameManager.Instance.uiManager.UIFactory.ShowNotice("판매할 무기가 없습니다", Color.white);
             return false;

@@ -35,6 +35,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8697592d70e994c77978878d210b4c46
+    m_Address: Placeholder
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bb4775585330eb1449e158ef5a034e77
     m_Address: Assets/05. Image/UI/Inven Button.png
     m_ReadOnly: 0

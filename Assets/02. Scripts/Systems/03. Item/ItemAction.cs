@@ -60,10 +60,23 @@ public class UpgradeAnvil : IItemAction
     public void Execute(MaterialItem item)
     {
         GameManager.Instance.currentData.shopData.anvilLevel += 1;
+        GameManager.Instance.GetGold(-item.ItemPrice * GameManager.Instance.currentData.shopData.anvilLevel);
     }
 
     public bool IsValid(MaterialItem item)
     {
+        if (GameManager.Instance.currentData.shopData.anvilLevel == 5)
+        {
+            GameManager.Instance.ShowNotice("이미 최대 레벨입니디.");
+            return false;
+        }
+
+        if (GameManager.Instance.gold.Value < item.ItemPrice)
+        {
+            GameManager.Instance.ShowNotice("골드가 부족합니다.");
+            return false;
+        }
+
         return true;
     }
 }
@@ -73,10 +86,24 @@ public class UpgradeHammer : IItemAction
     public void Execute(MaterialItem item)
     {
         GameManager.Instance.currentData.chanceBonus += 5;
+        GameManager.Instance.currentData.shopData.hammerLevel =+ 1;
+        GameManager.Instance.GetGold(-item.ItemPrice * GameManager.Instance.currentData.shopData.hammerLevel);
     }
 
     public bool IsValid(MaterialItem item)
     {
+        if (GameManager.Instance.currentData.shopData.hammerLevel == 3)
+        {
+            GameManager.Instance.ShowNotice("이미 최대 레벨입니다.");
+            return false;
+        }
+
+        if (GameManager.Instance.gold.Value < item.ItemPrice)
+        {
+            GameManager.Instance.ShowNotice("골드가 부족합니다.");
+            return false;
+        }
+
         return true;
     }
 }

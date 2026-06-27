@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
 public abstract class UIBase : MonoBehaviour
@@ -12,16 +10,17 @@ public abstract class UIBase : MonoBehaviour
     protected virtual CanvasGroup Cg { get; private set; }
     protected virtual Dictionary<EUIRole, TextMeshProUGUI> TextMap { get; private set; }
     protected Dictionary<EUIRole, Image> ImageMap { get; private set; } = new();
-    private Dictionary<EUIRole, AsyncOperationHandle<Sprite>> _handleMap = new();
+    
     public abstract Transform InitializeTarget { get; protected set; }
 
     protected virtual void SetContext()
     {
         Cg = GetComponent<CanvasGroup>();
 
-        // UITextBinder를 프리팹 속 텍스트에 달고 검색해서 사용
+        // UITextBinder를 프리팹 속 텍스트/이미지에 달고 검색해서 사용
         UIRoleBinder[] binders = GetComponentsInChildren<UIRoleBinder>(true);
         TextMap = new();
+        
         foreach(UIRoleBinder b in binders)
         {
             if (b.role != EUIRole.MainImage)
@@ -34,7 +33,8 @@ public abstract class UIBase : MonoBehaviour
             if (b.role == EUIRole.MainImage)
             {
                 var i = b.GetComponent<Image>();
-                if (i != null && !TextMap.ContainsKey(b.role))
+                // 기존 코드의 TextMap.ContainsKey 오류를 ImageMap.ContainsKey로 수정했습니다.
+                if (i != null && !ImageMap.ContainsKey(b.role)) 
                     ImageMap.Add(b.role, i);
             }
         }
@@ -98,38 +98,24 @@ public abstract class UIBase : MonoBehaviour
             TextMap[role].color = c;
     }
 
-    public async UniTask<Sprite> GetImage(EUIRole role, string addressableKey)
+    /// <summary>
+    /// AAResourceManager를 통해 이미지를 세팅합니다.
+    /// </summary>
+    public async UniTask SetImageAsync(EUIRole role, string addressableKey)
     {
-        // 일단 핸들 비우기
-        if (_handleMap.TryGetValue(role, out var h)) {
-            Addressables.Release(h);
-        }
-
-        // 로드
-        try
+        if (ImageMap.TryGetValue(role, out Image targetImage))
         {
-            AsyncOperationHandle<Sprite> handle = Addressables.LoadAssetAsync<Sprite>(addressableKey);
-
-            _handleMap[role] = handle;
-            return await handle.ToUniTask(cancellationToken: this.GetCancellationTokenOnDestroy());
+            await GameManager.Instance.aAResourceManager.SetSpriteAsync(addressableKey, targetImage);
         }
-
-        catch (UnityEngine.AddressableAssets.InvalidKeyException)
+        else
         {
-            Debug.LogWarning($"UI 이미지를 찾을 수 없습니다. (Key : {addressableKey})");
-            return null;
+            Debug.LogWarning($"[UIBase] {role} 역할이 부여된 Image 컴포넌트를 찾을 수 없습니다.");
         }
     }
 
     protected virtual void OnDestroy()
     {
-        foreach (var key in _handleMap.Keys)
-        {
-            if (_handleMap[key].IsValid())
-            {
-                Addressables.Release(_handleMap[key]);
-            }
-        }
-        _handleMap.Clear();
+        // Addressable 핸들 관리를 AAResourceManager가 담당하므로, 
+        // 여기서 핸들을 직접 릴리즈(Addressables.Release)할 필요가 없어졌습니다.
     }
 }

@@ -24,11 +24,15 @@ public class AchievementManager
                 {
                     GameManager.Instance.currentData.myAchievementRefs.Add(a.AchivementID);
                     ProcessReward(a);
+                    
                     await GameManager.Instance.uiManager.UIFactory
                         .ShowAchievement(a.GetTextData(), EUIRole.MainImage, a.AchivementID);
                 }
                 else if (a.RewardType == RewardType.UnlockFeature)
                 {
+                    await GameManager.Instance.uiManager.UIFactory
+                        .ShowAchievement(a.GetTextData(), EUIRole.MainImage, a.AchivementID);
+                    // 해금 코드를 변경해서 구독한 이벤트 발동으로 새 기능 해금
                     GameManager.Instance.SetFeautureCode((int)value);
                 }
             }

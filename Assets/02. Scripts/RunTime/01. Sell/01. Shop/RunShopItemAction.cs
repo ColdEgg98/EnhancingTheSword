@@ -9,46 +9,23 @@ public class RunShopItemAction : MonoBehaviour
     [SerializeField] private string itemID;
     private MaterialItem item;
     private Button button;
-    private long Price => item.ItemPrice;
 
     void Awake()
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(TryPurchase);
 
+        // 아이템 정보 취득
         item = (MaterialItem)GameManager.Instance.allOfItemsDictionary[itemID];
     }
 
     private void TryPurchase()
     {
-        if (!IsVaild()) return;
+        // ItemAction.cs
+        if (!item.action.IsValid(item)) return;
 
         item.action.Execute(item);
-        GameManager.Instance.GetGold(-Price);
-        GameManager.Instance.ShowNotice($"{StrUtiity.AttachJoSa(item.ItemName)} 완료 되었습니다!");
-        // 모루 강화가 완료 되었습니다!
-    }
-
-    private bool IsVaild()
-    {
-        if (GameManager.Instance.gold.Value < Price)
-        {
-            GameManager.Instance.ShowNotice("골드가 부족합니다.");
-            return false;
-        }
-
-        if (item.ActionString == "UpgradeAnvil" && GameManager.Instance.currentData.shopData.anvilLevel == 5)
-        {
-            GameManager.Instance.ShowNotice("이미 최대 레벨입니디.");
-            return false;
-        }
-
-        else if (item.ActionString == "UpgradeHammer" && GameManager.Instance.currentData.shopData.hammerLevel == 10)
-        {
-            GameManager.Instance.ShowNotice("이미 최대 레벨입니다.");
-            return false;
-        }
-
-        return true;
+        GameManager.Instance.ShowNotice($"{StrUtiity.AttachJoSa(item.ItemName)} 완료 했습니다!");
+        // 모루 강화를 완료 했습니다!
     }
 }

@@ -24,8 +24,7 @@ public class AchievementUI : UIBase
     {
         base.Init(data);
 
-        Sprite loadedSprite = await GetImage(EUIRole.MainImage, addKey);
-        icon.sprite = loadedSprite;
+        await SetImageAsync(EUIRole.MainImage, addKey);
 
         await PlayAnimation();
     }
@@ -45,10 +44,5 @@ public class AchievementUI : UIBase
     protected override void SetInitTarget()
     {
         InitializeTarget = GameObject.FindWithTag("AchievementTarget").transform;
-    }
-
-    private async UniTask SetImage(EUIRole image, string addKey)
-    {
-        icon.sprite = await GetImage(image, addKey);
     }
 }

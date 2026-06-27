@@ -8,44 +8,64 @@ using UnityEngine.UI;
 public class AAResourceManager
 {
     public Dictionary<string, AsyncOperationHandle<Sprite>> loadhandles = new();
-
+    private const string PLACEHOLDER_KEY = "Placeholder";
+    
     public async UniTask SetSpriteAsync(IViewable viewable, Image targetImage)
+{
+    if (viewable == null || targetImage == null) return;
+
+    string key = viewable.AddressableKey;
+    if (string.IsNullOrEmpty(key)) key = PLACEHOLDER_KEY;
+
+    await LoadSprite(key, targetImage);
+}
+
+private async UniTask LoadSprite(string key, Image targetImage)
+{
+    if (loadhandles.TryGetValue(key, out var cached))
     {
-        if (viewable == null || targetImage == null) return;
-
-        string key = viewable.AddressableKey;
-
-        // 캐싱되어 있다면 로드
-        if (loadhandles.ContainsKey(key))
-        {
-            if (loadhandles[key].Status == AsyncOperationStatus.Succeeded)
+        if (cached.Status == AsyncOperationStatus.Succeeded)
             {
-                targetImage.sprite = loadhandles[key].Result;
-                return;
-            }
+                if (targetImage != null) targetImage.sprite = cached.Result;
+            return;
         }
 
-        // 핸들에 키 넣고 로드
-        var handle = Addressables.LoadAssetAsync<Sprite>(key);
-
-        // 캐싱 + 핸들 등록
-        if (!loadhandles.ContainsKey(key))
-            loadhandles.Add(key, handle);
-
-        // Sprite 로드
-        try
+        if (cached.Status == AsyncOperationStatus.Failed)
         {
-            Sprite sprite = await handle.ToUniTask();
-
-            if (targetImage != null)
-                targetImage.sprite = sprite;
+            Addressables.Release(cached);
+            loadhandles.Remove(key);
         }
-        catch
+        else
         {
-            Debug.LogWarning($"❔ [ResourceManager] AA을 찾을 수 없습니다 : {key}");
+            await UniTask.WaitUntil(() => cached.IsDone);
+                if (cached.Status == AsyncOperationStatus.Succeeded && targetImage != null)
+                    targetImage.sprite = cached.Result;
+            return;
         }
     }
 
+    var handle = Addressables.LoadAssetAsync<Sprite>(key);
+    loadhandles[key] = handle;
+
+    await UniTask.WaitUntil(() => handle.IsDone);
+
+    if (handle.Status == AsyncOperationStatus.Succeeded)
+    {
+        if (targetImage != null) targetImage.sprite = handle.Result;
+    }
+    else
+    {
+        Debug.LogWarning($"❔ [ResourceManager] AA을 찾을 수 없습니다 : {key}");
+        Addressables.Release(handle);
+        loadhandles.Remove(key);
+
+        // Placeholder로 폴백 (무한 재귀 방지)
+        if (key != PLACEHOLDER_KEY)
+            await LoadSprite(PLACEHOLDER_KEY, targetImage);
+        else
+            Debug.LogError($"❌ [ResourceManager] Placeholder AA도 찾을 수 없습니다.");
+    }
+}
     public async UniTask SetSpriteAsync(string addressKey, Image targetImage)
     {
         Weapon viewableInstance = new();
