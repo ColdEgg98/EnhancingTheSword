@@ -61,14 +61,18 @@ public class OpeningDirection : MonoBehaviour
         _ = fadeInSeq.Join(textCanvas.DOFade(1f, fadeInDuration));
         _ = fadeInSeq.SetEase(Ease.InOutSine);
 
-        await fadeInSeq.ToUniTask(cancellationToken: destroyCancellationToken);
+        await fadeInSeq
+            .ToUniTask(cancellationToken: this.GetCancellationTokenOnDestroy())
+            .SuppressCancellationThrow();
 
         // 2. 타이핑 연출
         await PlayOpeningAsync();
 
         // 3. 오프닝 끝 — coverCanvas 페이드 인으로 화면 다시 덮기
         Tween fadeOutTween = coverCanvas.DOFade(1f, fadeOutDuration).SetEase(Ease.InSine);
-        await fadeOutTween.ToUniTask(cancellationToken: destroyCancellationToken);
+        await fadeOutTween
+            .ToUniTask(cancellationToken: this.GetCancellationTokenOnDestroy())
+            .SuppressCancellationThrow();
 
         // 4. 연출 종료 후 씬 전환 진행
         await LoadNextSceneAsync();
@@ -81,7 +85,9 @@ public class OpeningDirection : MonoBehaviour
         foreach (string line in openingData.lines)
         {
             await TypeLineAsync(line);
-            await UniTask.WaitForSeconds(lineInterval, cancellationToken: destroyCancellationToken);
+            await UniTask
+                .WaitForSeconds(lineInterval, cancellationToken: this.GetCancellationTokenOnDestroy())
+                .SuppressCancellationThrow();
             lineText.text = string.Empty;
         }
     }
@@ -93,7 +99,9 @@ public class OpeningDirection : MonoBehaviour
         foreach (char c in line)
         {
             lineText.text += c;
-            await UniTask.WaitForSeconds(charInterval, cancellationToken: destroyCancellationToken);
+            await UniTask
+                .WaitForSeconds(charInterval, cancellationToken: this.GetCancellationTokenOnDestroy())
+                .SuppressCancellationThrow();
         }
     }
 
@@ -101,7 +109,9 @@ public class OpeningDirection : MonoBehaviour
     private async UniTask LoadNextSceneAsync()
     {
         // SceneManager.LoadSceneAsync를 UniTask로 변환하여 await 처리
-        await SceneManager.LoadSceneAsync(nextSceneIndex).ToUniTask(cancellationToken: destroyCancellationToken);
+        await SceneManager.LoadSceneAsync(nextSceneIndex)
+            .ToUniTask(cancellationToken: this.GetCancellationTokenOnDestroy())
+            .SuppressCancellationThrow();
     }
 }
 

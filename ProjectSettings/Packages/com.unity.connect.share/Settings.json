@@ -19,7 +19,7 @@
             {
                 "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "buildOutputDirList",
-                "value": "{\"m_Value\":\"C:/Users/Public/Unity Project/EnhancingTheSword 빌드 폴더/WebGL;/Users/chuyerang/Documents/WebGL Build/EnhancingTheSword;C:/Users/Public/Unity Project/EnhancingTheSword/WebGL Builds;;;;;;;\"}"
+                "value": "{\"m_Value\":\"/Users/chuyerang/Documents/GitHub/Build/Web/ETS;/Users/chuyerang/Documents/GitHub/Build/Web/ETS/ETS;C:/Users/Public/Unity Project/EnhancingTheSword 빌드 폴더/WebGL;/Users/chuyerang/Documents/WebGL Build/EnhancingTheSword;C:/Users/Public/Unity Project/EnhancingTheSword/WebGL Builds;;;;;\"}"
             }
         ]
     }

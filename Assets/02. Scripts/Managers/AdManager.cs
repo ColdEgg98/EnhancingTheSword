@@ -28,11 +28,10 @@ public class AdManager : MonoBehaviour
 
     private void Start()
     {
+        #if UNITY_ANDROID || UNITY_IOS
         Debug.Log("✅ [AdManager] : Start");
-
-        // GameManager 등에서 초기화를 제어하고 싶다면 
-        // Start 대신 별도의 Init 메서드로 빼서 GameManager에서 호출해도 좋아!
         InitializeAdMob();
+        #endif
     }
 
     #region Initialize
