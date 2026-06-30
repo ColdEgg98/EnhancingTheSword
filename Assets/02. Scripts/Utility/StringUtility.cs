@@ -1,4 +1,5 @@
 using System.Text;
+using TMPro;
 using UnityEngine;
 
 public class StrUtiity
@@ -7,7 +8,7 @@ public class StrUtiity
     {
         if (gold == 0) return "0골드";
 
-        long AbsoluteValue = (long)Mathf.Abs(gold);
+        long AbsoluteValue = System.Math.Abs(gold);
 
         long jo = AbsoluteValue / 1000000000000;
         AbsoluteValue %= 1000000000000;
@@ -30,6 +31,44 @@ public class StrUtiity
         sb.Append("골드");
 
         return sb.ToString();
+    }
+
+    private static readonly StringBuilder sb = new StringBuilder(128);
+
+    // 반환값을 string이 아닌 void로 두고, TMP_Text를 직접 조작합니다.
+    public static void SetTmpText(TMP_Text tmpText, long gold, string colorCode = "<color=#FFD700>")
+    {
+        sb.Clear();
+
+        if (gold == 0)
+        {
+            sb.Append("0골드");
+            tmpText.SetText(sb); // StringBuilder를 그대로 넘김 (Zero GC)
+            return;
+        }
+
+        long absoluteValue = System.Math.Abs(gold);
+
+        long jo = absoluteValue / 1000000000000;
+        absoluteValue %= 1000000000000;
+        long eok = absoluteValue / 100000000;
+        absoluteValue %= 100000000;
+        long man = absoluteValue / 10000;
+        absoluteValue %= 10000;
+
+        if (jo > 0)
+            sb.Append(colorCode).Append(jo).Append("조</color> ");
+        if (eok > 0)
+            sb.Append(colorCode).Append(eok).Append("억</color> ");
+        if (man > 0)
+            sb.Append(colorCode).Append(man).Append("만</color> ");
+        if (absoluteValue > 0)
+            sb.Append(colorCode).Append(absoluteValue).Append("</color>");
+
+        sb.Append("골드");
+
+        // 핵심: .ToString()을 호출하지 않고 StringBuilder 자체를 전달
+        tmpText.SetText(sb);
     }
 
     public static string ColorText(string message, string colorCode = "<color=#FF0000>")

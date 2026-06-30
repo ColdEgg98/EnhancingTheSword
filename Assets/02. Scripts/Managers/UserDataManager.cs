@@ -14,9 +14,21 @@ public class UserDataManager
 
         string message = StrUtiity.ToWonFormat(value);
         float Bonus;
+
+        // 골드 획득
+        GameManager.Instance.gold.Value += value;
+
+        // UI 표시
+        GameManager.Instance.uiManager.UIFactory.ShowToast(message);
+
         if (value > 0)
         {
             message += "를 획득했습니다.";
+            GameManager.Instance.currentData.totalGold += value; // 증가량만 업적 따지기
+
+            // 업적 체크
+            GameManager.Instance.achievementManager.CheckAchievement(ConditionType.TotalGold, GameManager.Instance.currentData.totalGold);
+            GameManager.Instance.achievementManager.CheckAchievement(ConditionType.GoldAmount, GameManager.Instance.gold.Value);
 
             // 추가 골드 계산 + 출력 메세지 수정
             if (GameManager.Instance.currentData.addtionalGold > 0)
@@ -30,18 +42,10 @@ public class UserDataManager
         else if (value < 0)
         {
             message += "를 사용했습니다.";
+
+            // 업적 체크
+            GameManager.Instance.achievementManager.CheckAchievement(ConditionType.Below, GameManager.Instance.gold.Value);
         }
-
-        // 골드 획득
-        GameManager.Instance.gold.Value += value;
-
-        // UI 표시
-        GameManager.Instance.uiManager.UIFactory.ShowToast(message);
-
-        // 업적 체크
-        GameManager.Instance.currentData.totalGold += value;
-        GameManager.Instance.achievementManager.CheckAchievement(ConditionType.TotalGold, GameManager.Instance.currentData.totalGold);
-        GameManager.Instance.achievementManager.CheckAchievement(ConditionType.GoldAmount, GameManager.Instance.gold.Value);
     }
 
     public void GetGold(string value)

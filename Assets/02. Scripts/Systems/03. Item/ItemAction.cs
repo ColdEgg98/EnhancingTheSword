@@ -5,6 +5,7 @@ public interface IItemAction
 {
     void Execute(MaterialItem item);
     bool IsValid(MaterialItem item);
+    long GetItemPrice(MaterialItem item) => item.ItemPrice;
 }
 
 public class AdsGold : IItemAction
@@ -59,8 +60,9 @@ public class UpgradeAnvil : IItemAction
 {
     public void Execute(MaterialItem item)
     {
-        GameManager.Instance.currentData.shopData.anvilLevel += 1;
         GameManager.Instance.GetGold(-item.ItemPrice * GameManager.Instance.currentData.shopData.anvilLevel);
+        GameManager.Instance.currentData.shopData.anvilLevel++;
+        GameManager.Instance.currentData.chanceBonus += 1f;
     }
 
     public bool IsValid(MaterialItem item)
@@ -71,7 +73,7 @@ public class UpgradeAnvil : IItemAction
             return false;
         }
 
-        if (GameManager.Instance.gold.Value < item.ItemPrice)
+        if (GameManager.Instance.gold.Value < item.ItemPrice * GameManager.Instance.currentData.shopData.anvilLevel)
         {
             GameManager.Instance.ShowNotice("골드가 부족합니다.");
             return false;
@@ -79,15 +81,23 @@ public class UpgradeAnvil : IItemAction
 
         return true;
     }
+
+    public long GetItemPrice(MaterialItem item)
+    {
+        if (GameManager.Instance.currentData.shopData.anvilLevel >= 5)
+            return 0;
+        else
+            return item.ItemPrice * GameManager.Instance.currentData.shopData.anvilLevel;
+    }
 }
 
 public class UpgradeHammer : IItemAction
 {
     public void Execute(MaterialItem item)
     {
-        GameManager.Instance.currentData.chanceBonus += 5;
-        GameManager.Instance.currentData.shopData.hammerLevel =+ 1;
         GameManager.Instance.GetGold(-item.ItemPrice * GameManager.Instance.currentData.shopData.hammerLevel);
+        GameManager.Instance.currentData.chanceBonus += 3.5f;
+        GameManager.Instance.currentData.shopData.hammerLevel++;
     }
 
     public bool IsValid(MaterialItem item)
@@ -98,13 +108,20 @@ public class UpgradeHammer : IItemAction
             return false;
         }
 
-        if (GameManager.Instance.gold.Value < item.ItemPrice)
+        if (GameManager.Instance.gold.Value < item.ItemPrice * GameManager.Instance.currentData.shopData.hammerLevel)
         {
             GameManager.Instance.ShowNotice("골드가 부족합니다.");
             return false;
         }
-
         return true;
+    }
+
+    public long GetItemPrice(MaterialItem item)
+    {
+        if (GameManager.Instance.currentData.shopData.hammerLevel >= 3)
+            return 0;
+        else
+            return item.ItemPrice * GameManager.Instance.currentData.shopData.hammerLevel;
     }
 }
 

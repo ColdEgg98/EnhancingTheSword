@@ -11,15 +11,19 @@ public class AchievementManager
     public async void CheckAchievement(ConditionType cType, long value)
     {
         Debug.Log($"CheckAchievement Run: {cType}, Value: {value}");
+
+        // 업적 조건 신호가 오면 모든 업적 조건에서 같은 조건 신호만 추려서 리스트 생성
         if (GameManager.Instance.AchieveByCondition.TryGetValue(cType, out List<Achievement> targetList))
         {
             foreach (Achievement a in targetList)
             {
+                // 이미 업적을 달성했으면 넘김
                 if (GameManager.Instance.currentData.myAchievementRefs.Contains(a.AchivementID))
                 {
                     continue;
                 }
 
+                // 일반 업적 조건 확인
                 if (a.ConditionValue <= value && a.RewardType != RewardType.UnlockFeature)
                 {
                     GameManager.Instance.currentData.myAchievementRefs.Add(a.AchivementID);
@@ -28,6 +32,18 @@ public class AchievementManager
                     await GameManager.Instance.uiManager.UIFactory
                         .ShowAchievement(a.GetTextData(), EUIRole.MainImage, a.AchivementID);
                 }
+
+                // 낮을 업적 조건 확인
+                else if (a.ConditionValue >= value && a.ConditionType == ConditionType.Below)
+                {
+                    GameManager.Instance.currentData.myAchievementRefs.Add(a.AchivementID);
+                    ProcessReward(a);
+
+                    await GameManager.Instance.uiManager.UIFactory
+                        .ShowAchievement(a.GetTextData(), EUIRole.MainImage, a.AchivementID);
+                }
+
+                // 기능 해금 업적
                 else if (a.RewardType == RewardType.UnlockFeature)
                 {
                     await GameManager.Instance.uiManager.UIFactory

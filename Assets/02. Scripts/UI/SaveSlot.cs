@@ -68,6 +68,7 @@ public class SaveSlot : MonoBehaviour
             // 기본 무기 지급
             GameManager.Instance.currentData.myWeapons = new();
             Weapon woodSword = GameManager.Instance.allOfWeaponDictionary[1];
+            GameManager.Instance.gold = new(0);
             GameManager.Instance.currentData.myWeapons.Add(woodSword); // 목검
             GameManager.Instance.shippingSlot.Value = 1;
             GameManager.Instance.saveDataManager.StartSave(num);

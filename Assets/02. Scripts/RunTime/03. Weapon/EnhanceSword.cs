@@ -177,6 +177,7 @@ public class EnhanceSword : MonoBehaviour
         _materialInstance.SetFloat(_flashID, 0);
 
         // Paticle
+        EffectHandler.StopAllCoroutines();
         EffectHandler.StartEffect();
 
         await _materialInstance.DOFloat(1f, _flashID, 1f).AsyncWaitForCompletion();
@@ -209,11 +210,11 @@ public class EnhanceSword : MonoBehaviour
         if (newWeapon.Index == 10)
             GameManager.Instance.achievementManager.CheckAchievement(ConditionType.WeaponLevel, 10);
 
+        Debug.Log($"강화 성공: {newWeapon.WeaponName}");
+
         // 5. 애니메이션
         _materialInstance.DOKill();
-        await _materialInstance.DOFloat(0f, _flashID, 4f).AsyncWaitForCompletion();
-
-        Debug.Log($"강화 성공: {newWeapon.WeaponName}");
+        await _materialInstance.DOFloat(0f, _flashID, 2.5f).AsyncWaitForCompletion();
     }
 
     private void EnhancingFailed(Weapon currentWeapon)
@@ -237,14 +238,16 @@ public class EnhanceSword : MonoBehaviour
 
         _materialInstance.SetFloat( _flashID, 0);      
 
-        // 실제 데이터(GameManager)에서 삭제
+        // 실제 데이터 가져옴
         var myWeapons = GameManager.Instance.currentData.myWeapons;
+        int tempIndex = GameManager.Instance.selectWeaponIndex.Value;
 
         // 리스트에서 제거
         myWeapons.RemoveAt(currentWeaponIndex);
 
         // UI 갱신 & 0번에서 깨지고, 인벤에서 0번 누르면 반응할 수 있도록
         GameManager.Instance.selectWeaponIndex.Value = -1;
+        GameManager.Instance.selectWeaponIndex.Value = tempIndex;
 
         // SetFlag
         isEnhancing = false;

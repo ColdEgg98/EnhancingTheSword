@@ -13,19 +13,8 @@ public class RunShopItemAction : MonoBehaviour
     void Awake()
     {
         button = GetComponent<Button>();
-        button.onClick.AddListener(TryPurchase);
 
         // 아이템 정보 취득
         item = (MaterialItem)GameManager.Instance.allOfItemsDictionary[itemID];
-    }
-
-    private void TryPurchase()
-    {
-        // ItemAction.cs
-        if (!item.action.IsValid(item)) return;
-
-        item.action.Execute(item);
-        GameManager.Instance.ShowNotice($"{StrUtiity.AttachJoSa(item.ItemName)} 완료 했습니다!");
-        // 모루 강화를 완료 했습니다!
     }
 }

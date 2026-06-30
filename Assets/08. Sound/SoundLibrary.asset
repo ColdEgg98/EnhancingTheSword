@@ -73,3 +73,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: f67386b9a7ad85b418e8487677e59a28, type: 3}
     volume: 1
     pitchVariance: 0
+  - soundName: Purchase
+    type: 1
+    clip: {fileID: 8300000, guid: 52dcd30c6ef27a44097a77e8c4275de8, type: 3}
+    volume: 1
+    pitchVariance: 0

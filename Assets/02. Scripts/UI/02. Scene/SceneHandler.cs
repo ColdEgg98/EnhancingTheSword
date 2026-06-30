@@ -48,10 +48,10 @@ public class SceneHandler : MonoBehaviour
                 }
                 else
                 {
-                    GameObjectsSetActive(true);
-
-                    weaponNameText.text = weapon.WeaponName;
                     LoadSprite(weapon.AddressID).Forget();
+                    weaponNameText.text = weapon.WeaponName;
+
+                    GameObjectsSetActive(true);
                 }
 
                 // 무기 정보(강화 비용 등) 갱신
@@ -73,7 +73,8 @@ public class SceneHandler : MonoBehaviour
                 _material.DOKill();
                 _material.SetFloat(_flashID, 0f);
 
-                GameManager.Instance.currentWeapon.Value = GameManager.Instance.currentData.myWeapons[index];
+                if (GameManager.Instance.currentData.myWeapons.Count > index)
+                    GameManager.Instance.currentWeapon.Value = GameManager.Instance.currentData.myWeapons[index];
             })
             .AddTo(this);
 
@@ -104,7 +105,8 @@ public class SceneHandler : MonoBehaviour
         InfoText.gameObject.SetActive(v);
         probabilityText.gameObject.SetActive(v);
     }
-    public async UniTaskVoid LoadSprite(string id)
+
+    public async UniTask LoadSprite(string id)
     {
         IViewable viewable = GameManager.Instance.currentWeapon.Value;
         await GameManager.Instance.aAResourceManager.SetSpriteAsync(viewable, targetImage);

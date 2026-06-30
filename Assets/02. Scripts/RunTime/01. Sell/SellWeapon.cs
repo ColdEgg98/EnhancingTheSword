@@ -1,6 +1,8 @@
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -113,7 +115,7 @@ public class SellWeapon : MonoBehaviour
         if (IViewableForSell != null) IViewableForSell.Clear();
     }
 
-    private void EliminateProcess()
+    private async UniTaskVoid EliminateProcess()
     {
         if (isDictHasData)
         {
@@ -140,6 +142,11 @@ public class SellWeapon : MonoBehaviour
         {
             myWeapons.RemoveAt(GameManager.Instance.selectWeaponIndex.Value);
         }
+
+        // 판매 후 인덱스 변경으로 UI 표기 변경
+        int tempIndex = GameManager.Instance.selectWeaponIndex.Value;
         GameManager.Instance.selectWeaponIndex.Value = -2;
+        await UniTask.Yield();
+        GameManager.Instance.selectWeaponIndex.Value = tempIndex;
     }
 }

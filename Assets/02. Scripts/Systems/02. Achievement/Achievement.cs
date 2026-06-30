@@ -20,6 +20,10 @@ public class Achievement
     // Feature
     public string FeatureName { get; set; }
 
+    // HasItemCondition
+    public EItemType HasItemType { get; set; }
+    public List<int> ItemIndex { get; set; }
+
     public string GetFeatureName() => FeatureName;
 
     public Dictionary<EUIRole, string> GetTextData()
@@ -52,5 +56,14 @@ public enum ConditionType
     FailEnhance,
     GoldAmount,
     TotalGold,
+    Below,
+    HasItem,
+    End
+}
+
+public enum EItemType
+{
+    Weapon,
+    Item,
     End
 }

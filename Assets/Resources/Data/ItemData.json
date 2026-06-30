@@ -16,22 +16,22 @@
       "Description": "레벨 15 이하의 무기에 사용할 수 있다.",
       "IsConsumable": true,
       "AddressID": "MidGrade AD",
-      "ItemPrice": 10000000,
+      "ItemPrice": 1000000,
       "ActionString": "MiddleAntiDestruction",
       "AddressableKey": "MidGrade AD",
       "IViewableName": "중급 강화 파괴 방지 물약",
-      "IViewablePrice": 10000000
+      "IViewablePrice": 1000000
     },
     {
       "ItemName": "상급 강화 파괴 방지 물약",
       "Description": "레벨 20 이하의 무기에 사용할 수 있다.",
       "IsConsumable": true,
       "AddressID": "HighGrade AD",
-      "ItemPrice": 500000000,
+      "ItemPrice": 50000000,
       "ActionString": "HighGradeAntiDestruction",
       "AddressableKey": "HighGrade AD",
       "IViewableName": "상급 강화 파괴 방지 물약",
-      "IViewablePrice": 500000000
+      "IViewablePrice": 50000000
     },
     {
       "ItemName": "강화 확률 증가",
@@ -57,14 +57,14 @@
     },
     {
       "ItemName": "해머 강화",
-      "Description": "망치를 강화합니다.\n강화 성공확률이 5% 상승합니다.",
+      "Description": "망치를 강화합니다.\n강화 성공확률이 3.5% 상승합니다.",
       "IsConsumable": false,
       "AddressID": "EnhanceHammer",
-      "ItemPrice": 7000000,
+      "ItemPrice": 30000000,
       "ActionString": "UpgradeHammer",
       "AddressableKey": "EnhanceHammer",
       "IViewableName": "해머 강화",
-      "IViewablePrice": 7000000
+      "IViewablePrice": 30000000
     },
     {
       "ItemName": "광고 시청",
