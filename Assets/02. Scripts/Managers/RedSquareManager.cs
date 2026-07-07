@@ -29,7 +29,7 @@ public class RedSquareManager
 
         if (!TargetRect.TryGetComponent(out instance))
             instance = TargetRect.AddComponent<RedSquare>();
-        _ = instance.Generate(TargetRect);
+            _ = instance.Generate(TargetRect);
 
         activeRedSquares.Add(TargetRect, instance);
         Debug.Log($"[RedDotManager] 해당 게임 오브젝트에 부착됨 : {instance.gameObject}");
@@ -41,7 +41,7 @@ public class RedSquareManager
 
         if (!TargetRect.TryGetComponent(out instance))
             instance = TargetRect.AddComponent<RedSquare>();
-        _ = instance.Generate(TargetRect, size , offset);
+            _ = instance.Generate(TargetRect, size , offset);
 
         activeRedSquares.Add(TargetRect, instance);
         Debug.Log($"[RedDotManager] 해당 게임 오브젝트에 부착됨 : {instance.gameObject}");

@@ -11,6 +11,7 @@ public static class ItemActionFactory
             "UpgradeAnvil" => new UpgradeAnvil(),
             "UpgradeHammer" => new UpgradeHammer(),
             "AdsGold" => new AdsGold(),
+            "" => null,
             _ => null
         };
     }

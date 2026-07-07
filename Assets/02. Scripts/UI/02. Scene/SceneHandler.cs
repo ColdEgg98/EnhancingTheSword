@@ -48,7 +48,7 @@ public class SceneHandler : MonoBehaviour
                 }
                 else
                 {
-                    LoadSprite(weapon.AddressID).Forget();
+                    LoadSprite().Forget();
                     weaponNameText.text = weapon.WeaponName;
 
                     GameObjectsSetActive(true);
@@ -106,7 +106,7 @@ public class SceneHandler : MonoBehaviour
         probabilityText.gameObject.SetActive(v);
     }
 
-    public async UniTask LoadSprite(string id)
+    public async UniTask LoadSprite()
     {
         IViewable viewable = GameManager.Instance.currentWeapon.Value;
         await GameManager.Instance.aAResourceManager.SetSpriteAsync(viewable, targetImage);
@@ -125,20 +125,23 @@ public class SceneHandler : MonoBehaviour
         if (GameManager.Instance.selectWeaponIndex.Value == -2)
             return;
 
+        // 강화 가격 계산
+        long price = GameManager.Instance.GetEnhancingPrice();
+
         if (weapon.Index == 20)
         {
             probabilityText.text = "마지막 단계에 도달했습니다.";
             InfoText.text = $"무기 강화 금액\n\t-\n" +
                             $"필요 아이템\n\t-\n" +
-                            $"무기 판매 가격\n\t{StrUtiity.ToWonFormat(weapon.WeaponPrice)}";
+                            $"무기 판매 가격\n\t{StrUtiity.ToWonFormat(price)}";
             return;
         }
-        else if (weapon.Index > GameManager.Instance.currentData.shopData.anvilLevel * 4)
+        else if (weapon.Index >= GameManager.Instance.currentData.shopData.anvilLevel * 4)
         {
             probabilityText.text = "모루 레벨이 부족합니다! 상점에서 모루를 강화하세요.";
             InfoText.text = $"무기 강화 금액\n\t-\n" +
                             $"필요 아이템\n\t-\n" +
-                            $"무기 판매 가격\n\t{StrUtiity.ToWonFormat(weapon.WeaponPrice)}";
+                            $"무기 판매 가격\n\t{StrUtiity.ToWonFormat(price)}";
             return;
         }
 
@@ -146,9 +149,7 @@ public class SceneHandler : MonoBehaviour
         float Bonus = GameManager.Instance.currentData.chanceBonus;
         Bonus = (isFocus) ? Bonus + weapon.Probability * 0.1f : Bonus;
 
-        long enhancingPrice = weapon.EnhancingPrice;
-        long FocusPrice = weapon.EnhancingPrice / 10;
-        enhancingPrice = (isFocus) ? weapon.EnhancingPrice + FocusPrice : enhancingPrice;
+        long FocusPrice = weapon.EnhancingPrice / 5;
 
         string colorCode = (isFocus) ? "<color=#FF0000>" : "<color=#FFD700>";
 
@@ -156,7 +157,7 @@ public class SceneHandler : MonoBehaviour
         if (Bonus != 0f)
             probabilityText.text += $" + {colorCode}({Bonus}%)</color>";
 
-        string tempFormat = $"무기 강화 금액\n\t{StrUtiity.ToWonFormat(enhancingPrice, colorCode)}\n" +
+        string tempFormat = $"무기 강화 금액\n\t{StrUtiity.ToWonFormat(price, colorCode)}\n" +
                             $"필요 아이템\n\t{ListToString(weapon.NeedItems)}\n" +
                             $"무기 판매 가격\n\t{StrUtiity.ToWonFormat(weapon.WeaponPrice)}";
         InfoText.text = tempFormat;

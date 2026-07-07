@@ -16,20 +16,23 @@ public class LRArrowBehavior : MonoBehaviour
 
     private void ArrowBehavior(int value)
     {
-        GameManager.Instance.selectWeaponIndex.Value += value;
         GameManager.Instance.soundManager.PlaySFX("Click");
+        GameManager.Instance.selectWeaponIndex.Value += value;
     }
 
     private void Subscribe()
     {
         GameManager.Instance.selectWeaponIndex
-            .Subscribe(index =>
-            {
-                int count = GameManager.Instance.currentData.myWeapons.Count - 1;
-
-                rightButton.interactable = index + 1 <= count;
-                leftButton.interactable = index - 1 >= 0;
-            })
+            .CombineLatest(
+                GameManager.Instance.currentData.myWeapons.ObserveCountChanged(notifyCurrentCount: true),
+                (index, count) => (index, count))
+            .Subscribe(t => UpdateButtons(t.index, t.count))
             .AddTo(this);
+    }
+
+    private void UpdateButtons(int index, int count)
+    {
+        rightButton.interactable = index < count - 1;
+        leftButton.interactable = index > 0;
     }
 }

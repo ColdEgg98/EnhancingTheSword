@@ -116,7 +116,8 @@ public class EnhanceSword : MonoBehaviour
 
     private bool IsValid(Weapon weapon, out long price)
     {
-        price = 0;
+        // 소모 재화 계산
+        price = GameManager.Instance.GetEnhancingPrice();
 
         // 무기 유무 체크
         if (GameManager.Instance.currentWeapon.Value == null)
@@ -131,10 +132,6 @@ public class EnhanceSword : MonoBehaviour
             GameManager.Instance.uiManager.UIFactory.ShowNotice("이미 최대 레벨에 도달했습니다", Color.white);
             return false;
         }
-
-        // 소모 재화 계산
-        price = weapon.EnhancingPrice;
-        if (GameManager.Instance.isFocusOn.Value) price += (long)(weapon.EnhancingPrice * 0.1f);
 
         // 재화 및 요구 아이템 체크
         if (GameManager.Instance.gold.Value < price)
@@ -166,7 +163,7 @@ public class EnhanceSword : MonoBehaviour
         Debug.Log($"미니게임 확률 적용 : {miniGameBonus}");
         p += p * miniGameBonus;
 
-        Debug.Log($"[EnhanceSword] chanceBonus : {bonus}로 적용됨.");
+        Debug.Log($"[EnhanceSword] chanceBonus : {p + bonus}로 적용됨.");
         float percent = p + bonus;
         return Random.value * 100 <= percent;
     }
@@ -185,6 +182,9 @@ public class EnhanceSword : MonoBehaviour
 
     private async UniTask EnhancingSuccessed(Weapon currentWeapon)
     {
+        // 파괴 방지 효과 만료
+        currentWeapon.IsAntiDestruction = false;
+
         // 1. 다음 단계 무기 데이터 가져오기
         int nextIndex = currentWeapon.Index + 1;
         if (!GameManager.Instance.allOfWeaponDictionary.ContainsKey(nextIndex)) return;
@@ -206,9 +206,8 @@ public class EnhanceSword : MonoBehaviour
         // SetFlag
         isEnhancing = false;
 
-        // 10 레벨 업적 확인
-        if (newWeapon.Index == 10)
-            GameManager.Instance.achievementManager.CheckAchievement(ConditionType.WeaponLevel, 10);
+        if (newWeapon.Index >= 10)
+            GameManager.Instance.achievementManager.CheckAchievement(ConditionType.WeaponLevel, newWeapon.Index);
 
         Debug.Log($"강화 성공: {newWeapon.WeaponName}");
 

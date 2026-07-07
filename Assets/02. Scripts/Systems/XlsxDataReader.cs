@@ -10,59 +10,53 @@ public static class XlsxDataReader<T> where T : new()
     public static List<T> MapFromExcel(Stream stream, LoadOptions options = null, int sheetIndex = 1)
     {
         var results = new List<T>();
-
-        // 옵션이 있으면 적용해서 열고, 없으면 그냥 엽니다.
-        // using 문을 사용하여 작업이 끝나면 워크북 메모리를 해제합니다.
         using (var workbook = options != null ? new XLWorkbook(stream, options) : new XLWorkbook(stream))
         {
             var worksheet = workbook.Worksheet(sheetIndex);
+            var headerRow = worksheet.Row(1);
 
-            // 첫 번째 행을 헤더로 사용
-            var headerOrigins = worksheet.Row(1).Cells().Select(c => c.GetString()).ToList();
+            // 헤더 행에서 실제로 헤더 텍스트가 존재하는 마지막 컬럼 번호
+            int lastHeaderColumn = headerRow.LastCellUsed()?.Address.ColumnNumber ?? 0;
 
-            // 헤더에 중복이 있을경우 걸러줌 (대소문자 무시)
-            List<string> headers = headerOrigins
-                .Distinct(StringComparer.OrdinalIgnoreCase)
-                .ToList();
+            var seenHeaders = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            var headerMap = new List<(string Header, int ColumnIndex)>();
 
-            // 데이터 행 순회 (헤더 제외)
-            foreach (var row in worksheet.RowsUsed().Skip(1)) 
+            // col 자체가 실제 워크시트 컬럼 번호 (리스트 인덱스가 아님)
+            for (int col = 1; col <= lastHeaderColumn; col++)
+            {
+                string header = worksheet.Cell(1, col).GetString();
+                if (string.IsNullOrWhiteSpace(header)) continue; // 빈 헤더 컬럼은 매칭 대상에서 제외
+                if (seenHeaders.Add(header))
+                {
+                    headerMap.Add((header, col));
+                }
+            }
+
+            PropertyInfo[] props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            foreach (var row in worksheet.RowsUsed().Skip(1))
             {
                 T obj = new();
-                
-                // Reflection 활용: T 클래스의 퍼블릭 프로퍼티 가져오기
-                PropertyInfo[] props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-
-                for (int i = 0; i < headers.Count; i++)
+                foreach (var (header, colIndex) in headerMap)
                 {
-                    string header = headers[i];
-                    
-                    // 엑셀 헤더와 이름이 같은 프로퍼티 찾기
                     PropertyInfo prop = props.FirstOrDefault(p => p.Name.Equals(header, StringComparison.OrdinalIgnoreCase));
-                    
-                    if (prop != null)
-                    {
-                        // 셀 데이터 범위 체크 (안전장치)
-                        if (i + 1 > row.CellCount()) continue;
+                    if (prop == null) continue;
+                    if (colIndex > row.CellCount()) continue;
 
-                        string cellValue = row.Cell(i + 1).GetString();
-                        
-                        try 
-                        {
-                            object convertedValue = ConvertValue(cellValue, prop.PropertyType);
-                            prop.SetValue(obj, convertedValue);
-                        }
-                        catch (Exception)
-                        {
-                            // 파싱 실패 시 기본값 유지하거나 로그 출력 (여기선 조용히 넘어감)
-                        }
+                    string cellValue = row.Cell(colIndex).GetString();
+                    try
+                    {
+                        object convertedValue = ConvertValue(cellValue, prop.PropertyType);
+                        prop.SetValue(obj, convertedValue);
+                    }
+                    catch (Exception)
+                    {
+                        // 파싱 실패 시 조용히 넘어감
                     }
                 }
-
                 results.Add(obj);
             }
         }
-
         return results;
     }
 

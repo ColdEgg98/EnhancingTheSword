@@ -102,6 +102,22 @@ public class GameManager : Singleton<GameManager>
     //    return warManager.TryDeliverWeapon(weaponIndex, slotIndex);
     //}
 
+    public long GetEnhancingPrice()
+    {
+        Weapon weapon = currentWeapon.Value;
+        long price = weapon.EnhancingPrice;
+
+        // 강화 비용 할인
+        if (Instance.currentData.enhanceGold > 0)
+            price -= (long)(weapon.EnhancingPrice * (Instance.currentData.enhanceGold / 100d));
+
+        // 집중 강화 비용
+        if (Instance.isFocusOn.Value)
+            price += (long)(weapon.EnhancingPrice * 0.2f);
+
+        return price;
+    }
+
     public List<IViewable> GetViewableMyWeapons()
     {
         return GetMyWeapons().OfType<IViewable>().ToList();
@@ -109,7 +125,7 @@ public class GameManager : Singleton<GameManager>
     
     public List<Weapon> GetMyWeapons()
     {
-        return currentData.myWeapons;
+        return currentData.myWeapons.ToList();
     }
 
     public void ShowToast(string str)

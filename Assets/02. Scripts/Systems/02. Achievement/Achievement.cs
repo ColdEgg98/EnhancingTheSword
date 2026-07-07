@@ -12,19 +12,15 @@ public class Achievement
     // Reward
     public RewardType RewardType { get; set; }
     public float Value { get; set; }
+    public string ItemRewardAddress { get; set; }
 
     // Condition
     public ConditionType ConditionType { get; set; }
     public long ConditionValue { get; set; }
 
-    // Feature
-    public string FeatureName { get; set; }
-
     // HasItemCondition
-    public EItemType HasItemType { get; set; }
-    public List<int> ItemIndex { get; set; }
-
-    public string GetFeatureName() => FeatureName;
+    public List<string> ItemIndexes { get; set; }
+    public List<int> HasItemAmount { get; set; }
 
     public Dictionary<EUIRole, string> GetTextData()
     {
@@ -44,6 +40,7 @@ public enum RewardType
     ProbabilityBonus,
     UnlockFeature,
     AdditionalGold,
+    EnhanceGold,
     End
 }
 
@@ -51,6 +48,7 @@ public enum ConditionType
 {
     GameStart,
     GameEnd,
+    AchieveCode,
     ShotEnhance,
     WeaponLevel,
     FailEnhance,
@@ -58,12 +56,5 @@ public enum ConditionType
     TotalGold,
     Below,
     HasItem,
-    End
-}
-
-public enum EItemType
-{
-    Weapon,
-    Item,
     End
 }

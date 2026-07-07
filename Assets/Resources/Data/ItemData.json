@@ -2,7 +2,7 @@
   "items": [
     {
       "ItemName": "하급 강화 파괴 방지 물약",
-      "Description": "레벨 8 이하의 무기에 사용할 수 있다.",
+      "Description": "레벨 8 이하의 무기에 사용할 수 있습니다.\n이번 무기 강화에서 파괴를 방지합니다. (1회)",
       "IsConsumable": true,
       "AddressID": "LowGrade AD",
       "ItemPrice": 500000,
@@ -13,7 +13,7 @@
     },
     {
       "ItemName": "중급 강화 파괴 방지 물약",
-      "Description": "레벨 15 이하의 무기에 사용할 수 있다.",
+      "Description": "레벨 15 이하의 무기에 사용할 수 있습니다.\n이번 무기 강화에서 파괴를 방지합니다. (1회)",
       "IsConsumable": true,
       "AddressID": "MidGrade AD",
       "ItemPrice": 1000000,
@@ -24,14 +24,14 @@
     },
     {
       "ItemName": "상급 강화 파괴 방지 물약",
-      "Description": "레벨 20 이하의 무기에 사용할 수 있다.",
+      "Description": "레벨 20 이하의 무기에 사용할 수 있습니다.\n이번 무기 강화에서 파괴를 방지합니다. (1회)",
       "IsConsumable": true,
       "AddressID": "HighGrade AD",
-      "ItemPrice": 50000000,
+      "ItemPrice": 30000000,
       "ActionString": "HighGradeAntiDestruction",
       "AddressableKey": "HighGrade AD",
       "IViewableName": "상급 강화 파괴 방지 물약",
-      "IViewablePrice": 50000000
+      "IViewablePrice": 30000000
     },
     {
       "ItemName": "강화 확률 증가",
@@ -46,7 +46,7 @@
     },
     {
       "ItemName": "모루 강화",
-      "Description": "모루를 강화합니다.\n강화 단계 한도가 4만큼 증가하고\n무기 강화 확률이 1%p 상승합니다.",
+      "Description": "모루를 강화합니다.\n강화 단계 한도가 4만큼 증가하고\n무기 강화 확률이 3%p 상승합니다.",
       "IsConsumable": false,
       "AddressID": "EnhancecAnvil",
       "ItemPrice": 5000000,
@@ -57,7 +57,7 @@
     },
     {
       "ItemName": "해머 강화",
-      "Description": "망치를 강화합니다.\n강화 성공확률이 3.5% 상승합니다.",
+      "Description": "망치를 강화합니다.\n무기 강화 확률이 3.5%p 상승하고\n강화 비용이 5% 감소합니다",
       "IsConsumable": false,
       "AddressID": "EnhanceHammer",
       "ItemPrice": 30000000,
@@ -75,6 +75,50 @@
       "ActionString": "AdsGold",
       "AddressableKey": "Coin",
       "IViewableName": "광고 시청",
+      "IViewablePrice": 0
+    },
+    {
+      "ItemName": "철",
+      "Description": "품질이 높아보이지 않습니다.",
+      "IsConsumable": false,
+      "AddressID": "MIron",
+      "ItemPrice": 3000,
+      "ActionString": null,
+      "AddressableKey": "MIron",
+      "IViewableName": "철",
+      "IViewablePrice": 3000
+    },
+    {
+      "ItemName": "금",
+      "Description": "마법공학의 기초가 되는 재료입니다.\n마도체로 무기의 마나 회로로 사용됩니다.",
+      "IsConsumable": false,
+      "AddressID": "Mgold",
+      "ItemPrice": 50000,
+      "ActionString": null,
+      "AddressableKey": "Mgold",
+      "IViewableName": "금",
+      "IViewablePrice": 50000
+    },
+    {
+      "ItemName": "백금",
+      "Description": "마나 호응력이 아주 높은 금속입니다.",
+      "IsConsumable": false,
+      "AddressID": "MWhiteGold",
+      "ItemPrice": 1000000,
+      "ActionString": null,
+      "AddressableKey": "MWhiteGold",
+      "IViewableName": "백금",
+      "IViewablePrice": 1000000
+    },
+    {
+      "ItemName": "마나의 잔념",
+      "Description": "마법 공학으로 대상이 파괴되었을 때\n되돌릴 수 있는 잔념의 덩어리입니다.",
+      "IsConsumable": false,
+      "AddressID": "Mmana",
+      "ItemPrice": 0,
+      "ActionString": null,
+      "AddressableKey": "Mmana",
+      "IViewableName": "마나의 잔념",
       "IViewablePrice": 0
     }
   ]

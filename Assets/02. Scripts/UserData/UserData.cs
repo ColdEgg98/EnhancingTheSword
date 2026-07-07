@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using UniRx;
 
 [Serializable]
 public class UserData
@@ -35,13 +36,14 @@ public class UserData
     public int failCount;
 
     // Weapon
-    public List<Weapon> myWeapons;
+    public ReactiveCollection<Weapon> myWeapons;
     public List<int> myWeaponRefs;
 
     // Achievement
     public List<string> myAchievementRefs;
     public float chanceBonus; // %p로 적용
     public float addtionalGold;
+    public float enhanceGold; // 강화 금액
 
     // Material
     public List<MaterialItem> materials;
@@ -113,14 +115,11 @@ public class MaterialItem : IViewable
     private string _actionString;
     public string ActionString
     {
-        get
-        {
-            return _actionString;
-        }
+        get => _actionString;
         set
         {
             _actionString = value;
-            action = ItemActionFactory.ItemFactory(value);
+            action = string.IsNullOrEmpty(value) ? null : ItemActionFactory.ItemFactory(value);
         }
     }
 

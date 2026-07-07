@@ -1,3 +1,4 @@
+using System;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,29 +8,26 @@ public class FocusEnhancing : MonoBehaviour
     [SerializeField] private GameObject focusButtonObj;
     [SerializeField] private Button button;
     private bool isFocusing;
-    private const string achievementID = "ReachLevel10";
+    private const string achievementID = "Sword of Admiral Yi Sun-sin 1";
 
     private void Awake()
     {
         button.onClick.AddListener(() => FocusButtonBehavior());
         isFocusing = false;
+        focusButtonObj.SetActive(IsUnLocked());
         if (!IsUnLocked())
             Sub();
     }
 
     private bool IsUnLocked()
     {
-        if (GameManager.Instance.currentData.myAchievementRefs.Contains(achievementID))
-        {
-            focusButtonObj.SetActive(true);
-            return true;
-        }
-        return false;
+        return GameManager.Instance.currentData.myAchievementRefs.Contains(achievementID);
     }
 
     private void Sub()
     {
         GameManager.Instance.userDataManager.featureCode
+            .TakeWhile(_ => !IsUnLocked())
             .Subscribe(code =>
             {
                 if (code == 10)
@@ -40,7 +38,7 @@ public class FocusEnhancing : MonoBehaviour
 
     private void UnLockFocusEnhancing()
     {
-        focusButtonObj.gameObject.SetActive(true);
+        focusButtonObj.SetActive(true);
         GameManager.Instance.ShowToast("[해금] : 집중 강화");
     }
 

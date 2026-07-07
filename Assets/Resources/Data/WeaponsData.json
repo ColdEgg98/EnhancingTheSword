@@ -4,7 +4,7 @@
       "Index": 1,
       "WeaponName": "목검",
       "WeaponPrice": 10000,
-      "Probability": 100.0,
+      "Probability": 95.0,
       "EnhancingPrice": 1000,
       "AddressID": "Wooden Sword",
       "WarInfluence": 0.5,
@@ -20,7 +20,7 @@
       "Index": 2,
       "WeaponName": "고대의 검",
       "WeaponPrice": 180000,
-      "Probability": 99.0,
+      "Probability": 90.0,
       "EnhancingPrice": 9000,
       "AddressID": "Ancient Sword",
       "WarInfluence": 1.0,
@@ -36,7 +36,7 @@
       "Index": 3,
       "WeaponName": "쯔바이헨더",
       "WeaponPrice": 400000,
-      "Probability": 97.0,
+      "Probability": 85.0,
       "EnhancingPrice": 20000,
       "AddressID": "Zweihander",
       "WarInfluence": 1.5,
@@ -52,7 +52,7 @@
       "Index": 4,
       "WeaponName": "악귀 씌인 귀철의 검",
       "WeaponPrice": 1000000,
-      "Probability": 95.0,
+      "Probability": 83.0,
       "EnhancingPrice": 70000,
       "AddressID": "Three Great Demon Iron",
       "WarInfluence": 2.0,
@@ -68,7 +68,7 @@
       "Index": 5,
       "WeaponName": "82근의 언월도",
       "WeaponPrice": 2000000,
-      "Probability": 90.0,
+      "Probability": 80.0,
       "EnhancingPrice": 120000,
       "AddressID": "Blue Dragon Crescent Blade",
       "WarInfluence": 3.0,
@@ -84,7 +84,7 @@
       "Index": 6,
       "WeaponName": "거대한 뱀의 독니",
       "WeaponPrice": 2800000,
-      "Probability": 85.0,
+      "Probability": 78.0,
       "EnhancingPrice": 180000,
       "AddressID": "Kasaka's Venom Fang",
       "WarInfluence": 3.0,
@@ -100,7 +100,7 @@
       "Index": 7,
       "WeaponName": "드래곤 슬레이어",
       "WeaponPrice": 3200000,
-      "Probability": 83.0,
+      "Probability": 75.0,
       "EnhancingPrice": 240000,
       "AddressID": "Dragon Slayer",
       "WarInfluence": 4.0,
@@ -116,7 +116,7 @@
       "Index": 8,
       "WeaponName": "얼스터의 단단한 벼락",
       "WeaponPrice": 3500000,
-      "Probability": 80.0,
+      "Probability": 70.0,
       "EnhancingPrice": 300000,
       "AddressID": "Caladbolg",
       "WarInfluence": 5.0,
@@ -132,7 +132,7 @@
       "Index": 9,
       "WeaponName": "요괴왕의 송곳니 검",
       "WeaponPrice": 4500000,
-      "Probability": 78.0,
+      "Probability": 67.0,
       "EnhancingPrice": 380000,
       "AddressID": "Iron Chain Fang",
       "WarInfluence": 7.0,
@@ -148,7 +148,7 @@
       "Index": 10,
       "WeaponName": "산하동색의 석자검",
       "WeaponPrice": 7000000,
-      "Probability": 75.0,
+      "Probability": 65.0,
       "EnhancingPrice": 650000,
       "AddressID": "Sword of Admiral Yi Sun-sin 1",
       "WarInfluence": 10.0,
@@ -164,7 +164,7 @@
       "Index": 11,
       "WeaponName": "혈염산하의 석자검",
       "WeaponPrice": 18000000,
-      "Probability": 70.0,
+      "Probability": 60.0,
       "EnhancingPrice": 1500000,
       "AddressID": "Sword of Admiral Yi Sun-sin 2",
       "WarInfluence": 15.0,
@@ -179,8 +179,8 @@
     {
       "Index": 12,
       "WeaponName": "물에빠진 정령의 검",
-      "WeaponPrice": 35000000,
-      "Probability": 68.0,
+      "WeaponPrice": 25000000,
+      "Probability": 55.0,
       "EnhancingPrice": 2800000,
       "AddressID": "Excalibur",
       "WarInfluence": 20.0,
@@ -190,13 +190,13 @@
       "IsAntiDestruction": false,
       "AddressableKey": "Excalibur",
       "IViewableName": "물에빠진 정령의 검",
-      "IViewablePrice": 35000000
+      "IViewablePrice": 25000000
     },
     {
       "Index": 13,
       "WeaponName": "태양신의 응보검",
-      "WeaponPrice": 90000000,
-      "Probability": 65.0,
+      "WeaponPrice": 40000000,
+      "Probability": 50.0,
       "EnhancingPrice": 7000000,
       "AddressID": "Fragarach",
       "WarInfluence": 30.0,
@@ -206,13 +206,13 @@
       "IsAntiDestruction": false,
       "AddressableKey": "Fragarach",
       "IViewableName": "태양신의 응보검",
-      "IViewablePrice": 90000000
+      "IViewablePrice": 40000000
     },
     {
       "Index": 14,
       "WeaponName": "나이트 브링어",
-      "WeaponPrice": 105000000,
-      "Probability": 60.0,
+      "WeaponPrice": 75000000,
+      "Probability": 45.0,
       "EnhancingPrice": 9500000,
       "AddressID": "Nightbringer",
       "WarInfluence": 40.0,
@@ -226,13 +226,13 @@
       "IsAntiDestruction": false,
       "AddressableKey": "Nightbringer",
       "IViewableName": "나이트 브링어",
-      "IViewablePrice": 105000000
+      "IViewablePrice": 75000000
     },
     {
       "Index": 15,
       "WeaponName": "아홉머리 뱀을 심판한 천뢰검",
       "WeaponPrice": 125200000,
-      "Probability": 55.0,
+      "Probability": 40.0,
       "EnhancingPrice": 12000000,
       "AddressID": "Kusanagi-no-Tsurugi",
       "WarInfluence": 50.0,
@@ -247,8 +247,8 @@
     {
       "Index": 16,
       "WeaponName": "필망의 마검 티르핑",
-      "WeaponPrice": 160000000,
-      "Probability": 53.0,
+      "WeaponPrice": 250000000,
+      "Probability": 37.0,
       "EnhancingPrice": 22000000,
       "AddressID": "Tyrfing",
       "WarInfluence": 65.0,
@@ -260,13 +260,13 @@
       "IsAntiDestruction": false,
       "AddressableKey": "Tyrfing",
       "IViewableName": "필망의 마검 티르핑",
-      "IViewablePrice": 160000000
+      "IViewablePrice": 250000000
     },
     {
       "Index": 17,
       "WeaponName": "듀랜달",
-      "WeaponPrice": 220000000,
-      "Probability": 50.0,
+      "WeaponPrice": 500000000,
+      "Probability": 30.0,
       "EnhancingPrice": 36000000,
       "AddressID": "Durandal",
       "WarInfluence": 80.0,
@@ -276,13 +276,13 @@
       "IsAntiDestruction": false,
       "AddressableKey": "Durandal",
       "IViewableName": "듀랜달",
-      "IViewablePrice": 220000000
+      "IViewablePrice": 500000000
     },
     {
       "Index": 18,
       "WeaponName": "한정 마술예장의 만화경",
-      "WeaponPrice": 500000000,
-      "Probability": 45.0,
+      "WeaponPrice": 1500000000,
+      "Probability": 25.0,
       "EnhancingPrice": 90000000,
       "AddressID": "Jeweled Sword",
       "WarInfluence": 130.0,
@@ -292,13 +292,13 @@
       "IsAntiDestruction": false,
       "AddressableKey": "Jeweled Sword",
       "IViewableName": "한정 마술예장의 만화경",
-      "IViewablePrice": 500000000
+      "IViewablePrice": 1500000000
     },
     {
       "Index": 19,
       "WeaponName": "한 자루 무색유리검",
-      "WeaponPrice": 1500000000,
-      "Probability": 30.0,
+      "WeaponPrice": 5500000000,
+      "Probability": 10.0,
       "EnhancingPrice": 220000000,
       "AddressID": "Colorless Glass Sword",
       "WarInfluence": 250.0,
@@ -308,13 +308,13 @@
       "IsAntiDestruction": false,
       "AddressableKey": "Colorless Glass Sword",
       "IViewableName": "한 자루 무색유리검",
-      "IViewablePrice": 1500000000
+      "IViewablePrice": 5500000000
     },
     {
       "Index": 20,
       "WeaponName": "마스터 소드",
-      "WeaponPrice": 4500000000,
-      "Probability": 10.0,
+      "WeaponPrice": 30000000000,
+      "Probability": 5.0,
       "EnhancingPrice": 600000000,
       "AddressID": "Master Sword",
       "WarInfluence": 500.0,
@@ -324,7 +324,7 @@
       "IsAntiDestruction": false,
       "AddressableKey": "Master Sword",
       "IViewableName": "마스터 소드",
-      "IViewablePrice": 4500000000
+      "IViewablePrice": 30000000000
     }
   ]
 }

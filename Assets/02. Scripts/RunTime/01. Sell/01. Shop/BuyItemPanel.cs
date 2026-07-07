@@ -58,8 +58,17 @@ public class BuyItemPanel : MonoBehaviour
     {
         if (!item.action.IsValid(item)) return false;
 
+        if (!item.IsConsumable)
+        {
+            GameManager.Instance.gold.Value -= item.ItemPrice;
+            GameManager.Instance.userDataManager.GetItem($"{item.AddressID}");
+            Debug.Log($"아이템 획득 : {item.ItemName}");
+            return true;
+        }
+
         item.action.Execute(item);
         GameManager.Instance.ShowNotice($"{StrUtiity.AttachJoSa(item.ItemName)} 완료 했습니다!");
+        Debug.Log($"업그레이드 완료 : {item.ItemName}");
         return true;
         // 모루 강화를 완료 했습니다!
     }

@@ -58,7 +58,7 @@ public class SellWeapon : MonoBehaviour
     {
         if (GameManager.Instance.currentWeapon.Value != null)
             currentWeaponName = GameManager.Instance.currentWeapon.Value.WeaponName;
-        myWeapons = GameManager.Instance.currentData.myWeapons;
+        myWeapons = GameManager.Instance.currentData.myWeapons.ToList();
         myMaterials = GameManager.Instance.currentData.materials;
         IViewableForSell = pairs;
         isDictHasData = pairs != null && pairs.Count > 0;

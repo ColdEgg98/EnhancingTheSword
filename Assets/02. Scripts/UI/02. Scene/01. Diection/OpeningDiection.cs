@@ -53,41 +53,42 @@ public class OpeningDirection : MonoBehaviour
         if (openingData?.lines != null)
             RunOpeningSequenceAsync().Forget();
     }
-
     private async UniTaskVoid RunOpeningSequenceAsync()
+{
+    var token = cts.Token;
+    try
     {
-        var token = cts.Token;
+        Debug.Log("[Opening] fade-in 시작");
+        var fadeInSeq = DOTween.Sequence()
+            .Join(coverCanvas.DOFade(0f, fadeInDuration))
+            .Join(textCanvas.DOFade(1f, fadeInDuration))
+            .SetEase(Ease.InOutSine);
+        await fadeInSeq.ToUniTask(cancellationToken: token);
+        coverCanvas.blocksRaycasts = false;
+        Debug.Log("[Opening] fade-in 종료 → 타이핑 시작");
 
-        try
-        {
-            // 1. 페이드 인
-            var fadeInSeq = DOTween.Sequence()
-                .Join(coverCanvas.DOFade(0f, fadeInDuration))
-                .Join(textCanvas.DOFade(1f, fadeInDuration))
-                .SetEase(Ease.InOutSine);
-            await fadeInSeq.ToUniTask(cancellationToken: token);
+        await PlayOpeningAsync(token);
+        coverCanvas.blocksRaycasts = true;
+        Debug.Log("[Opening] 타이핑 종료 → fade-out 시작");
 
-            coverCanvas.blocksRaycasts = false;
-
-            // 2. 타이핑 연출
-            await PlayOpeningAsync(token);
-
-            coverCanvas.blocksRaycasts = true;
-
-            // 3. 페이드 아웃
-            await coverCanvas.DOFade(1f, fadeOutDuration)
-                .SetEase(Ease.InSine)
-                .ToUniTask(cancellationToken: token);
-        }
-        catch (OperationCanceledException)
-        {
-            // 스킵 시 여기서 낙하 → 씬 전환으로 이어짐
-        }
-
-        // 4. 스킵이든 정상 완료든 항상 실행
-        await SceneManager.LoadSceneAsync(nextSceneIndex).ToUniTask();
+        var fadeOutSeq = DOTween.Sequence()
+            .Join(coverCanvas.DOFade(1f, fadeOutDuration))
+            .Join(textCanvas.DOFade(0f, fadeOutDuration))
+            .SetEase(Ease.InSine);
+        await fadeOutSeq.ToUniTask(cancellationToken: token);
+        Debug.Log("[Opening] fade-out 종료");
+    }
+    catch (OperationCanceledException)
+    {
+        Debug.Log("[Opening] 취소 감지 (스킵)");
     }
 
+    Debug.Log("[Opening] 씬 전환 직전");
+
+        await UniTask.Yield(); // 한 프레임 양보 후 진행
+        await SceneManager.LoadSceneAsync(nextSceneIndex).ToUniTask();
+    Debug.Log("[Opening] 씬 전환 완료"); // 이게 안 찍히면 LoadSceneAsync 자체 또는 다음 씬 초기화가 원인
+}
     private async UniTask PlayOpeningAsync(CancellationToken token)
     {
         lineText.text = string.Empty;

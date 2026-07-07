@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -55,14 +56,15 @@ public class RedSquare : MonoBehaviour
         await UniTask.CompletedTask;
     }
 
-    public async UniTask PlayAnimation()
+    public async UniTask PlayAnimation(CancellationToken cancellationToken = default)
     {
         Sequence seq = DOTween.Sequence();
         
         _ = seq.Join(redSquareImage.DOFade(1f, 0.5f).SetEase(Ease.OutBack));
         _ = seq.Join(redSquareImage.transform.DOPunchScale(new Vector2(0.2f, 0.2f), 0.5f, 6, 0.8f));
+        _ = seq.SetLink(redSquareImage.gameObject);
 
-        await seq.AsyncWaitForCompletion();
+        await seq.ToUniTask(TweenCancelBehaviour.KillAndCancelAwait, cancellationToken);
     }
 
 

@@ -62,7 +62,11 @@ public class UpgradeAnvil : IItemAction
     {
         GameManager.Instance.GetGold(-item.ItemPrice * GameManager.Instance.currentData.shopData.anvilLevel);
         GameManager.Instance.currentData.shopData.anvilLevel++;
-        GameManager.Instance.currentData.chanceBonus += 1f;
+        GameManager.Instance.currentData.chanceBonus += 3f;
+
+        // 풀업 업적
+        if (GameManager.Instance.currentData.shopData.hammerLevel == 4 && GameManager.Instance.currentData.shopData.anvilLevel == 5)
+            GameManager.Instance.achievementManager.CheckAchievement(ConditionType.AchieveCode, 19);
     }
 
     public bool IsValid(MaterialItem item)
@@ -97,12 +101,17 @@ public class UpgradeHammer : IItemAction
     {
         GameManager.Instance.GetGold(-item.ItemPrice * GameManager.Instance.currentData.shopData.hammerLevel);
         GameManager.Instance.currentData.chanceBonus += 3.5f;
+        GameManager.Instance.currentData.enhanceGold += 5f;
         GameManager.Instance.currentData.shopData.hammerLevel++;
+
+        // 풀업 업적
+        if (GameManager.Instance.currentData.shopData.hammerLevel == 4 && GameManager.Instance.currentData.shopData.anvilLevel == 5)
+        GameManager.Instance.achievementManager.CheckAchievement(ConditionType.AchieveCode, 19);
     }
 
     public bool IsValid(MaterialItem item)
     {
-        if (GameManager.Instance.currentData.shopData.hammerLevel == 3)
+        if (GameManager.Instance.currentData.shopData.hammerLevel == 4)
         {
             GameManager.Instance.ShowNotice("이미 최대 레벨입니다.");
             return false;

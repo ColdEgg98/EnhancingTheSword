@@ -2,6 +2,8 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using UniRx;
 using UnityEngine;
 
 /// <summary>
@@ -187,9 +189,9 @@ public class SaveDataManager
         return list;
     }
 
-    private List<Weapon> ResolveWeaponReferences(UserData data)
+    private ReactiveCollection<Weapon> ResolveWeaponReferences(UserData data)
     {
-        List<Weapon> list = new();
+        ReactiveCollection<Weapon> list = new();
         foreach (int i in data.myWeaponRefs)
         {
             if (!GameManager.Instance.allOfWeaponDictionary.ContainsKey(i))

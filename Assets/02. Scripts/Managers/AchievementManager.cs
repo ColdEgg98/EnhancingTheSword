@@ -1,5 +1,7 @@
 using Cysharp.Threading.Tasks;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // 업적 체크 및 보상 프로세스 가동
@@ -23,12 +25,14 @@ public class AchievementManager
                     continue;
                 }
 
-                // 일반 업적 조건 확인
-                if (a.ConditionValue <= value && a.RewardType != RewardType.UnlockFeature)
+                // 기능 해금 업적
+                if (a.ConditionValue == value && a.RewardType == RewardType.UnlockFeature)
                 {
+                    // 해금 코드를 변경해서 구독한 이벤트 발동으로 새 기능 해금
+                    GameManager.Instance.SetFeautureCode((int)value);
                     GameManager.Instance.currentData.myAchievementRefs.Add(a.AchivementID);
-                    ProcessReward(a);
-                    
+
+                    // 업적 UI 표시
                     await GameManager.Instance.uiManager.UIFactory
                         .ShowAchievement(a.GetTextData(), EUIRole.MainImage, a.AchivementID);
                 }
@@ -36,27 +40,71 @@ public class AchievementManager
                 // 낮을 업적 조건 확인
                 else if (a.ConditionValue >= value && a.ConditionType == ConditionType.Below)
                 {
-                    GameManager.Instance.currentData.myAchievementRefs.Add(a.AchivementID);
-                    ProcessReward(a);
-
-                    await GameManager.Instance.uiManager.UIFactory
-                        .ShowAchievement(a.GetTextData(), EUIRole.MainImage, a.AchivementID);
+                    ProcessRewardAndShow(a).Forget();
                 }
 
-                // 기능 해금 업적
-                else if (a.RewardType == RewardType.UnlockFeature)
+                // 아이템 조건
+                else if (a.ConditionType == ConditionType.HasItem)
                 {
-                    await GameManager.Instance.uiManager.UIFactory
-                        .ShowAchievement(a.GetTextData(), EUIRole.MainImage, a.AchivementID);
-                    // 해금 코드를 변경해서 구독한 이벤트 발동으로 새 기능 해금
-                    GameManager.Instance.SetFeautureCode((int)value);
+                    if (!HasItemCheck(a)) return;
+
+                    ProcessRewardAndShow(a).Forget();
+                }
+
+                // 업적 코드 조건
+                else if (a.ConditionType == ConditionType.AchieveCode && a.ConditionValue == value)
+                {
+                    ProcessRewardAndShow(a).Forget();
+                }
+
+                // 일반 업적 조건 확인
+                else if (a.ConditionValue <= value && a.RewardType != RewardType.UnlockFeature)
+                {
+                    ProcessRewardAndShow(a).Forget();
                 }
             }
         }
     }
 
+    private async UniTaskVoid ProcessRewardAndShow(Achievement a)
+    {
+        ProcessReward(a);
+
+        await GameManager.Instance.uiManager.UIFactory
+            .ShowAchievement(a.GetTextData(), EUIRole.MainImage, a.AchivementID);
+    }
+
+    // 아이템 종류가 갯수만큼 있는지 비교
+    private bool HasItemCheck(Achievement a)
+    {
+        List<Weapon> weapons = GameManager.Instance.GetMyWeapons();
+        List<MaterialItem> materialItems = new List<MaterialItem>();
+        int condition;
+
+        for (int i = 0; i < a.ItemIndexes.Count; i++)
+        {
+            condition = 0;
+
+            if (int.TryParse(a.ItemIndexes[i], out int index))
+            {
+                condition = weapons.Count(w => w.Index == index);
+            }
+
+            else
+            {
+                condition = materialItems.Count(m => m.ItemName == a.ItemIndexes[i]);
+            }
+
+            if (condition < a.HasItemAmount[i])
+                return false;
+        }
+
+        return true;
+    }
+
     public void ProcessReward(Achievement a)
     {
+        GameManager.Instance.currentData.myAchievementRefs.Add(a.AchivementID);
         RewardType type = a.RewardType;
         float value = a.Value;
 
@@ -80,8 +128,11 @@ public class AchievementManager
                 GameManager.Instance.ShowToast($"업적 보상 : 골드 획득량 {StrUtiity.ColorText(value.ToString() + "%")} 증가");
                 break;
             case RewardType.Item:
-                // 임시 : 중급 파괴 방지 물약만 받음
-                GameManager.Instance.userDataManager.GetItem("MidGrade AD");
+                GameManager.Instance.userDataManager.GetItem(a.ItemRewardAddress);
+                break;
+            case RewardType.EnhanceGold:
+                GameManager.Instance.currentData.enhanceGold += value;
+                GameManager.Instance.ShowToast($"업적 보상 : 강화 골드 {StrUtiity.ColorText(value.ToString() + "%")} 감소");
                 break;
             default:
                 Debug.LogError("예외가 발생했습니다.");

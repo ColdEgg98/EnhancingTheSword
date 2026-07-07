@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -37,6 +38,7 @@ public class TestHelper : MonoBehaviour
     [SerializeField] private TMP_InputField toastInput;
     [SerializeField] private TMP_InputField noticeInput;
     [SerializeField] private TMP_InputField itemInput;
+    [SerializeField] private TMP_InputField priceInput;
 
     [Header("Toggle")]
     [SerializeField] private Toggle colorToggle;
@@ -106,6 +108,7 @@ public class TestHelper : MonoBehaviour
         toastInput.onSubmit.AddListener(OnSubmitToastMesage);
         noticeInput.onSubmit.AddListener(OnSubmitNoticeMesage);
         itemInput.onSubmit.AddListener(OnSubmitItemID);
+        priceInput.onSubmit.AddListener(OnSubmitPricePercent);
 
         colorToggle.onValueChanged.AddListener(colorChange);
     }
@@ -113,6 +116,15 @@ public class TestHelper : MonoBehaviour
     private void colorChange(bool arg0)
     {
         c = (arg0) ? Color.white : Color.red;
+    }
+
+    private void OnSubmitPricePercent(string arg0)
+    {
+        if (!float.TryParse(arg0, out float amount)) return;
+        GameManager.Instance.currentData.enhanceGold += amount;
+        FindAnyObjectByType<SceneHandler>().UpdateWeaponInfo(GameManager.Instance.currentWeapon.Value);
+        priceInput.text = string.Empty;
+        XButton();
     }
 
     public void OnSubmitGoldInput(string amount)
