@@ -17,7 +17,12 @@ public class LRArrowBehavior : MonoBehaviour
     private void ArrowBehavior(int value)
     {
         GameManager.Instance.soundManager.PlaySFX("Click");
-        GameManager.Instance.selectWeaponIndex.Value += value;
+        
+        if (GameManager.Instance.selectWeaponIndex.Value >= 0)
+            GameManager.Instance.selectWeaponIndex.Value += value;
+        
+        else
+            GameManager.Instance.selectWeaponIndex.Value = 0; // 판매 후 -2로 빠지기 때문에
     }
 
     private void Subscribe()

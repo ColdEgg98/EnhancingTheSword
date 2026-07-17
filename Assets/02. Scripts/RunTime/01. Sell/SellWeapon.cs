@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TMPro;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +19,7 @@ public class SellWeapon : MonoBehaviour
     [SerializeField] private GameObject Panel;
     public InventoryButtonBehavior inventoryData;
     
-    List<Weapon> myWeapons;
+    ReactiveCollection<Weapon> myWeapons;
     List<MaterialItem> myMaterials;
     private string currentWeaponName;
     private long price;
@@ -58,7 +59,7 @@ public class SellWeapon : MonoBehaviour
     {
         if (GameManager.Instance.currentWeapon.Value != null)
             currentWeaponName = GameManager.Instance.currentWeapon.Value.WeaponName;
-        myWeapons = GameManager.Instance.currentData.myWeapons.ToList();
+        myWeapons = GameManager.Instance.currentData.myWeapons;
         myMaterials = GameManager.Instance.currentData.materials;
         IViewableForSell = pairs;
         isDictHasData = pairs != null && pairs.Count > 0;
@@ -77,6 +78,7 @@ public class SellWeapon : MonoBehaviour
             return false;
         }
 
+        // 다중 판매시
         if (isDictHasData && (IViewableForSell == null || IViewableForSell.Count == 0))
         {
             GameManager.Instance.uiManager.UIFactory.ShowNotice("판매할 무기를 선택해주세요", Color.white);
@@ -138,6 +140,7 @@ public class SellWeapon : MonoBehaviour
                 }
             }
         }
+
         else
         {
             myWeapons.RemoveAt(GameManager.Instance.selectWeaponIndex.Value);
@@ -147,6 +150,5 @@ public class SellWeapon : MonoBehaviour
         int tempIndex = GameManager.Instance.selectWeaponIndex.Value;
         GameManager.Instance.selectWeaponIndex.Value = -2;
         await UniTask.Yield();
-        GameManager.Instance.selectWeaponIndex.Value = tempIndex;
     }
 }
