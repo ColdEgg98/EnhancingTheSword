@@ -5,7 +5,7 @@
 ![Unity](https://img.shields.io/badge/Unity-6%20LTS-black?logo=unity)
 ![Platform](https://img.shields.io/badge/Platform-WebGL%20%7C%20Mobile-blue)
 
-**▶ [플레이 데모 (Web)](https://brr.kr/y1d9l9)** &nbsp;|&nbsp; **📄 [기술 상세 문서 (Notion)]([https://buly.kr/2Jqbk42](https://app.notion.com/p/ETS-3a1e2ee27514808393b9f16acb413a74))**
+**▶ [플레이 데모 (Web)](https://brr.kr/y1d9l9)** &nbsp;|&nbsp; **📄 [기술 상세 문서 (Notion)](https://app.notion.com/p/ETS-3a1e2ee27514808393b9f16acb413a74)**
 
 ---
 
