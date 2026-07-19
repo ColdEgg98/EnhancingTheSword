@@ -123,9 +123,9 @@ public class GameManager : Singleton<GameManager>
         return GetMyWeapons().OfType<IViewable>().ToList();
     }
     
-    public List<Weapon> GetMyWeapons()
+    public ReactiveCollection<Weapon> GetMyWeapons()
     {
-        return currentData.myWeapons.ToList();
+        return currentData.myWeapons;
     }
 
     public void ShowToast(string str)

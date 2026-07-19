@@ -44,8 +44,6 @@ public class TestHelper : MonoBehaviour
     [SerializeField] private Toggle colorToggle;
     private Color c;
 
-    [Header("Debug")]
-    [SerializeField] private TextMeshProUGUI activeWeaponText;
 
     private void Awake()
     {
@@ -58,7 +56,6 @@ public class TestHelper : MonoBehaviour
 
         btn = GetComponentInChildren<Button>();
         btn.onClick.AddListener(CallTesterUI);
-        activeWeaponText.gameObject.SetActive(true);
 
         c = Color.white;
 

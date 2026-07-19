@@ -165,7 +165,7 @@ public class WarManager : MonoBehaviour
             return false;
         }
 
-        List<Weapon> myWeapons = GameManager.Instance.GetMyWeapons();
+        ReactiveCollection<Weapon> myWeapons = GameManager.Instance.GetMyWeapons();
         if (weaponIndex < 0 || weaponIndex >= myWeapons.Count)
         {
             GameManager.Instance.ShowNotice("유효하지 않은 무기 인덱스입니다.");
@@ -179,7 +179,7 @@ public class WarManager : MonoBehaviour
     // ───────────────────────────────────────
     public void DeliverWeapon(int weaponIndex, int slotIndex)
     {
-        List<Weapon> myWeapons = GameManager.Instance.GetMyWeapons();
+        ReactiveCollection<Weapon> myWeapons = GameManager.Instance.GetMyWeapons();
         Weapon weapon = myWeapons[weaponIndex];
         _slots.Add(new DeliverySlot(weaponIndex, slotIndex, weapon));
         _activatedSlotIds.Add(slotIndex);
@@ -202,7 +202,7 @@ public class WarManager : MonoBehaviour
     private void UsedWeaponRemove(int index)
     {
         // 현재 사용중인 무기를 전송했을 때 처리
-        List<Weapon> myWeapons = GameManager.Instance.GetMyWeapons();
+        ReactiveCollection<Weapon> myWeapons = GameManager.Instance.GetMyWeapons();
         Weapon tempWeapon = myWeapons[index];
         Weapon currentWeapon = GameManager.Instance.currentWeapon.Value;
 

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class CloseInventoryForForge : MonoBehaviour
 {
-    [SerializeField] InventoryButtonBehavior inventory;
+    [SerializeField] InventoryView inventory;
     [SerializeField] GameObject inventoryGameObject;
 
     private void Awake()
@@ -12,7 +12,7 @@ public class CloseInventoryForForge : MonoBehaviour
         button.onClick.AddListener(() =>
         {
             Debug.Log("버튼 클릭 감지됨.");
-            if (inventoryGameObject.activeSelf) inventory.OnClickXButton(inventory.isWeaponCategory);
+            if (inventoryGameObject.activeSelf) inventory.HideInventory();
         });
     }
 }

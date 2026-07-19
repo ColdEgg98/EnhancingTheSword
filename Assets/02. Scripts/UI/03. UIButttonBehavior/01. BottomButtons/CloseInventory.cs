@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class CloseInventory : MonoBehaviour
 {
-    [SerializeField] private InventoryView Inventory;
+    [SerializeField] private TransferInventoryView Inventory;
 
     private void Awake()
     {

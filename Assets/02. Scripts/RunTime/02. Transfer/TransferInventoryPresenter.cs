@@ -2,9 +2,9 @@ using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 
-public class InventoryPresenter : MonoBehaviour
+public class TransferInventoryPresenter : MonoBehaviour
 {
-    [SerializeField] private InventoryView view;
+    [SerializeField] private TransferInventoryView view;
 
     [SerializeField] private SlotGridView slotsGird;
     private ReactiveCollection<WeaponSupplySlotButton> _slots;

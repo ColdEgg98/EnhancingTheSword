@@ -13,14 +13,18 @@ public class GoRegion : MonoBehaviour
     {
         currentCanva = GetComponentInParent<NowRegion>();
 
-        if (playPatternWipe == null)
-            playPatternWipe = FindAnyObjectByType<PlayPatternWipe>();
-
         btn = GetComponent<Button>();
         btn.onClick.AddListener(() =>
         {
             _ = MoveAndPlayPattern();
         });
+    }
+
+    void Start()
+    {
+        //wipe는 Awake단계에서 SetActive되기 때문
+        if (playPatternWipe == null)
+            playPatternWipe = FindAnyObjectByType<PlayPatternWipe>();
     }
 
     private async UniTaskVoid MoveAndPlayPattern()

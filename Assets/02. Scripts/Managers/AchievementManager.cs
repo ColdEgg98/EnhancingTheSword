@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UniRx;
 using UnityEngine;
 
 // 업적 체크 및 보상 프로세스 가동
@@ -77,7 +78,7 @@ public class AchievementManager
     // 아이템 종류가 갯수만큼 있는지 비교
     private bool HasItemCheck(Achievement a)
     {
-        List<Weapon> weapons = GameManager.Instance.GetMyWeapons();
+        ReactiveCollection<Weapon> weapons = GameManager.Instance.GetMyWeapons();
         List<MaterialItem> materialItems = new List<MaterialItem>();
         int condition;
 

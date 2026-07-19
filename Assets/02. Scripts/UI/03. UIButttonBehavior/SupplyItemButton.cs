@@ -11,7 +11,7 @@ public class SupplyItemButton : MonoBehaviour
 {
     private Button button;
     private int slotNum;
-    private InventoryView view;
+    private TransferInventoryView view;
 
     // event
     private Subject<(int slotNumber, int weaponIndex)> _onClickSlot = new();
@@ -21,7 +21,7 @@ public class SupplyItemButton : MonoBehaviour
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(ButtonBehaviour);
-        view = FindAnyObjectByType<InventoryView>();
+        view = FindAnyObjectByType<TransferInventoryView>();
     }
 
     private void ButtonBehaviour()

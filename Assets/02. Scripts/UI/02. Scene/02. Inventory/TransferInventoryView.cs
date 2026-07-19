@@ -6,7 +6,7 @@ using UnityEngine.UI;
 /// <summary>
 /// 무기 전송고 인벤토리 스크립트. 인벤토리 드로잉 관리
 /// </summary>
-public class InventoryView : MonoBehaviour
+public class TransferInventoryView : MonoBehaviour
 {
     private List<IViewable> myWeapons;
     [SerializeField] private Image[] Contents;

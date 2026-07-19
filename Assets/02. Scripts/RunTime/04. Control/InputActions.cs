@@ -8,7 +8,7 @@ public class InputActions : MonoBehaviour
 
     private EnhanceSword enhanceSword;
     private SellWeapon sellWeapon;
-    private InventoryButtonBehavior inventoryButtonBehavior;
+    private InventoryView invenView;
 
     void Awake()
     {
@@ -16,7 +16,7 @@ public class InputActions : MonoBehaviour
 
         enhanceSword = FindAnyObjectByType<EnhanceSword>();
         sellWeapon = FindAnyObjectByType<SellWeapon>();
-        inventoryButtonBehavior = FindAnyObjectByType<InventoryButtonBehavior>();
+        invenView = FindAnyObjectByType<InventoryView>();
     }
 
     void OnEnable()
@@ -58,15 +58,12 @@ public class InputActions : MonoBehaviour
 
     private void OnSell(InputAction.CallbackContext context)
     {
-        if (sellWeapon.isDictHasData)
-            sellWeapon.SetPanel(sellWeapon.inventoryData.IViewableForSell);
-        else
-            sellWeapon.SetPanel();
+        sellWeapon.SetPanel();
     }
 
     private void OnInventory(InputAction.CallbackContext context)
     {
-        inventoryButtonBehavior.OnClickButton().Forget();
+        invenView.HideInventory();
     }
 
     void OnDisable()
