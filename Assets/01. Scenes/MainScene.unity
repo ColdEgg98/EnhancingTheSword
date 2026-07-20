@@ -10256,7 +10256,7 @@ MonoBehaviour:
   sellingWeaponsTxt: {fileID: 77401700}
   PriceTxt: {fileID: 1917410683}
   Panel: {fileID: 1435980248}
-  inventoryData: {fileID: 0}
+  presenter: {fileID: 0}
 --- !u!1 &562638748
 GameObject:
   m_ObjectHideFlags: 0
@@ -29415,7 +29415,6 @@ MonoBehaviour:
   itemInput: {fileID: 1847251445}
   priceInput: {fileID: 1587994427}
   colorToggle: {fileID: 1555875832}
-  activeWeaponText: {fileID: 0}
 --- !u!1 &1762560649
 GameObject:
   m_ObjectHideFlags: 0
@@ -35822,7 +35821,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad99c42441bf3a84b8e9cd6073667d69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Inventory: {fileID: 0}
+  presenter: {fileID: 0}
 --- !u!114 &2116818797
 MonoBehaviour:
   m_ObjectHideFlags: 0

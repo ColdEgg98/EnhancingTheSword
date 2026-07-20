@@ -13,7 +13,7 @@ public class SellWeapon : MonoBehaviour
     [SerializeField] private TextMeshProUGUI sellingWeaponsTxt;
     [SerializeField] private TextMeshProUGUI PriceTxt;
     [SerializeField] private GameObject Panel;
-    public InventoryView inventoryData;
+    public InventoryPresenter presenter;
     
     ReactiveCollection<Weapon> myWeapons;
     List<MaterialItem> myMaterials;
@@ -22,7 +22,7 @@ public class SellWeapon : MonoBehaviour
 
     void Awake()
     {
-        inventoryData = FindAnyObjectByType<InventoryView>();
+        presenter = FindAnyObjectByType<InventoryPresenter>();
 
         quickSellBtn.onClick.AddListener(() => SetPanel());
         yesBtn.onClick.AddListener(YesBtnBehavior);
@@ -87,7 +87,7 @@ public class SellWeapon : MonoBehaviour
 
         // 인벤 정리
         EliminateProcess().Forget(); // UniTaskVoid 호출 시 Forget() 권장
-        inventoryData.HideInventory();
+        presenter.CloseInventory();
 
         // 골드 지급
         GameManager.Instance.userDataManager.GetGold(price);

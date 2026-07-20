@@ -130,7 +130,7 @@ public class InventoryPresenter : MonoBehaviour
             Active.View.SwapSlotSprites(origin, target);
     }
 
-    private void CloseInventory()
+    public void CloseInventory()
     {
         Active.View.HideInventory();             // 현재 보이는 탭만 닫기(팁 정리 포함)
 

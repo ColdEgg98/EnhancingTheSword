@@ -28,7 +28,6 @@ public class BuyItemPanel : MonoBehaviour
         btnNo.onClick.AddListener(ExitPurchase);
     }
 
-
     public async UniTask SetUICondition(MaterialItem item)
     {
         this.item = item;
@@ -58,7 +57,7 @@ public class BuyItemPanel : MonoBehaviour
     {
         if (!item.action.IsValid(item)) return false;
 
-        if (!item.IsConsumable)
+        if (item.IsConsumable)
         {
             GameManager.Instance.gold.Value -= item.ItemPrice;
             GameManager.Instance.userDataManager.GetItem($"{item.AddressID}");

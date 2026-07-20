@@ -3,15 +3,17 @@ using UnityEngine.UI;
 
 public class CloseInventory : MonoBehaviour
 {
-    [SerializeField] private TransferInventoryView Inventory;
+    [SerializeField] private InventoryPresenter presenter;
 
     private void Awake()
     {
-        Button button = GetComponent<Button>();
-        button.onClick.AddListener(() =>
+        presenter = FindAnyObjectByType<InventoryPresenter>();
+
+        GetComponent<Button>().onClick.AddListener(() =>
         {
             Debug.Log("버튼 클릭 감지됨.");
-            if (Inventory.gameObject.activeSelf) Inventory.CloseTheInventory();
+            if (presenter.gameObject.activeSelf)
+                presenter.CloseInventory();
         });
     }
 }

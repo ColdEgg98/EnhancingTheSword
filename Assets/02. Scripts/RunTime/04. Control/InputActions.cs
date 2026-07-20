@@ -8,7 +8,7 @@ public class InputActions : MonoBehaviour
 
     private EnhanceSword enhanceSword;
     private SellWeapon sellWeapon;
-    private InventoryView invenView;
+    private InventoryPresenter invenPresenter;
 
     void Awake()
     {
@@ -16,7 +16,7 @@ public class InputActions : MonoBehaviour
 
         enhanceSword = FindAnyObjectByType<EnhanceSword>();
         sellWeapon = FindAnyObjectByType<SellWeapon>();
-        invenView = FindAnyObjectByType<InventoryView>();
+        invenPresenter = FindAnyObjectByType<InventoryPresenter>();
     }
 
     void OnEnable()
@@ -63,7 +63,7 @@ public class InputActions : MonoBehaviour
 
     private void OnInventory(InputAction.CallbackContext context)
     {
-        invenView.HideInventory();
+        invenPresenter.ToggleInventoryPanel();
     }
 
     void OnDisable()
