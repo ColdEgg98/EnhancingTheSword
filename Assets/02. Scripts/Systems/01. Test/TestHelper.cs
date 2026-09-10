@@ -1,11 +1,22 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using TMPro;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
+
+/// <summary>
+/// Runtime Test용 클래스
+/// </summary>
+// 추가 방법
+// ButtonsTarget 아래에 기존 버튼 하나 복사 'Save'
+// 하위 UI 기존 버튼 복사하고 인스펙터에서 등록 'Save UI'
+// 하위 UI에 스크립트 구현
+// InputFiled일 경우 인스펙터에 등록 + InputFieldsInit에서 AddListener
 
 public class TestHelper : MonoBehaviour
 {
@@ -25,11 +36,14 @@ public class TestHelper : MonoBehaviour
     [SerializeField] private TMP_InputField goldAmountInput;
     [SerializeField] private TMP_InputField weaponIndexInput;
     [SerializeField] private TMP_InputField toastInput;
-    [SerializeField] private TMP_InputField NoticeInput;
+    [SerializeField] private TMP_InputField noticeInput;
+    [SerializeField] private TMP_InputField itemInput;
+    [SerializeField] private TMP_InputField priceInput;
 
     [Header("Toggle")]
     [SerializeField] private Toggle colorToggle;
     private Color c;
+
 
     private void Awake()
     {
@@ -46,9 +60,11 @@ public class TestHelper : MonoBehaviour
         c = Color.white;
 
         activeSetter = ButtonsTarget.GetComponentsInChildren<Button>().ToList();
+        
         // 버튼들에 각각의 오브젝트들을 제어하는 함수 부여
         SetGameObjectsActive();
-
+        
+        // 인풋 필드 이벤트 연결
         InputFieldsInit();
     }
 
@@ -60,13 +76,13 @@ public class TestHelper : MonoBehaviour
 
     private void SetGameObjectsActive()
     {
-        Debug.Log("SetGameObjectsActive 실행");
+        Debug.Log("[TestHelper] : SetGameObjectsActive 실행");
         int index = 0;
         StringBuilder sb = new();
         foreach (Button b in activeSetter)
         {
             int currentIndex = index;
-            sb.Append($"현재 index에 저장된 오브젝트 : {currentIndex}번 : {gameObjects[currentIndex].name}");
+            sb.Append($"현재 index에 저장된 오브젝트 : {currentIndex}번 : {gameObjects[currentIndex].name}\n");
             b.onClick.RemoveAllListeners();
             b.onClick.AddListener(() =>
             {
@@ -87,7 +103,9 @@ public class TestHelper : MonoBehaviour
         goldAmountInput.onSubmit.AddListener(OnSubmitGoldInput);
         weaponIndexInput.onSubmit.AddListener(OnSubmitWeaponIndexInput);
         toastInput.onSubmit.AddListener(OnSubmitToastMesage);
-        NoticeInput.onSubmit.AddListener(OnSubmitNoticeMesage);
+        noticeInput.onSubmit.AddListener(OnSubmitNoticeMesage);
+        itemInput.onSubmit.AddListener(OnSubmitItemID);
+        priceInput.onSubmit.AddListener(OnSubmitPricePercent);
 
         colorToggle.onValueChanged.AddListener(colorChange);
     }
@@ -95,6 +113,15 @@ public class TestHelper : MonoBehaviour
     private void colorChange(bool arg0)
     {
         c = (arg0) ? Color.white : Color.red;
+    }
+
+    private void OnSubmitPricePercent(string arg0)
+    {
+        if (!float.TryParse(arg0, out float amount)) return;
+        GameManager.Instance.currentData.enhanceGold += amount;
+        FindAnyObjectByType<SceneHandler>().UpdateWeaponInfo(GameManager.Instance.currentWeapon.Value);
+        priceInput.text = string.Empty;
+        XButton();
     }
 
     public void OnSubmitGoldInput(string amount)
@@ -111,17 +138,24 @@ public class TestHelper : MonoBehaviour
         XButton();
     }
 
-    public void OnSubmitToastMesage(string mesage)
+    public void OnSubmitToastMesage(string message)
     {
-        GameManager.Instance.uiManager.UIFactory.ShowToast(mesage);
+        GameManager.Instance.uiManager.UIFactory.ShowToast(message);
         toastInput.text = string.Empty;
         XButton();
     }
 
-    public void OnSubmitNoticeMesage(string mesage)
+    public void OnSubmitNoticeMesage(string message)
     {
-        GameManager.Instance.uiManager.UIFactory.ShowNotice(mesage, c);
-        NoticeInput.text = string.Empty;
+        GameManager.Instance.uiManager.UIFactory.ShowNotice(message, c);
+        noticeInput.text = string.Empty;
+        XButton();
+    }
+
+    public void OnSubmitItemID(string message)
+    {
+        GameManager.Instance.userDataManager.GetItem(message);
+        noticeInput.text = string.Empty;
         XButton();
     }
 

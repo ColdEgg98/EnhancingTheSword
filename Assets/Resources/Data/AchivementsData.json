@@ -3,38 +3,50 @@
     {
       "AchivementID": "Game Start",
       "Name": "게임 시작!",
-      "Description": "게임 시작",
+      "Description": "마법 공학 대장간에 오신 걸 환영합니다.",
       "RewardType": 0,
       "Value": 5000000.0,
+      "ItemRewardAddress": null,
       "ConditionType": 0,
-      "ConditionValue": 0
+      "ConditionValue": 0,
+      "ItemIndexes": null,
+      "HasItemAmount": null
     },
     {
       "AchivementID": "Let's Enhance",
       "Name": "첫 강화",
-      "Description": "강화를 시작해보자",
+      "Description": "강화를 시작해보자.",
       "RewardType": 0,
       "Value": 50000.0,
-      "ConditionType": 2,
-      "ConditionValue": 1
+      "ItemRewardAddress": null,
+      "ConditionType": 3,
+      "ConditionValue": 1,
+      "ItemIndexes": null,
+      "HasItemAmount": null
     },
     {
       "AchivementID": "Let's Fail",
       "Name": "어이쿠 손이 미끄러졌네",
-      "Description": "처음으로 강화를 실패했다",
+      "Description": "처음으로 강화를 실패했다.",
       "RewardType": 3,
       "Value": 1.0,
-      "ConditionType": 4,
-      "ConditionValue": 1
+      "ItemRewardAddress": null,
+      "ConditionType": 5,
+      "ConditionValue": 1,
+      "ItemIndexes": null,
+      "HasItemAmount": null
     },
     {
       "AchivementID": "100Enhance",
       "Name": "백번의 두드림",
-      "Description": "강화를 100번 시도했다",
-      "RewardType": 3,
-      "Value": 1.0,
-      "ConditionType": 2,
-      "ConditionValue": 100
+      "Description": "강화를 100번 시도했다.",
+      "RewardType": 6,
+      "Value": 5.0,
+      "ItemRewardAddress": null,
+      "ConditionType": 3,
+      "ConditionValue": 100,
+      "ItemIndexes": null,
+      "HasItemAmount": null
     },
     {
       "AchivementID": "The begger",
@@ -42,62 +54,169 @@
       "Description": "무전 무죄",
       "RewardType": 0,
       "Value": 1000000.0,
-      "ConditionType": 5,
-      "ConditionValue": 100000
+      "ItemRewardAddress": null,
+      "ConditionType": 8,
+      "ConditionValue": 100000,
+      "ItemIndexes": null,
+      "HasItemAmount": null
     },
     {
       "AchivementID": "1000Enhance",
-      "Name": "어느새 천 번",
-      "Description": "천 번 강화를 시도했다",
+      "Name": "강화 중독",
+      "Description": "500번 강화를 시도했다.",
       "RewardType": 1,
       "Value": 10.0,
-      "ConditionType": 2,
-      "ConditionValue": 1000
+      "ItemRewardAddress": null,
+      "ConditionType": 3,
+      "ConditionValue": 500,
+      "ItemIndexes": null,
+      "HasItemAmount": null
     },
     {
       "AchivementID": "100Fail",
       "Name": "자꾸만 손이 미끄러졌네",
-      "Description": "무기를 100번 파괴했다",
+      "Description": "무기를 50번 파괴했다.",
       "RewardType": 3,
       "Value": 1.0,
-      "ConditionType": 4,
-      "ConditionValue": 100
+      "ItemRewardAddress": null,
+      "ConditionType": 5,
+      "ConditionValue": 50,
+      "ItemIndexes": null,
+      "HasItemAmount": null
     },
     {
       "AchivementID": "1000Fail",
       "Name": "무기 파괴자",
-      "Description": "무기를 1000번 파괴했다",
+      "Description": "무기를 100번 파괴했다.",
       "RewardType": 3,
       "Value": 1.5,
-      "ConditionType": 4,
-      "ConditionValue": 100
+      "ItemRewardAddress": null,
+      "ConditionType": 5,
+      "ConditionValue": 100,
+      "ItemIndexes": null,
+      "HasItemAmount": null
     },
     {
       "AchivementID": "10000Enhance",
-      "Name": "만 번 두드림의 법칙",
-      "Description": "만 번 강화를 시도했다",
+      "Name": "천 번 찔린 검",
+      "Description": "1000번 강화를 시도했다.",
       "RewardType": 3,
-      "Value": 1.5,
-      "ConditionType": 2,
-      "ConditionValue": 10000
+      "Value": 2.0,
+      "ItemRewardAddress": null,
+      "ConditionType": 3,
+      "ConditionValue": 1000,
+      "ItemIndexes": null,
+      "HasItemAmount": null
     },
     {
       "AchivementID": "Lotto",
       "Name": "로또 당첨",
-      "Description": "로또 1등 만큼의 돈을 보유했다",
-      "RewardType": 1,
-      "Value": 12.0,
-      "ConditionType": 5,
-      "ConditionValue": 2500000000
+      "Description": "로또 1등 만큼의 돈을 보유했다.",
+      "RewardType": 5,
+      "Value": 20.0,
+      "ItemRewardAddress": null,
+      "ConditionType": 6,
+      "ConditionValue": 2500000000,
+      "ItemIndexes": null,
+      "HasItemAmount": null
     },
     {
       "AchivementID": "The Rich",
       "Name": "우린 부자가 될거야",
-      "Description": "총 수익금이 100억을 넘겼다",
-      "RewardType": 1,
-      "Value": 15.0,
-      "ConditionType": 6,
-      "ConditionValue": 10000000000
+      "Description": "총 수익금이 100억을 넘겼다.",
+      "RewardType": 2,
+      "Value": 0.0,
+      "ItemRewardAddress": "HighGrade AD",
+      "ConditionType": 7,
+      "ConditionValue": 10000000000,
+      "ItemIndexes": null,
+      "HasItemAmount": null
+    },
+    {
+      "AchivementID": "Sword of Admiral Yi Sun-sin 1",
+      "Name": "여정의 반",
+      "Description": "10레벨 무기를 획득했다.",
+      "RewardType": 4,
+      "Value": 10.0,
+      "ItemRewardAddress": null,
+      "ConditionType": 4,
+      "ConditionValue": 10,
+      "ItemIndexes": null,
+      "HasItemAmount": null
+    },
+    {
+      "AchivementID": "TheMasterSword",
+      "Name": "마스터 소드",
+      "Description": "당신이 이뤄낸 것.",
+      "RewardType": 4,
+      "Value": 20.0,
+      "ItemRewardAddress": null,
+      "ConditionType": 1,
+      "ConditionValue": 20,
+      "ItemIndexes": null,
+      "HasItemAmount": null
+    },
+    {
+      "AchivementID": "TheMillionaire",
+      "Name": "백만장자",
+      "Description": "백만장자가 되었다.",
+      "RewardType": 5,
+      "Value": 10.0,
+      "ItemRewardAddress": null,
+      "ConditionType": 7,
+      "ConditionValue": 1000000000,
+      "ItemIndexes": null,
+      "HasItemAmount": null
+    },
+    {
+      "AchivementID": "Midas touch",
+      "Name": "미다스의 손",
+      "Description": "당신의 손을 거치면 골드가 되리라.",
+      "RewardType": 5,
+      "Value": 5.0,
+      "ItemRewardAddress": null,
+      "ConditionType": 7,
+      "ConditionValue": 100000000,
+      "ItemIndexes": null,
+      "HasItemAmount": null
+    },
+    {
+      "AchivementID": "Three-Sword Style",
+      "Name": "삼도류",
+      "Description": "귀철을 3개 소지한다.",
+      "RewardType": 3,
+      "Value": 1.0,
+      "ItemRewardAddress": null,
+      "ConditionType": 9,
+      "ConditionValue": 0,
+      "ItemIndexes": null,
+      "HasItemAmount": [
+        3
+      ]
+    },
+    {
+      "AchivementID": "Break the mood",
+      "Name": "분위기 전환",
+      "Description": "13레벨 무기를 획득했다.",
+      "RewardType": 0,
+      "Value": 5000000.0,
+      "ItemRewardAddress": null,
+      "ConditionType": 4,
+      "ConditionValue": 13,
+      "ItemIndexes": null,
+      "HasItemAmount": null
+    },
+    {
+      "AchivementID": "EnhancecAnvil",
+      "Name": "장인도 도구를 가리는 법",
+      "Description": "해머와 모루를 최대치만큼 강화했다.",
+      "RewardType": 6,
+      "Value": 5.0,
+      "ItemRewardAddress": null,
+      "ConditionType": 2,
+      "ConditionValue": 19,
+      "ItemIndexes": null,
+      "HasItemAmount": null
     }
   ]
 }

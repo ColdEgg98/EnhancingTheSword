@@ -1,3 +1,4 @@
+using UniRx;
 using UnityEngine;
 
 /// <summary>
@@ -5,24 +6,46 @@ using UnityEngine;
 /// </summary>
 public class UserDataManager
 {
+    public ReactiveProperty<int> featureCode = new(0);
+
     public void GetGold(long value)
     {
+        if (value == 0) return;
+
         string message = StrUtiity.ToWonFormat(value);
+        float Bonus;
 
-        if (value > 0)
-        {
-            GameManager.Instance.currentData.totalGold += value;
-        }
-
-        message += value > 0 ? "를 획득했습니다." : "를 사용했습니다.";
-
+        // 골드 획득
         GameManager.Instance.gold.Value += value;
 
         // UI 표시
         GameManager.Instance.uiManager.UIFactory.ShowToast(message);
 
-        // 업적 체크
-        GameManager.Instance.achievementManager.CheckAchivement(ConditionType.TotalGold, GameManager.Instance.currentData.totalGold);
+        if (value > 0)
+        {
+            message += "를 획득했습니다.";
+            GameManager.Instance.currentData.totalGold += value; // 증가량만 업적 따지기
+
+            // 업적 체크
+            GameManager.Instance.achievementManager.CheckAchievement(ConditionType.TotalGold, GameManager.Instance.currentData.totalGold);
+            GameManager.Instance.achievementManager.CheckAchievement(ConditionType.GoldAmount, GameManager.Instance.gold.Value);
+
+            // 추가 골드 계산 + 출력 메세지 수정
+            if (GameManager.Instance.currentData.addtionalGold > 0)
+            {
+                Bonus = value / GameManager.Instance.currentData.addtionalGold;
+                message += $"\n추가 골드 ({StrUtiity.ToWonFormat((long)Bonus)})";
+                value += (long)Bonus;
+            }
+        }
+
+        else if (value < 0)
+        {
+            message += "를 사용했습니다.";
+
+            // 업적 체크
+            GameManager.Instance.achievementManager.CheckAchievement(ConditionType.Below, GameManager.Instance.gold.Value);
+        }
     }
 
     public void GetGold(string value)
@@ -45,8 +68,8 @@ public class UserDataManager
 
         Weapon newWeapon = GameManager.Instance.allOfWeaponDictionary[ID];
         GameManager.Instance.currentData.myWeapons.Add(newWeapon);
-        GameManager.Instance.uiManager.UIFactory.ShowToast($"{UIManager.AttachJoSa(newWeapon.name)} 획득했습니다.");
-        Debug.Log($"✅ 무기 추가됨 : {newWeapon.addressID}");
+        GameManager.Instance.ShowToast($"{StrUtiity.AttachJoSa(newWeapon.WeaponName)} 획득했습니다.");
+        Debug.Log($"✅ 무기 추가됨 : {newWeapon.AddressID}");
     }
 
     public void GetWeapon(string strID)
@@ -57,9 +80,51 @@ public class UserDataManager
         GetWeapon(ID);
     }
 
-    public void GetItem(int ID)
+    public void GetItem(string id)
     {
-        // 아이템 딕셔너리 검색
-        // Toast를 UIManager에서 출력
+        if (!GameManager.Instance.allOfItemsDictionary.Contains(id))
+        {
+            Debug.LogError($"❌ 확인되지 않은 아이템 ID : {id}");
+            return;
+        }
+
+        MaterialItem newItem = (MaterialItem)GameManager.Instance.allOfItemsDictionary[id];
+        GameManager.Instance.currentData.materials.Add(newItem);
+        GameManager.Instance.ShowToast($"{StrUtiity.AttachJoSa(newItem.ItemName)} 획득했습니다.");
+        Debug.Log($"✅ 아이템 추가됨 : {newItem.AddressID}");
+    }
+
+    public void GetItem(float id)
+    {
+        if (GameManager.Instance.allOfItemsDictionary[id] == null)
+        {
+            Debug.LogError($"❌ 확인되지 않은 아이템 ID : {id}");
+            return;
+        }
+
+        MaterialItem newItem = (MaterialItem)GameManager.Instance.allOfItemsDictionary[id];
+        GameManager.Instance.currentData.materials.Add(newItem);
+        GameManager.Instance.ShowToast($"{StrUtiity.AttachJoSa(newItem.ItemName)} 획득했습니다.");
+        Debug.Log($"✅ 아이템 추가됨 : {newItem.AddressID}");
+    }
+
+    public void BuyItem(string id, long price)
+    {
+        if (!GameManager.Instance.allOfItemsDictionary.Contains(id))
+        {
+            Debug.LogError($"❌ 확인되지 않은 아이템 ID : {id}");
+            return;
+        }
+
+        MaterialItem newItem = (MaterialItem)GameManager.Instance.allOfItemsDictionary[id];
+        GameManager.Instance.currentData.materials.Add(newItem);
+        GameManager.Instance.gold.Value -= price;
+        GameManager.Instance.ShowToast($"{StrUtiity.ToWonFormat(price)}를 지불하고,\n{StrUtiity.AttachJoSa(newItem.ItemName)} 획득했습니다.");
+        Debug.Log($"✅ 아이템 추가됨 : {newItem.AddressID}");
+    }
+
+    public void IncShippingSlot()
+    {
+        GameManager.Instance.shippingSlot.Value++;
     }
 }

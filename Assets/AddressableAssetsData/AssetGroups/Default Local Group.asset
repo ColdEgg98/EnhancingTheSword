@@ -15,11 +15,6 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 70cee6e0fa9044c6baf58bf8af6eedee
   m_SerializeEntries:
-  - m_GUID: 8697592d70e994c77978878d210b4c46
-    m_Address: Assets/05. Image/Sword/katana.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a40f993d9427e49beb21a11e5238001c
     m_Address: Assets/05. Image/Sword/hwando.png
     m_ReadOnly: 0

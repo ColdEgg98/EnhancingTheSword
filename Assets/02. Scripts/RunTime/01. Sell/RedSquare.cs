@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,16 +20,18 @@ public class RedSquare : MonoBehaviour
 
     private void Awake()
     {
-        imageSize = new Vector2(size, size);
-        offSet = new Vector2(offSetValue, offSetValue);
         if (redSquareSprite == null)
             redSquareSprite = Resources.Load<Sprite>("Sprite/RedSquare");
     }
 
     public async UniTask Generate(Transform TargetTransform)
     {
+        imageSize = new Vector2(size, size);
+        offSet = new Vector2(offSetValue, offSetValue);
+
         redSquareObje = new GameObject("RedSquare", typeof(Image));
         redSquareImage = redSquareObje.GetComponent<Image>();
+        redSquareImage.raycastTarget = false;
         Color c = redSquareImage.color;
         c.a = 0f;
         redSquareImage.color = c;
@@ -45,15 +48,23 @@ public class RedSquare : MonoBehaviour
         
         await PlayAnimation();
     }
+    public async UniTask Generate(Transform TargetTransform, float size, float offSet)
+    {
+        this.size = size;
+        offSetValue = offSet;
+        Generate(TargetTransform).Forget();
+        await UniTask.CompletedTask;
+    }
 
-    public async UniTask PlayAnimation()
+    public async UniTask PlayAnimation(CancellationToken cancellationToken = default)
     {
         Sequence seq = DOTween.Sequence();
         
         _ = seq.Join(redSquareImage.DOFade(1f, 0.5f).SetEase(Ease.OutBack));
         _ = seq.Join(redSquareImage.transform.DOPunchScale(new Vector2(0.2f, 0.2f), 0.5f, 6, 0.8f));
+        _ = seq.SetLink(redSquareImage.gameObject);
 
-        await seq.AsyncWaitForCompletion();
+        await seq.ToUniTask(TweenCancelBehaviour.KillAndCancelAwait, cancellationToken);
     }
 
 

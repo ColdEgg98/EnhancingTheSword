@@ -1,6 +1,9 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using UniRx;
 using UnityEngine;
 
 /// <summary>
@@ -17,7 +20,7 @@ public class SaveDataManager
     {
         if (wrapperPreviewData == null)
             wrapperPreviewData = new WrapperForPreviewData();
-            
+
         PathSetting();
     }
 
@@ -45,24 +48,41 @@ public class SaveDataManager
     {
         PathSetting();
 
+        // Init
         GameManager.Instance.currentData.myWeaponRefs.Clear();
+        GameManager.Instance.currentData.materialRefs.Clear();
 
         // JsonUtility가 프로퍼티를 저장하지 않기때문에, addressID(string)을 통한 레퍼런스로 저장
         foreach (Weapon w in GameManager.Instance.currentData.myWeapons)
         {
-            GameManager.Instance.currentData.myWeaponRefs.Add(w.index);
+            GameManager.Instance.currentData.myWeaponRefs.Add(w.Index);
+        }
+
+        foreach (MaterialItem m in GameManager.Instance.currentData.materials)
+        {
+            GameManager.Instance.currentData.materialRefs.Add(m.AddressID);
         }
 
         UserData data = new()
         {
             previewData = GameManager.Instance.currentData.previewData,
             chanceBonus = GameManager.Instance.currentData.chanceBonus,
-            myWeaponRefs = GameManager.Instance.currentData.myWeaponRefs
+            addtionalGold = GameManager.Instance.currentData.addtionalGold,
+            myWeaponRefs = GameManager.Instance.currentData.myWeaponRefs,
+            myAchievementRefs = GameManager.Instance.currentData.myAchievementRefs,
+            materialRefs = GameManager.Instance.currentData.materialRefs,
+            shippingSlotRef = GameManager.Instance.shippingSlot.Value,
+            shopData = GameManager.Instance.currentData.shopData
         };
-        data.previewData.goldRef = GameManager.Instance.gold.Value;
-        data.previewData.time = DateTime.Now.ToString("yyyy.MM.dd\ntt hh시 mm분");
 
-        IndexDataSave();
+        // 최초 실행 시 오류 방지 (WarManager)
+        //if (GameManager.Instance.warManager != null)
+        //{
+        //    data.deliverySlots = GameManager.Instance.GetDeliverList();
+        //    data.stage = GameManager.Instance.warManager.CurrentStage.Value;
+        //}
+
+        IndexDataSave(data);
         UserDataSave(data);
     }
 
@@ -77,9 +97,19 @@ public class SaveDataManager
     }
 
     /// <summary>세이브 슬롯 UI에 표시되는 데이터만 모은 인덱스 데이터를 저장</summary>
-    private void IndexDataSave()
+    private void IndexDataSave(UserData data)
     {
+        data.previewData.goldRef = GameManager.Instance.gold.Value;
+        data.previewData.time = DateTime.Now.ToString("yyyy.MM.dd\ntt hh시 mm분");
+        data.previewData.achivementCount = GameManager.Instance.currentData.myAchievementRefs.Count;
+
+        // 업적 카운트 갱신
+        GameManager.Instance.currentData.previewData.achivementCount = GameManager.Instance.currentData.myAchievementRefs.Count;
+
+        // 프리뷰 랩퍼의 맞는 슬롯에 데이터 갱신
         GameManager.Instance.saveDataManager.wrapperPreviewData.slots[GameManager.Instance.activeSaveSlotNum] = GameManager.Instance.currentData.previewData;
+
+        // json으로 저장
         string jsonStringIndex = JsonUtility.ToJson(GameManager.Instance.saveDataManager.wrapperPreviewData, true);
         File.WriteAllText(indexPath, jsonStringIndex);
         Debug.Log("PreviewData Saved");
@@ -88,7 +118,7 @@ public class SaveDataManager
     /// <summary>본게임에 사용되는 User의 데이터 저장</summary>
     private void UserDataSave(UserData data)
     {
-        string jsonString = JsonUtility.ToJson(data, true);
+        string jsonString = JsonConvert.SerializeObject(data, Formatting.Indented);
         File.WriteAllText(path, jsonString);
     }
     #endregion
@@ -101,7 +131,6 @@ public class SaveDataManager
         GameManager.Instance.activeSaveSlotNum = index;
         PathSetting();
 
-        //GameManager.Instance.currentData.previewData = PreviewDataLoad(index);
         GameManager.Instance.currentData = UserDataLoad(index);
         GameManager.Instance.gold.Value = GameManager.Instance.currentData.previewData.goldRef;
     }
@@ -131,8 +160,14 @@ public class SaveDataManager
         if (File.Exists(path))
         {
             string data = File.ReadAllText(path);
+
             UserData tempData = JsonUtility.FromJson<UserData>(data);
+
             tempData.myWeapons = ResolveWeaponReferences(tempData);
+            tempData.materials = ResloveMaterialReferences(tempData);
+
+            //GameManager.Instance.shippingSlot.Value = tempData.shippingSlotRef;
+
             return tempData;
         }
         else if (File.Exists(indexPath))
@@ -141,9 +176,22 @@ public class SaveDataManager
             return new UserData(new PreviewData());
     }
 
-    private List<Weapon> ResolveWeaponReferences(UserData data)
+    private List<MaterialItem> ResloveMaterialReferences(UserData tempData)
     {
-        List<Weapon> list = new();
+        List<MaterialItem> list = new();
+        foreach (string item in tempData.materialRefs)
+        {
+            if (!GameManager.Instance.allOfItemsDictionary.Contains(item))
+                Debug.LogError($"로딩중 확인되지 않는 레퍼런스 : {item}");
+            else
+                list.Add((MaterialItem)GameManager.Instance.allOfItemsDictionary[item]);
+        }
+        return list;
+    }
+
+    private ReactiveCollection<Weapon> ResolveWeaponReferences(UserData data)
+    {
+        ReactiveCollection<Weapon> list = new();
         foreach (int i in data.myWeaponRefs)
         {
             if (!GameManager.Instance.allOfWeaponDictionary.ContainsKey(i))

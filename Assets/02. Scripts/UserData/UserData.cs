@@ -1,10 +1,7 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.UI;
+using UniRx;
 
 [Serializable]
 public class UserData
@@ -16,8 +13,8 @@ public class UserData
 
     public UserData(PreviewData data)
     {
-        previewData = data;
         SetNew();
+        previewData = data;
     }
 
     private void SetNew()
@@ -28,25 +25,37 @@ public class UserData
         myAchievementRefs = new();
         materials = new();
         materialRefs = new();
+        deliverySlots = new();
+        shopData = new();
     }
 
     // Stat
     public PreviewData previewData;
-    public float chanceBonus;
     public long totalGold;
     public int enhanceCount;
     public int failCount;
 
     // Weapon
-    public List<Weapon> myWeapons;
+    public ReactiveCollection<Weapon> myWeapons;
     public List<int> myWeaponRefs;
 
     // Achievement
-    public HashSet<String> myAchievementRefs;
+    public List<string> myAchievementRefs;
+    public float chanceBonus; // %p로 적용
+    public float addtionalGold;
+    public float enhanceGold; // 강화 금액
 
     // Material
     public List<MaterialItem> materials;
-    public List<int> materialRefs;
+    public List<string> materialRefs;
+
+    // War
+    public int shippingSlotRef; // 저장 & 불러오기에만 호출
+    public int stage;
+    public List<DeliverySlot> deliverySlots;
+
+    // Shop
+    public ShopSaveData shopData;
 }
 
 [Serializable]
@@ -66,39 +75,64 @@ public class WrapperForPreviewData
 }
 
 [Serializable]
-public class Weapon
+public class Weapon : IViewable
 {
-    public int index { get; set; }
-    public string name { get; set; }
-    public long price { get; set; }
-    public float probability { get; set; }
-    public long enhancingPrice { get; set; }
-    public string addressID { get; set; }
-    public List<int> needItems { get; set; }
-    private Sprite sprite;
+    public int Index { get; set; }
+    public string WeaponName { get; set; }
+    public long WeaponPrice { get; set; }
+    public float Probability { get; set; }
+    public long EnhancingPrice { get; set; }
+    public string AddressID { get; set; }
+    public float WarInfluence { get; set; }
+    public float InfluenceDuration { get; set; }
+    public float DeliveryTime { get; set; }
+    public List<int> NeedItems { get; set; }
 
-    public async Awaitable<Sprite> GetWeaponSpriteAsync()
-    {
-        AsyncOperationHandle<Sprite> handle = Addressables.LoadAssetAsync<Sprite>(addressID);
-        sprite = await handle.Task;
-        return sprite;
-    }
-    public async Task ApplySpriteToImage(Image targetImage)
-    {
-        // 내부에서 await로 풀어서 처리
-        Sprite sprite = await GetWeaponSpriteAsync();
 
-        if (targetImage != null)
-        {
-            targetImage.sprite = sprite;
-        }
+    private bool _isAntiDestruction;
+
+    public bool IsAntiDestruction
+    {
+        get { return _isAntiDestruction; }
+        set { _isAntiDestruction = value; }
     }
+
+    public string AddressableKey => AddressID;
+
+    public string IViewableName => WeaponName;
+
+    public long IViewablePrice => WeaponPrice;
 }
 
-public class MaterialItem
+public class MaterialItem : IViewable
 {
-    public int index { get; set; }
-    public string name { get; set; }
-    public string description { get; set; }
-    // 이미지 추가?
+    public string ItemName { get; set; }
+    public string Description { get; set; }
+    public bool IsConsumable { get; set; }
+    [JsonIgnore] public IItemAction action;
+    public string AddressID { get; set; }
+    public long ItemPrice { get; set; }
+    private string _actionString;
+    public string ActionString
+    {
+        get => _actionString;
+        set
+        {
+            _actionString = value;
+            action = string.IsNullOrEmpty(value) ? null : ItemActionFactory.ItemFactory(value);
+        }
+    }
+
+    public string AddressableKey => AddressID;
+
+    public string IViewableName => ItemName;
+
+    public long IViewablePrice => ItemPrice;
+}
+
+public interface IViewable
+{
+    string AddressableKey { get; }
+    string IViewableName { get; }
+    long IViewablePrice { get; }
 }

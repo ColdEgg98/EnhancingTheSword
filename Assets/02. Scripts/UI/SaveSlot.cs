@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,13 +23,17 @@ public class SaveSlot : MonoBehaviour
 
     void Start()
     {
-        // 씬 로드 다음에 UIManager를 Init
+        // 씬 로드 다음에 UIManager를 Init. sceneLoaded는 씬의 오브젝트들 awake 후 호출
         SceneManager.sceneLoaded += (scene, mode) =>
         {
-            if (scene.buildIndex == 2)
+            if (scene.buildIndex == 3)
             {
                 GameManager.Instance.uiManager.Init();
-                GameManager.Instance.achievementManager.Init();
+                //GameManager.Instance.AddComponent<WarManager>();
+                GameManager.Instance.InitGameManager();
+
+                // 게임 실행 업적
+                GameManager.Instance.achievementManager.GameStartAchieved().Forget(); // 실행시 크래시
             }
         };
 
@@ -60,15 +65,16 @@ public class SaveSlot : MonoBehaviour
         if (!GameManager.Instance.currentData.previewData.isUsed)
         {
             GameManager.Instance.currentData.previewData.isUsed = true;
-            // 기본금 + 기본 무기 지급
-            GameManager.Instance.gold.Value = 5000000;
+            // 기본 무기 지급
             GameManager.Instance.currentData.myWeapons = new();
             Weapon woodSword = GameManager.Instance.allOfWeaponDictionary[1];
+            GameManager.Instance.gold = new(0);
             GameManager.Instance.currentData.myWeapons.Add(woodSword); // 목검
+            GameManager.Instance.shippingSlot.Value = 1;
             GameManager.Instance.saveDataManager.StartSave(num);
-
-            // 게임 실행 업적
-            _ = GameManager.Instance.achievementManager.GameStartAchieved();
+            GameManager.Instance.currentWeapon.Value = GameManager.Instance.currentData.myWeapons[0];
+            SceneManager.LoadScene(2); // OpeningScene
+            return;
         }
 
         // 화면 바뀔 때 무기 표시
@@ -77,7 +83,7 @@ public class SaveSlot : MonoBehaviour
         else if (GameManager.Instance.currentData.myWeapons.Count == 0)
             GameManager.Instance.selectWeaponIndex.Value = -2;
 
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3); // MainScene
     }
 
     /// <summary>UI에 표시되는 데이터를 변경합니다</summary>

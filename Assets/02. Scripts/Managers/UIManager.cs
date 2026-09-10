@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
@@ -13,27 +14,30 @@ public class UIManager : MonoBehaviour
             UIFactory = FindAnyObjectByType<UIFactory>();
     }
 
-    public static string AttachJoSa(string name)
-    {
-        if (string.IsNullOrEmpty(name))
-        {
-            Debug.LogError($"{name}값이 적절하지 않습니다.");
-            return string.Empty;
-        }
+    /// <summary>
+    /// 로드 시 presenter를 통해 view에게 그리도록 요청
+    /// </summary>
+    //public void SetSlotImage(List<DeliverySlot> deliveryItems)
+    //{
+    //    // 세이브 데이터에 전송 이력이 없으면 리턴
+    //    if (deliveryItems == null) return;
 
-        // 유니코드 한글 범위: '가'(0xAC00) ~ '힣'(0xD7A3)
-        char lastChar = name[name.Length - 1];
-        if (lastChar >= 0xAC00 && lastChar <= 0xD7A3)
-        {
-            int code = lastChar - 0xAC00;
-            int jong = code % 28; // 종성(받침) 여부
-            return jong == 0 ? name + "를" : name + "을";
-        }
+    //    SlotPresenter presenter = FindAnyObjectByType<SlotPresenter>(FindObjectsInactive.Include);
+    //    presenter.SetSlotBind();
+
+
+    //    foreach (DeliverySlot item in deliveryItems)
+    //    {
+    //        presenter.SetSlot((item.SlotIndex, item.WeaponLevel), item);
+    //    }
+    //}
+
+    public void ModifyTipText(string s)
+    {
+        if (!tipList.Contains(s))
+            tipList.Add(s);
         else
-        {
-            // 한글이 아닐 경우 기본적으로 '를' 붙이기
-            return name + "를";
-        }
+            tipList.Remove(s);
     }
 
     public void TipTextAppend(string s)
